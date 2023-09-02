@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ConfirmationModal } from "../";
 import sidebarLinks from "../../data/dashboard-links";
 import { logout } from "../../services/Operation/AuthApi";
+import { resetCourseState } from "../../Slice/course";
 
 const SidebarComponent = () => {
   const dispatch = useDispatch();
@@ -61,9 +62,11 @@ const SidebarComponent = () => {
 const IconTextContainer = ({ name, path, icon }) => {
   const location = useLocation();
   const Icon = Icons[icon];
+  const dispatch = useDispatch();
   return (
     <Link
       to={path}
+      onClick={() => dispatch(resetCourseState())}
       className={`${
         location.pathname === path
           ? "text-yellow-50 bg-yellow-800 border-l-2 border-l-yellow-50"

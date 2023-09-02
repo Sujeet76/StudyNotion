@@ -27,6 +27,11 @@ const courseSlice = createSlice({
     setCategories: (state, { payload }) => {
       state.categories = payload;
     },
+    resetCourseState: (state) => {
+      state.step = 1;
+      state.course = null;
+      state.edit = false;
+    },
   },
 });
 
@@ -36,6 +41,7 @@ export const {
   setPaymentLoading,
   setSteps,
   setCategories,
+  resetCourseState,
 } = courseSlice.actions;
 
 export default courseSlice.reducer;
