@@ -1,0 +1,252 @@
+import Joi from "joi";
+
+import { User, Profile, Course } from "../../models/index.js";
+import uploadToCloudinary, {
+  deleteToCloudinary,
+} from "../../utils/imageUploader.util.js";
+import { CLOUD_FOLDER } from "../../config/index.js";
+import CustomErrorHandler from "../../services/customErrorHandler.js";
+
+const updateProfile = async (req, res, next) => {
+  try {
+    const {
+      name,
+      gender,
+      dateOfBirth,
+      about = "",
+      contactNumber,
+      address = "",
+    } = req.body;
+
+    const phoneNumberSchema = Joi.string()
+      .regex(/^[0-9]{10}$/)
+      .message("Invalid phone number !!")
+      .required();
+
+    const { error } = phoneNumberSchema.validate(contactNumber);
+    if (error) {
+      return next(error);
+    }
+
+    let userId = req.user.id;
+    console.log({ userId });
+
+    if (!gender || !dateOfBirth || !contactNumber) {
+      return next(
+        CustomErrorHandler.badRequest("Fill out all the required fields")
+      );
+    }
+    if (!userId) {
+      return next(
+        CustomErrorHandler.unAuthorized(
+          "Unauthorized  Could not find user with this id!"
+        )
+      );
+    }
+
+    // find profile
+    const userData = await User.findById(userId);
+    const userProfileDetail = await Profile.findById(userData.additionDetails);
+    if (!userProfileDetail) {
+      return next(CustomErrorHandler.notFound("Profile not found!!"));
+    }
+
+    // update the data
+    userProfileDetail.dateOfBirth = dateOfBirth;
+    userProfileDetail.gender = gender;
+    userProfileDetail.contactNumber = contactNumber;
+    userProfileDetail.about = about;
+    userProfileDetail.address = address;
+    userProfileDetail.contactNumber = contactNumber;
+    userProfileDetail.save();
+
+    // update name
+    const user = await User.findByIdAndUpdate(
+      userId,
+      {
+        name: name,
+      },
+      { new: true }
+    ).populate("additionDetails");
+
+    return res.status(200).json({
+      success: true,
+      message: "Profile updated successfully!!",
+      data: user,
+    });
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
+};
+
+// TODO: deleteAccount -> done
+// TODO: getAllUserDetails -> done
+// TODO: updateDisplayPicture -> done
+// TODO: getEnrolledCourse -> done
+
+const getUserDetails = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const userData = await User.findById(userId)
+      .populate("additionDetails")
+      .exec();
+    if (!userData) {
+      return next(
+        CustomErrorHandler.unAuthorized("Invalid user,Logging out !!")
+      );
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Data fetch successfully",
+      data: userData,
+    });
+  } catch (error) {
+    return next(
+      CustomErrorHandler.serverError("Error while fetching user data")
+    );
+  }
+};
+
+const updateDisplayPicture = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const displayPicture = req.files.displayPicture || null;
+    const userData = await User.findById(userId);
+    if (!userData) {
+      return next(
+        CustomErrorHandler.unAuthorized(
+          "Unauthorize! Could not find user with this id"
+        )
+      );
+    }
+    if (!displayPicture) {
+      return next(CustomErrorHandler.forbidden("Image is required !"));
+    }
+
+    const uploadImg = await uploadToCloudinary(displayPicture, CLOUD_FOLDER);
+    console.log(uploadImg);
+    const updateProfile = await User.findByIdAndUpdate(
+      userId,
+      {
+        img: uploadImg.secure_url,
+      },
+      { new: true }
+    );
+    if (!updateProfile) {
+      return next(
+        CustomErrorHandler.badRequest("Error while updating profile picture")
+      );
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      data: updateProfile,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const getEnrolledCourse = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const userData = await User.findById(userId, { courses: true })
+      .populate({
+        path: "courses",
+        populate: {
+          path: "courseContent",
+        },
+      })
+      .exec();
+
+    if (!userData) {
+      return next(
+        CustomErrorHandler.notFound("Not enrolled in any course yet")
+      );
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Course fetch successfully",
+      data: userData,
+    });
+  } catch (error) {
+    console.log({ error });
+    return next(error);
+  }
+};
+
+const deleteAccount = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const userData = await User.findById(userId);
+
+    if (!userData) {
+      return next(CustomErrorHandler.notFound("User not found"));
+    }
+
+    const userProfileId = userData.additionDetails;
+    const deleteProfile = await Profile.findByIdAndDelete(userProfileId);
+    if (!deleteProfile) {
+      return next(
+        CustomErrorHandler.forbidden("Could not delete the additional details")
+      );
+    }
+
+    const deleteUser = await User.findByIdAndDelete(userId);
+    const imgUrl = deleteUser.img;
+    if (imgUrl.includes("res.cloudinary.com")) {
+      const imgName = imgUrl.split("/").slice(-1)[0].split(".")[0];
+      const deleteImg = deleteToCloudinary(imgName);
+      console.log("Image delete successfully");
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "User deleted successfully",
+    });
+  } catch (error) {
+    console.log({ error });
+    return next(error);
+  }
+};
+
+const instructorDashboard = async (req, res, next) => {
+  try {
+    const courseDetails = await Course.find({ instructor: req.user.id });
+
+    const courseData = courseDetails.map((course) => {
+      const totalStudentsEnrolled = course.studentEnrolled.length;
+      const totalAmountGenerated = totalStudentsEnrolled * course.price;
+
+      // Create a new object with the additional fields
+      const courseDataWithStats = {
+        _id: course._id,
+        courseName: course.courseName,
+        courseDescription: course.courseDescription,
+        // Include other course properties as needed
+        totalStudentsEnrolled,
+        totalAmountGenerated,
+      };
+
+      return courseDataWithStats;
+    });
+
+    res.status(200).json({ data: courseData });
+  } catch (error) {
+    console.error(error);
+    return next(error);
+  }
+};
+
+export {
+  updateProfile,
+  getUserDetails,
+  updateDisplayPicture,
+  getEnrolledCourse,
+  deleteAccount,
+  instructorDashboard,
+};
+
+// shkks7xtgeq2dmjjl8h9
+// shkks7xtgeq2dmjjl8h9

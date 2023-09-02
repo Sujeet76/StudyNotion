@@ -1,0 +1,19 @@
+import dotenv from "dotenv";
+dotenv.config();
+
+export const {
+  DATABASE_URL,
+  MAIL_HOST,
+  MAIL_USER,
+  MAIL_PASS,
+  CLOUDINARY_KEY,
+  CLOUDINARY_NAME,
+  CLOUD_FOLDER,
+  CLOUDINARY_SECRETE,
+  JWT_SECRETE,
+  PORT,
+  RAZORPAY_KEY,
+  RAZORPAY_SECRETE,
+  DEBUG_MODE,
+  CLOUD_VIDEO_FOLDER,
+} = process.env;
