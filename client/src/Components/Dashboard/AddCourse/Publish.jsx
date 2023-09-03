@@ -78,7 +78,7 @@ const PublishCourse = () => {
           <FaAngleRight className="rotate-[180deg]" /> Back
         </ButtonDashboard>
         <div className="flex items-center gap-x-5">
-          <ButtonDashboard clickHandler={handelDraft()}>
+          <ButtonDashboard clickHandler={handelDraft}>
             Save as a Draft
           </ButtonDashboard>
           <ButtonDashboard formId="publish" typeBtn="submit" isActive={true}>

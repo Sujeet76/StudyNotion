@@ -67,7 +67,8 @@ export const createCourse = (formData, token, setLoading) => {
       success: (res) => {
         const { data } = res;
         const result = data?.data;
-        dispatch(setCourse(result?.courseContent));
+        console.log(result);
+        dispatch(setCourse(result));
         dispatch(setSteps(2));
         setLoading(false);
 
@@ -289,7 +290,13 @@ export const deleteSubsection = (sectionId, subSectionId, token, course) => {
   };
 };
 
-export const deleteCourse = (courseId, token, setCourses, courses) => {
+export const deleteCourse = (
+  courseId,
+  token,
+  setCourses,
+  courses,
+  setConfirmationModal
+) => {
   return async (dispatch) => {
     const response = apiConnector(
       "DELETE",
@@ -308,6 +315,7 @@ export const deleteCourse = (courseId, token, setCourses, courses) => {
         );
         console.log(newCourse);
         setCourses(newCourse);
+        setConfirmationModal(null);
         return data?.message ?? "course Deleted successfully";
       },
       error: (err) => {

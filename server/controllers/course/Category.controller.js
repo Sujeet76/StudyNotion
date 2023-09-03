@@ -54,7 +54,11 @@ const categoryPageDetails = async (req, res, next) => {
     const { categoryId } = req.body;
     // get details from selected category
     const selectedCategory = await Category.findById(categoryId)
-      .populate("courses")
+      .populate({
+        path: "course",
+        match: { status: "Published" },
+        populate: "instructor",
+      })
       .exec();
     console.log({ selectedCategory });
     // Handel the case when the category not found
@@ -82,14 +86,23 @@ const categoryPageDetails = async (req, res, next) => {
     }
 
     // get top course
-    const allCategory = await Category.find().populate("course");
+    const allCategory = await Category.find().populate({
+      path: "course",
+      populate: {
+        path: "ratingAndReview",
+      },
+    });
     const allCourse = allCategory.flatMap((category) => category.course);
     const mostSellingCourse = allCourse
-      .sort((a, b) => b.sold - a.sold)
+      .sort((a, b) => {
+        const criteriaA = a.sold * a.ratingAndReview.rating;
+        const criteriaB = b.sold * b.ratingAndReview.rating;
+        return criteriaB - criteriaA;
+      })
       .slice(0, 10);
 
     return res.status(200).json({
-      selectedCourse,
+      selectedCategory,
       differentCourse,
       mostSellingCourse,
     });

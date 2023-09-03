@@ -15,7 +15,7 @@ const createSection = async (req, res, next) => {
   try {
     const { sectionName, courseId } = req.body;
     if (!sectionName || !courseId) {
-      return next(CustomErrorHandler.badRequest("Section name is required!"));
+      return next(CustomErrorHandler.badRequest("Section name and courseId is required!"));
     }
 
     const courseData = await Course.findById(courseId);

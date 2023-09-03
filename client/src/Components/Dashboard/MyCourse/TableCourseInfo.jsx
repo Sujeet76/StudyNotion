@@ -44,7 +44,7 @@ const TableCourseInfo = () => {
   // console.log(courses);
 
   const handelDelete = (courseId) => {
-    dispatch(deleteCourse(courseId, token, setCourses, courses));
+    dispatch(deleteCourse(courseId, token, setCourses, courses,setConfirmationModal));
   };
 
   const editHandler = (courseId) => {

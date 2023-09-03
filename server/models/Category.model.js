@@ -12,7 +12,8 @@ const categorySchema = new Schema({
   course: [
     {
       type: Schema.Types.ObjectId,
-      required: true,
+      ref: "Course",
+      // required: true,
     },
   ],
 });

@@ -23,7 +23,7 @@ const CourseInformation = ({ className }) => {
   const { token } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
 
-  console.log(edit);
+  // console.log(edit);
 
   const {
     register,
@@ -125,7 +125,6 @@ const CourseInformation = ({ className }) => {
     formData.append("tags", JSON.stringify(data.tags));
     formData.append("instructions", JSON.stringify(data.instructions));
     dispatch(createCourse(formData, token, setLoading));
-    console.log(data);
   };
 
   return (
