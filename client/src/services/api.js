@@ -53,7 +53,7 @@ export const categories = {
 
 // CATALOG PAGE DATA
 export const catalogData = {
-  CATALOGPAGEDATA_API: "/course/getCategoryPageDetails",
+  CATALOGPAGEDATA_API: "/course/categoryPageDetails",
 };
 // CONTACT-US API
 export const contactusEndpoint = {

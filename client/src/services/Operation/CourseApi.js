@@ -5,6 +5,7 @@ import { getToLocalStorage, setToLocalStorage } from "../../utils/localStorage";
 
 import { categories } from "../api";
 import { courseEndpoints } from "../api";
+import { catalogData } from "../api";
 
 import {
   setCourse,
@@ -14,6 +15,7 @@ import {
 } from "../../Slice/course";
 
 const { CATEGORIES_API } = categories;
+const { CATALOGPAGEDATA_API } = catalogData;
 
 const {
   EDIT_COURSE_API,
@@ -28,7 +30,6 @@ const {
   DELETE_SUBSECTION_API,
   DELETE_COURSE_API,
   UPDATE_SUBSECTION_API,
-
   UPDATE_SECTION_API,
 } = courseEndpoints;
 
@@ -190,7 +191,8 @@ export const createSubSection = (
   token,
   course,
   modalData,
-  setModalData
+  setModalData,
+  setLoading
 ) => {
   return async (dispatch) => {
     const response = apiConnector("POST", CREATE_SUBSECTION_API, formData, {
@@ -198,6 +200,7 @@ export const createSubSection = (
       Authorization: `Barer ${token}`,
     });
 
+    if (setLoading) setLoading(true);
     toast.promise(response, {
       loading: "Creating subsection, Please wait !!",
       success: (response) => {
@@ -213,12 +216,14 @@ export const createSubSection = (
         };
         dispatch(setCourse(updatedCourse));
         setModalData(null);
+        if (setLoading) setLoading(false);
         return "Successfully created subsection";
       },
       error: (err) => {
         const { response } = err;
         console.log(err);
         console.log(response);
+        if (setLoading) setLoading(false);
         return response?.data?.message ?? "Error while creating subsection";
       },
     });
@@ -363,12 +368,17 @@ export const updateSubsection = (
   sectionId,
   token,
   course,
-  setModalData
+  setModalData,
+  setLoading
 ) => {
   return async (dispatch) => {
     const response = apiConnector("POST", UPDATE_SUBSECTION_API, formData, {
       Authorization: `Barer ${token}`,
     });
+
+    if (setLoading) {
+      setLoading(true);
+    }
 
     toast.promise(response, {
       loading: "Updating subsection, Please wait",
@@ -386,12 +396,14 @@ export const updateSubsection = (
         };
         dispatch(setCourse(updatedCourse));
         setModalData(null);
+        if (setLoading) setLoading(false);
         return "subsection updated successfully";
       },
       error: (err) => {
         const { response } = err;
         console.log(response);
         console.log(err);
+        if (setLoading) setLoading(false);
         return response?.data?.message ?? "Error while updating subsection";
       },
     });
@@ -472,4 +484,83 @@ export const getFullCourseDetails = (courseId, token, setIsLoading) => {
       },
     });
   };
+};
+
+export const getCategoryPageDetails = async ({
+  categories,
+  categoryName,
+  setIsLoading,
+}) => {
+  setIsLoading(true);
+  let categoryData = null;
+
+  // Find the matching categoryData
+  categories.forEach((content) => {
+    if (content.categoryName === categoryName) categoryData = content;
+  });
+
+  if (!categoryData) {
+    toast.error("Category data not found");
+    setIsLoading(false);
+    return {
+      categoryData: null,
+      result: null,
+    };
+  }
+
+  try {
+    const response = await apiConnector("POST", CATALOGPAGEDATA_API, {
+      categoryId: categoryData?._id,
+    });
+
+    const { data } = response;
+    setIsLoading(false);
+
+    return {
+      categoryData,
+      result: data, // Update result with the API response data
+    };
+  } catch (err) {
+    const { response } = err;
+    console.error(err);
+    setIsLoading(false);
+    const errorMessage =
+      response?.data?.message ?? "Error while fetching category details";
+
+    return {
+      categoryData,
+      result: null, // Set result to null in case of an error
+      errorMessage,
+    };
+  }
+};
+
+export const courseDetails = async (courseId, setIsLoading) => {
+  let toastId;
+  try {
+    let result = null;
+    setIsLoading(true);
+    toastId = toast.loading("Please wait, Setting page data!!");
+    const response = await apiConnector("GET", COURSE_DETAILS_API, null, null, {
+      courseId: courseId,
+    });
+    const { data } = response;
+    setIsLoading(false);
+    toast.success("Setup complete!!", {
+      id: toastId,
+    });
+    console.log("-----> ", data?.data);
+    return { result: data?.data };
+  } catch (err) {
+    const { response } = err;
+    console.log(response);
+    console.error(err);
+    setIsLoading(false);
+    const errorMessage =
+      response?.data?.message ?? "Error while fetching course details";
+    toast.error(errorMessage, {
+      id: toastId,
+    });
+    return { result: null };
+  }
 };

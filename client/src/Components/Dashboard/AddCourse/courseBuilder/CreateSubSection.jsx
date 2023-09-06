@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import Upload from "../uploadFiles";
 import { ButtonDashboard, ReactFormRow, ReactFormTextarea } from "../../../";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -22,6 +22,8 @@ const CreateSubSection = ({
   const dispatch = useDispatch();
   const { token } = useSelector((store) => store.auth);
   const { course } = useSelector((store) => store.course);
+
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -74,7 +76,8 @@ const CreateSubSection = ({
             modalData.sectionId,
             token,
             course,
-            setModalData
+            setModalData,
+            setLoading
           )
         );
         return;
@@ -91,7 +94,14 @@ const CreateSubSection = ({
     formData.append("videoFile", data.lectureUrl);
     formData.append("sectionId", modalData);
     dispatch(
-      createSubSection(formData, token, course, modalData, setModalData)
+      createSubSection(
+        formData,
+        token,
+        course,
+        modalData,
+        setModalData,
+        setLoading
+      )
     );
   };
 
@@ -121,7 +131,7 @@ const CreateSubSection = ({
                 ? "Edit Lecture"
                 : ""}
             </h4>
-            <button onClick={() => setModalData(null)}>
+            <button onClick={() => setModalData(null)} disabled={loading}>
               <CrossIcon />
             </button>
           </div>
@@ -165,11 +175,16 @@ const CreateSubSection = ({
                     <ButtonDashboard
                       typeBtn="button"
                       clickHandler={() => setModalData(null)}
+                      isDisabled={loading}
                     >
                       Cancel
                     </ButtonDashboard>
                   )}
-                  <ButtonDashboard typeBtn="submit" isActive={true}>
+                  <ButtonDashboard
+                    typeBtn="submit"
+                    isActive={true}
+                    isDisabled={loading}
+                  >
                     {edit ? "Save Edits" : add ? "Add subsection" : ""}
                   </ButtonDashboard>
                 </div>

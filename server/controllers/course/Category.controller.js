@@ -1,6 +1,9 @@
 import { Category } from "../../models/index.js";
 import CustomErrorHandler from "../../services/customErrorHandler.js";
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 // create Category handler
 const createCategory = async (req, res, next) => {
   try {
@@ -57,7 +60,7 @@ const categoryPageDetails = async (req, res, next) => {
       .populate({
         path: "course",
         match: { status: "Published" },
-        populate: "instructor",
+        populate: "ratingAndReview",
       })
       .exec();
     console.log({ selectedCategory });
@@ -77,17 +80,23 @@ const categoryPageDetails = async (req, res, next) => {
     const selectedCourse = selectedCategory.course;
 
     // get courses from other categories
-    const coursesExceptSelected = await Category.find({
+    const categoryExceptSelected = await Category.find({
       _id: { $ne: categoryId },
-    }).populate("course");
-    let differentCourse = [];
-    for (const category of coursesExceptSelected) {
-      differentCourse.push(...category.course);
-    }
+    });
+    let differentCourse = await Category.findOne(
+      categoryExceptSelected[getRandomInt(categoryExceptSelected.length)]
+    )
+      .populate({
+        path: "course",
+        match: { status: "Published" },
+        populate: "ratingAndReview",
+      })
+      .exec();
 
     // get top course
     const allCategory = await Category.find().populate({
       path: "course",
+      match: { status: "Published" },
       populate: {
         path: "ratingAndReview",
       },

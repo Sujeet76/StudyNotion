@@ -22,6 +22,7 @@ import {
   AddCoursePage,
   MyCourse,
   EditCoursePage,
+  CoursePage,
 } from "./Pages";
 
 import { ACCOUNT_TYPE } from "./utils/constants";
@@ -49,6 +50,7 @@ export default function App() {
           <Route path="/catalog/:id" element={<CatalogPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/course/:courseId" element={<CoursePage />} />
           <Route
             element={
               <ProtectedLayout>

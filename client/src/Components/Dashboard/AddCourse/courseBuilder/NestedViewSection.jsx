@@ -58,8 +58,11 @@ const NestedViewSection = ({ handelEditSection }) => {
                   {sectionName}
                 </p>
                 <div className="flex items-center gap-x-3">
-                  <button onClick={() => handelEditSection(_id, sectionName)}>
-                    <EditIcon />
+                  <button
+                    onClick={() => handelEditSection(_id, sectionName)}
+                    className="group transition-all duration-200 hover:scale-110"
+                  >
+                    <EditIcon className="fill-richblack-400 group-hover:fill-caribbeangreen-300 transition-all duration-200" />
                   </button>
                   <button
                     onClick={() =>
@@ -73,8 +76,9 @@ const NestedViewSection = ({ handelEditSection }) => {
                         btn2Handler: () => setConfirmationModal(null),
                       })
                     }
+                    className="group transition-all duration-200 hover:scale-110"
                   >
-                    <DeleteIcon />
+                    <DeleteIcon className="fill-richblack-400 group-hover:fill-pink-300 transition-all duration-200" />
                   </button>
                   <span className="font-medium text-richblack-300">|</span>
                   <DropDownArrowIcon />
@@ -104,8 +108,9 @@ const NestedViewSection = ({ handelEditSection }) => {
                           onClick={(e) =>
                             setEditSubsection({ ...data, sectionId: _id })
                           }
+                          className="group transition-all duration-200 hover:scale-110"
                         >
-                          <EditIcon />
+                          <EditIcon className="fill-richblack-400 group-hover:fill-caribbeangreen-300 transition-all duration-200" />
                         </button>
                         <button
                           onClick={(e) => {
@@ -119,8 +124,9 @@ const NestedViewSection = ({ handelEditSection }) => {
                               btn2Handler: () => setConfirmationModal(null),
                             });
                           }}
+                          className="group transition-all duration-200 hover:scale-110"
                         >
-                          <DeleteIcon />
+                          <DeleteIcon className="fill-richblack-400 group-hover:fill-pink-300 transition-all duration-200" />
                         </button>
                       </div>
                     </div>

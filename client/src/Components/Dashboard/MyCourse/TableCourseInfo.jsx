@@ -95,7 +95,7 @@ const TableCourseInfo = () => {
                     img={content.thumbnail}
                     title={content.courseName}
                     description={content.courseDetails}
-                    date={"April 27, 2023 | 05:15 PM"}
+                    date={content.createdAt}
                     status={content.status}
                   />
                 </Td>

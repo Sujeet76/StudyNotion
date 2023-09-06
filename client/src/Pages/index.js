@@ -18,7 +18,9 @@ import ChangePasswordPage from "./Auth/ChangePassword.page";
 import AddCoursePage from "./Dashboard/instructor/AddCourse.page";
 import MyCourse from "./Dashboard/instructor/MyCourse";
 import EditCoursePage from "./Dashboard/instructor/EditCourse.page";
+import CoursePage from "./Course.page";
 export {
+  CoursePage,
   EditCoursePage,
   MyCourse,
   AddCoursePage,

@@ -1,4 +1,4 @@
-import React from "react";
+import { formatDateAndTime } from "../../../utils/dateFormatter";
 
 const CardCourse = ({ img, title, description, date, status }) => {
   return (
@@ -11,7 +11,9 @@ const CardCourse = ({ img, title, description, date, status }) => {
       <div className="flex flex-col gap-2 ml-6 items-start text-start">
         <h5 className="text-lg font-semibold text-richblack-5">{title}</h5>
         <p className="text-sm text-richblack-100">{description}</p>
-        <p className="text-xs text-richblack-25">Created: {date}</p>
+        <p className="text-xs text-richblack-25">
+          Created: {formatDateAndTime(date)}
+        </p>
         <div
           className={`flex gap-y-[0.375rem] rounded-full py-1 px-2 text-xs font-medium bg-richblack-700 ${
             status === "Published" ? "text-yellow-100" : "text-pink-100"

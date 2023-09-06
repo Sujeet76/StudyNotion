@@ -165,7 +165,7 @@ const getAllCourseDetails = async (req, res, next) => {
 };
 
 // get a  course details
-const getCourseDetail = async (req, res, next) => {
+const getCourseDetailAuth = async (req, res, next) => {
   try {
     const { courseId } = req.body;
 
@@ -180,6 +180,64 @@ const getCourseDetail = async (req, res, next) => {
         path: "instructor",
         populate: {
           path: "additionDetails",
+        },
+      })
+      .populate({ path: "category" })
+      .populate({ path: "ratingAndReview" })
+      .populate({
+        path: "courseContent",
+        populate: {
+          path: "subSection",
+          select: "-videoUrl",
+        },
+      })
+      .exec();
+
+    if (!courseDetail) {
+      return next(CustomErrorHandler.notFound("Course not found !!"));
+    }
+
+    // console.log(courseDetail);
+
+    let totalCourseDurations = 0;
+    courseDetail.courseContent.forEach((content) => {
+      content.subSection.forEach((subSection) => {
+        const timeInSecond = parseInt(subSection.timeDuration);
+        totalCourseDurations += timeInSecond;
+      });
+    });
+
+    const totalDuration = convertSecondsToDuration(totalCourseDurations);
+
+    return res.status(200).json({
+      success: true,
+      message: `Data fetch successful`,
+      data: { courseDetail, totalDuration },
+    });
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
+};
+
+const getCourseDetail = async (req, res, next) => {
+  try {
+    const courseId= req.query.courseId;
+
+    if (!courseId) {
+      console.log(courseId);
+      return next(CustomErrorHandler.forbidden("CourseId is required!!"));
+    }
+
+    console.table(courseId);
+    const courseDetail = await Course.findById(courseId)
+      .select("-category")
+      .populate({
+        path: "instructor",
+        select: "-password -courses",
+        populate: {
+          path: "additionDetails",
+          select: "-contactNumber",
         },
       })
       .populate({ path: "category" })
@@ -405,6 +463,7 @@ const getInstructorCourse = async (req, res, next) => {
 
 export {
   createCourse,
+  getCourseDetailAuth,
   getCourseDetail,
   getAllCourseDetails,
   deleteCourse,

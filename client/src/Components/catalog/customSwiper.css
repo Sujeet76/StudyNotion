@@ -1,0 +1,29 @@
+/* .swiper-button-next,.swiper-button-prev {
+  display: hidden !important;
+}
+.swiper-button-next::after,.swiper-button-prev::after{
+  content: "";
+} */
+.swiper-button-next,
+.swiper-rtl .swiper-button-prev {
+  display: none;
+}
+
+.swiper-button-prev,
+.swiper-rtl .swiper-button-next {
+  display: none;
+}
+
+/* .swiper-pagination {
+  @apply mt-4;
+} */
+
+.customButton,
+.customButton {
+  @apply flex justify-center items-center bg-richblack-600 p-1 rounded-full hover:scale-110 scale-125 transition-all absolute top-[30%] -translate-y-[30%] z-10 hover:shadow-none;
+  box-shadow: 0px 0px 10px 0px #2c333f;
+}
+
+/* .swiper-pagination-bullet {
+  @apply bg-yellow-5 scale-150 w-4 h-4;
+} */

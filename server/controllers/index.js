@@ -24,6 +24,7 @@ import {
   deleteCourse,
   getAllCourseDetails,
   getCourseDetail,
+  getCourseDetailAuth,
   updateCourse,
   getInstructorCourse,
 } from "./course/Course.controller.js";
@@ -52,6 +53,7 @@ import {
 } from "./user/ResetPassword.controller.js";
 
 export {
+  getCourseDetailAuth,
   login,
   signup,
   generateOtp,

@@ -5,6 +5,7 @@ import { ContainerDashboard, ButtonDashboard } from "../../";
 
 import NameLabel from "./NameLabel";
 import { useNavigate } from "react-router-dom";
+import { formattedDate } from "../../../utils/dateFormatter";
 
 const PersonalDetails = () => {
   const navigate = useNavigate();
@@ -34,7 +35,10 @@ const PersonalDetails = () => {
             label={"Email"}
             content={user?.email ?? "Update your profile"}
           />
-          <NameLabel label={"Gender"} content={user?.additionDetails?.gender ?? "Add gender"} />
+          <NameLabel
+            label={"Gender"}
+            content={user?.additionDetails?.gender ?? "Add gender"}
+          />
         </div>
         <div className="flex gap-5 flex-col">
           <NameLabel
@@ -47,7 +51,10 @@ const PersonalDetails = () => {
           />
           <NameLabel
             label={"Date of Birth"}
-            content={user?.additionDetails?.dateOfBirth ?? "Add date of birth"}
+            content={
+              formattedDate(user?.additionDetails?.dateOfBirth) ??
+              "Add date of birth"
+            }
           />
         </div>
       </div>

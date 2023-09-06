@@ -13,7 +13,7 @@ import {
   updateSubsection,
   deleteSubsection,
   createCourse,
-  getCourseDetail,
+  getCourseDetailAuth,
   getAllCourseDetails,
   createCategory,
   showAllCategory,
@@ -21,6 +21,7 @@ import {
   deleteCourse,
   updateCourse,
   getInstructorCourse,
+  getCourseDetail,
 } from "../controllers/index.js";
 
 // route
@@ -33,7 +34,7 @@ courseRoute.post("/createCategory", auth, isAdmin, createCategory);
 // get category
 courseRoute.get("/showAllCategory", showAllCategory);
 // get category details
-courseRoute.get("/categoryPageDetails", categoryPageDetails);
+courseRoute.post("/categoryPageDetails", categoryPageDetails);
 
 // -----------course-------------//
 // ->can be created by Instructor only
@@ -41,7 +42,8 @@ courseRoute.post("/createCourse", auth, isInstructor, createCourse);
 courseRoute.delete("/deleteCourse", auth, deleteCourse);
 courseRoute.post("/editCourse", auth, updateCourse);
 courseRoute.get("/getAllCourseDetails", getAllCourseDetails);
-courseRoute.post("/getCourseDetail", auth, getCourseDetail);
+courseRoute.post("/getCourseDetail", auth, isInstructor, getCourseDetailAuth);
+courseRoute.get("/getCourseDetail", getCourseDetail);
 courseRoute.get(
   "/getInstructorCourse",
   auth,

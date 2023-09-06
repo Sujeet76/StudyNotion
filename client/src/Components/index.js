@@ -42,10 +42,19 @@ import CourseBuilder from "./Dashboard/AddCourse/courseBuilder/CourseBuilder";
 import HeaderMyCourse from "./Dashboard/MyCourse/Header";
 import TableCourseInfo from "./Dashboard/MyCourse/TableCourseInfo";
 import Spinner from "./Common/Spinner/Spinner";
-
-
+import PopularCourse from "./catalog/PopularCourse";
+import CourseSlider from "./catalog/CourseSlider";
+import TopCourses from "./catalog/TopCourses";
+import Loader from "./Common/Spinner/Loader";
+import CourseCard from "./catalog/CourseCard";
 export {
+CourseCard
+,
+  Loader,
+  TopCourses,
   Spinner,
+  CourseSlider,
+  PopularCourse,
   TableCourseInfo,
   Publish,
   HeaderMyCourse,
