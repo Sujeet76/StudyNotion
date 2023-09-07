@@ -8,7 +8,8 @@ const PageLayout = () => {
     location.pathname === "/" ||
     location.pathname.includes("catalog") ||
     location.pathname.includes("about") ||
-    location.pathname.includes("contact");
+    location.pathname.includes("contact") ||
+    location.pathname.includes("course");
   // console.log(location.pathname.includes("/"));
   return (
     <>

@@ -47,9 +47,14 @@ import CourseSlider from "./catalog/CourseSlider";
 import TopCourses from "./catalog/TopCourses";
 import Loader from "./Common/Spinner/Loader";
 import CourseCard from "./catalog/CourseCard";
+import RatingStars from "./Common/RatingAndReview";
+import PurchaseCard from "./CoursePage/PurchaseCard";
+import DropDownMenu from "./CoursePage/DropDownMenu";
 export {
-CourseCard
-,
+  DropDownMenu,
+  RatingStars,
+  PurchaseCard,
+  CourseCard,
   Loader,
   TopCourses,
   Spinner,

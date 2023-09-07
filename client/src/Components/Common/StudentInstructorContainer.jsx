@@ -12,7 +12,8 @@ import { Cart } from "../../data/Icon.data";
 import { ACCOUNT_TYPE } from "../../utils/constants";
 import { logout } from "../../services/Operation/AuthApi";
 
-const StudentInstructorContainer = ({ isFixed }) => {
+const StudentInstructorContainer = () => {
+  const { cartLength } = useSelector((store) => store.cart);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.profile);
@@ -27,14 +28,16 @@ const StudentInstructorContainer = ({ isFixed }) => {
     <>
       {
         // render when accountType is student only (cart)
-        user && user?.accountType === ACCOUNT_TYPE.STUDENT && (
-          <Link to="/dashboard/cart" className="relative">
-            <Cart />
-            <span className="w-5 h-5 rounded-full text-center  bg-richblack-600 text-yellow-100 text-sm font-eduSa font-bold grid place-content-center absolute bottom-1/2 left-[40%] animate-bounce">
-              2
-            </span>
-          </Link>
-        )
+        user &&
+          user?.accountType === ACCOUNT_TYPE.STUDENT &&
+          cartLength > 0 && (
+            <Link to="/dashboard/cart" className="relative">
+              <Cart />
+              <span className="w-5 h-5 rounded-full text-center  bg-richblack-600 text-yellow-100 text-sm font-eduSa font-bold grid place-content-center absolute bottom-1/2 left-[40%] animate-bounce">
+                {cartLength}
+              </span>
+            </Link>
+          )
       }
 
       {/* menu list */}
