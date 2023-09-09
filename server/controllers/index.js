@@ -52,7 +52,16 @@ import {
   resetPassword,
 } from "./user/ResetPassword.controller.js";
 
+import {
+  verifyPayment,
+  capturePayment,
+  sendMail,
+} from "./Payment/Payment.controller.js";
+
 export {
+  sendMail,
+  verifyPayment,
+  capturePayment,
   getCourseDetailAuth,
   login,
   signup,

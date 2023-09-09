@@ -26,21 +26,17 @@ const CoursePage = () => {
   const [isActive, setIsActive] = useState(Array(0));
 
   const handelSetActive = (id) => {
-    console.log(id);
-    console.log("called");
     setIsActive(
       !isActive.includes(id)
         ? isActive.concat([id])
         : isActive.filter((e) => e !== id)
     );
   };
-  console.log(courseContent);
 
   useEffect(() => {
     const getData = async () => {
       const data = await courseDetails(courseId, setIsLoading);
       setCourseData(data.result);
-      console.log("data => ", data);
       setCourseContent(data?.result?.courseDetail?.courseContent);
       handelSetActive(data?.result?.courseDetail?._id);
     };
@@ -74,12 +70,12 @@ const CoursePage = () => {
   return (
     <div className="w-full">
       {/* section 1 */}
-      <div className="bg-richblack-800 py-8">
+      <div className="bg-richblack-800 py-8 ">
         <div className="w-11/12 mx-auto flex gap-12 relative">
           {/* course info */}
-          <div>
+          <div className="w-[66%]">
             {/* navbar */}
-            <div className="w-[66%]">
+            <div>
               <span className="text-richblack-300 text-sm  capitalize font-medium">
                 Home / Learning /
                 <span className="ml-1 text-yellow-50 font-semibold">
@@ -126,11 +122,10 @@ const CoursePage = () => {
               </p>
             </div>
           </div>
-
           {/* card */}
           <PurchaseCard courseContent={courseData?.courseDetail} />
         </div>
-    </div>
+      </div>
 
       {/* section 2 */}
       <div className="w-11/12 mx-auto my-8 mb-11">

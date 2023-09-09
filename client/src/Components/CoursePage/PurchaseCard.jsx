@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { FaRegShareFromSquare } from "react-icons/fa6";
@@ -9,18 +9,37 @@ import { Button, ConfirmationModal } from "../";
 
 import { addToCart } from "../../Slice/cart";
 import { AnimatePresence } from "framer-motion";
+import { buyCourse } from "../../services/Operation/paymentApi";
 
 const PurchaseCard = ({ courseContent }) => {
   const { token } = useSelector((store) => store.auth);
+  const { user } = useSelector((store) => store.profile);
+  const { courseId } = useParams();
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-
   const [confirmationModal, setConfirmationModal] = useState(null);
   const [isCopied, setIsCopied] = useState(false);
-
   const purchaseCourseHandler = () => {
-    console.log("purchase");
+    if (token) {
+      console.log(user);
+      const userDetails = {};
+      userDetails.name = user?.name;
+      userDetails.email = user?.email;
+      buyCourse([courseId], token, userDetails, navigate, dispatch);
+      console.log(courseId);
+      console.table(userDetails);
+      return;
+    }
+
+    setConfirmationModal({
+      text1: "You are not logged in!",
+      text2: "Please login to purchase course",
+      btn1Text: "Login",
+      btn2Text: "Cancel",
+      btn1Handler: () => navigate("/login"),
+      btn2Handler: () => setConfirmationModal(null),
+    });
   };
   const addToCartHandler = (data) => {
     if (token) {
