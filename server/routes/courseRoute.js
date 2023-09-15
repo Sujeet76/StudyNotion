@@ -65,7 +65,7 @@ courseRoute.delete("/deleteSubsection", auth, isInstructor, deleteSubsection);
 
 // ----------RatingAndReview-----------//
 courseRoute.post("/createReviewAndLike", auth, isStudent, createReviewAndLike);
-courseRoute.post("/getAllRating", getAllRating);
+courseRoute.get("/getAllRating", getAllRating);
 courseRoute.post("/getAverageRating", getAverageRating);
 
 // student

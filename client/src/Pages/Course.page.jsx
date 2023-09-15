@@ -13,6 +13,7 @@ import {
   RatingStars,
   PurchaseCard,
   DropDownMenu,
+  SliderComponent,
 } from "../Components/";
 import { getTotalNumberOfLecture } from "../utils/convertTime";
 
@@ -194,6 +195,7 @@ const CoursePage = () => {
           </div>
         </div>
       </div>
+      <SliderComponent className="mb-14"/>
     </div>
   );
 };

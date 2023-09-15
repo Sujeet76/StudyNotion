@@ -1,8 +1,12 @@
-import { ContactDetailsComponent, ContactFormComponent } from "../Components";
+import {
+  ContactDetailsComponent,
+  ContactFormComponent,
+  SliderComponent,
+} from "../Components";
 
 const ContactPage = () => {
   return (
-    <section className="flex justify-center items-center">
+    <section className="flex flex-col justify-center items-center">
       <div className="w-11/12 flex py-24 gap-14 items-center">
         <ContactDetailsComponent />
         <div className="flex flex-col gap-8 p-[52px] border border-richblack-600 rounded-lg">
@@ -17,6 +21,7 @@ const ContactPage = () => {
           <ContactFormComponent />
         </div>
       </div>
+      <SliderComponent className="mb-24 -mt-12" />
     </section>
   );
 };

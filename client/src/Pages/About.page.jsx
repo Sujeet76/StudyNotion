@@ -4,6 +4,7 @@ import {
   AboutUsSectionThree,
   AboutusSectionOne,
   AboutusSectionTwo,
+  SliderComponent
 } from "../Components";
 
 const AboutPage = () => {
@@ -14,6 +15,7 @@ const AboutPage = () => {
       <AboutUsSectionThree />
       <AboutUsSectionFour />
       <AboutUsSectionFive />
+      <SliderComponent className="mb-24 -mt-12" />
     </section>
   );
 };

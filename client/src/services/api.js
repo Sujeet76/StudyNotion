@@ -44,7 +44,8 @@ export const courseEndpoints = {
 
 // RATINGS AND REVIEWS
 export const ratingsEndpoints = {
-  REVIEWS_DETAILS_API: "/course/getReviews",
+  REVIEWS_ALL_DETAILS_API: "/course/getAllRating",
+  
 };
 
 // CATAGORIES API

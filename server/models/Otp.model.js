@@ -26,10 +26,10 @@ async function sendVerificationEmail(email, otp) {
       "Verifications mail by StudyNotion",
       otp
     );
-    if (!mailResponse) {
-      console.log("mail response is null");
-    }
-    console.log("Email send successfully", mailResponse);
+    // if (!mailResponse) {
+    //   console.log("mail response is null");
+    // }
+    // console.log("Email send successfully", mailResponse);
   } catch (e) {
     console.log("Error while sending mail Error : ", e.message);
   }

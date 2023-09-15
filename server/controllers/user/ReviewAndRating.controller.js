@@ -55,7 +55,7 @@ const createReviewAndLike = async (req, res, next) => {
 const getAverageRating = async (req, res, next) => {
   try {
     const courseId = req.body.courseId;
-    const result = await ReviewAndRating.aggregate([
+    const result = await ReviewAndLike.aggregate([
       { $match: { course: Schema.Types.ObjectId(courseId) } },
       { $group: { _id: null, average: { $avg: "$rating" } } },
     ]);
@@ -79,10 +79,11 @@ const getAverageRating = async (req, res, next) => {
 // get all rating
 const getAllRating = async (req, res, next) => {
   try {
-    const allRating = await ReviewAndRating.find({}, sort({ rating: "desc" }))
+    const allRating = await ReviewAndLike.find({})
+      .sort({ rating: "desc" })
       .populate({
         path: "user",
-        select: "name ,email,description",
+        select: "name email description img",
       })
       .populate({
         path: "course",

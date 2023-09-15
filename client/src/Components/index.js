@@ -9,7 +9,7 @@ import TabComponent from "./Common/Tab.component";
 import WhatWeOfferComponent from "./Home/WhatWeOffer.component";
 import LanguagesComponent from "./Home/Languages.component";
 import InstructorComponent from "./Home/Instructor.component";
-import SliderComponent from "./Home/Slider.component";
+import SliderComponent from "./Common/Slider.component";
 import Footer from "./Common/Footer.component";
 import SideBarComponent from "./Dashboard/SideBar.component";
 import FormRowComponent from "./Common/FormRow.component";
@@ -55,7 +55,6 @@ import VideoSideBar from "./Dashboard/viewCourse/VideoSideBar";
 import VideoDescription from "./Dashboard/viewCourse/VideoDescription";
 import Player from "./Dashboard/viewCourse/Player";
 import ReviewModal from "./Dashboard/viewCourse/ReviewModal";
-
 export {
   ReviewModal,
   VideoDescription,
