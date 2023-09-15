@@ -116,6 +116,7 @@ const EmailVerificationForm = () => {
         <button
           type="button"
           className="flex justify-center items-center gap-2 text-blue-100 font-[500] text-center hover:text-blue-200"
+          
         >
           <ReSend />
           Resend it

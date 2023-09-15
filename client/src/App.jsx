@@ -23,6 +23,8 @@ import {
   MyCourse,
   EditCoursePage,
   CoursePage,
+  ViewCourse,
+  VideoDetailPage,
 } from "./Pages";
 
 import { ACCOUNT_TYPE } from "./utils/constants";
@@ -51,6 +53,7 @@ export default function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/course/:courseId" element={<CoursePage />} />
+          {/* dashboard layout */}
           <Route
             element={
               <ProtectedLayout>
@@ -78,6 +81,23 @@ export default function App() {
               element={<EnrolledCoursePage />}
             />
           </Route>
+
+          {/* view video course */}
+          <Route
+            element={
+              <ProtectedLayout>
+                <ViewCourse />
+              </ProtectedLayout>
+            }
+          >
+            {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+              <Route
+                path="/dashboard/view-video/courseId/:courseId/section/:sectionId/subsectionId/:subsectionId"
+                element={<VideoDetailPage />}
+              />
+            )}
+          </Route>
+
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="email-verify" element={<EmailVerificationPage />} />

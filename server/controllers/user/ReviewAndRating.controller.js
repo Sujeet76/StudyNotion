@@ -1,5 +1,3 @@
-// import ReviewAndLike from "../models/ReviewAndLikes.js";
-// import Course from "../models/Courses.js";
 import { Course, ReviewAndLike } from "../../models/index.js";
 import { Schema } from "mongoose";
 import CustomErrorHandler from "../../services/customErrorHandler.js";
@@ -90,17 +88,18 @@ const getAllRating = async (req, res, next) => {
         path: "course",
         select: "courseName",
       });
+
+    if (!allRating) {
+      return next(CustomErrorHandler.badRequest("Not reviewed any course yet"));
+    }
+
     return res.status(200).json({
       success: true,
       message: "Rating fetched successfully",
       data: allRating,
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Not get all rating",
-      error: error,
-    });
+    return next(error);
   }
 };
 

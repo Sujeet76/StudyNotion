@@ -19,7 +19,11 @@ import AddCoursePage from "./Dashboard/instructor/AddCourse.page";
 import MyCourse from "./Dashboard/instructor/MyCourse";
 import EditCoursePage from "./Dashboard/instructor/EditCourse.page";
 import CoursePage from "./Course.page";
+import ViewCourse from "./Dashboard/ViewCourse";
+import VideoDetailPage from "./Dashboard/VideoDetailPage";
 export {
+  VideoDetailPage,
+  ViewCourse,
   CoursePage,
   EditCoursePage,
   MyCourse,

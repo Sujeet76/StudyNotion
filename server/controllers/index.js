@@ -27,6 +27,7 @@ import {
   getCourseDetailAuth,
   updateCourse,
   getInstructorCourse,
+  getStudentCourseDetails,
 } from "./course/Course.controller.js";
 
 import {
@@ -40,6 +41,8 @@ import {
   updateSubsection,
   deleteSubsection,
 } from "./course/Subsection.controller.js";
+
+import { updateCourseProgress } from "./CourseProgress/progressController.js";
 
 import {
   createCategory,
@@ -59,6 +62,8 @@ import {
 } from "./Payment/Payment.controller.js";
 
 export {
+  updateCourseProgress,
+  getStudentCourseDetails,
   sendMail,
   verifyPayment,
   capturePayment,

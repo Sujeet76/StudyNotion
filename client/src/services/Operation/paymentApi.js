@@ -56,7 +56,7 @@ export const buyCourse = async (
       { Authorization: `Bearer ${token}` }
     );
 
-    const { data } = paymentResponse;      
+    const { data } = paymentResponse;
     const options = {
       key: "rzp_test_tJl5VHPhN8vclg",
       amount: data?.data?.amount,
@@ -84,7 +84,7 @@ export const buyCourse = async (
       toast.error("Oops, Payment failed");
       console.log(response.error);
     });
-    // toast.dismiss(toastId);
+    toast.dismiss(toastId);
   } catch (err) {
     const { response } = err;
     console.log(err);

@@ -22,6 +22,8 @@ import {
   updateCourse,
   getInstructorCourse,
   getCourseDetail,
+  getStudentCourseDetails,
+  updateCourseProgress,
 } from "../controllers/index.js";
 
 // route
@@ -65,5 +67,20 @@ courseRoute.delete("/deleteSubsection", auth, isInstructor, deleteSubsection);
 courseRoute.post("/createReviewAndLike", auth, isStudent, createReviewAndLike);
 courseRoute.post("/getAllRating", getAllRating);
 courseRoute.post("/getAverageRating", getAverageRating);
+
+// student
+courseRoute.post(
+  "/getStudentCourseDetails",
+  auth,
+  isStudent,
+  getStudentCourseDetails
+);
+
+courseRoute.post(
+  "/updateCourseProgress",
+  auth,
+  isStudent,
+  updateCourseProgress
+);
 
 export default courseRoute;

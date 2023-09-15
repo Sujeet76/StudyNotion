@@ -29,7 +29,7 @@ export const getUserDetails = (token, navigate) => {
         const { response } = err;
         console.log(response);
         console.log(response.status);
-        dispatch(setLoading(false))
+        dispatch(setLoading(false));
         if (response?.status === 401) {
           dispatch(logout(navigate));
           return "Invalid user,please Login again !!";
@@ -38,4 +38,40 @@ export const getUserDetails = (token, navigate) => {
       },
     });
   };
+};
+
+export const getEnrolledCourses = async (token, setIsLoading, dispatch) => {
+  let toastId = null;
+  try {
+    setIsLoading(true);
+    toastId = toast.loading("Fetching enrolled course");
+    const response = await apiConnector(
+      "GET",
+      GET_USER_ENROLLED_COURSES_API,
+      null,
+      { Authorization: `Bearer ${token}` }
+    );
+
+    const { data } = response;
+    toast.success("Operation successful!!", {
+      id: toastId,
+    });
+    setIsLoading(false);
+    return data?.data;
+  } catch (err) {
+    const { response } = err;
+    console.log(response);
+    setIsLoading(false);
+    if (response?.status === 401) {
+      dispatch(logout(navigate, "Invalid user,Login again"));
+      toast.dismiss(toastId);
+      return;
+    }
+    const errorMessage =
+      response?.data?.data?.message ?? "Error while getting enrolled course";
+    toast.error(errorMessage, {
+      id: toastId,
+    });
+    return null;
+  }
 };

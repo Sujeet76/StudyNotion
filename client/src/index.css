@@ -4,8 +4,6 @@
 @tailwind utilities;
 
 *,
-*::after,
-*::before,
 button,
 input {
   padding: 0;
@@ -118,7 +116,7 @@ input[type="checkbox"]::before {
   clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 }
 
-input[type="checkbox"]:checked{
+input[type="checkbox"]:checked {
   border: 2px solid #ffe83d;
 }
 

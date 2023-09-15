@@ -38,7 +38,8 @@ export const courseEndpoints = {
   DELETE_COURSE_API: "/course/deleteCourse",
   GET_FULL_COURSE_DETAILS_AUTHENTICATED: "/course/getCourseDetail",
   LECTURE_COMPLETION_API: "/course/updateCourseProgress",
-  CREATE_RATING_API: "/course/createRating",
+  CREATE_RATING_API: "/course/createReviewAndLike",
+  GET_STUDENT_COURSE_DETAILS: "/course/getStudentCourseDetails",
 };
 
 // RATINGS AND REVIEWS

@@ -4,12 +4,13 @@ import { Outlet, useLocation } from "react-router-dom";
 
 const PageLayout = () => {
   const location = useLocation();
+  const pathArray = location.pathname.split("/");
   const showFooter =
     location.pathname === "/" ||
-    location.pathname.includes("catalog") ||
-    location.pathname.includes("about") ||
-    location.pathname.includes("contact") ||
-    location.pathname.includes("course");
+    pathArray.includes("catalog") ||
+    pathArray.includes("about") ||
+    pathArray.includes("contact") ||
+    pathArray.includes("course");
   // console.log(location.pathname.includes("/"));
   return (
     <>

@@ -1,13 +1,17 @@
-import { Schema, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 
 const progressSchema = new Schema({
   courseId: {
-    type: String,
-    required: true,
+    type: Types.ObjectId,
+    ref : "Course"
+  },
+  userId: {
+    type: Types.ObjectId,
+    ref : "User"
   },
   completedVideos: [
     {
-      type: Schema.Types.ObjectId,
+      type: Types.ObjectId,
       ref: "SubSection",
       required: true,
     },

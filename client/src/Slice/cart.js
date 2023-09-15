@@ -39,11 +39,10 @@ const cartSlice = createSlice({
     },
     removeToCart: (state, { payload }) => {
       const cartIndex = state.cartItem.findIndex(({ _id }) => _id === payload);
-      state.cartItem(newCartItem);
       if (cartIndex >= 0) {
         state.cartLength--;
         state.totalPrice -= state.cartItem[cartIndex].price;
-        state.cartItem.slice(cartIndex, 1);
+        state.cartItem.splice(cartIndex, 1);
 
         setToLocalStorage("cart", state.cartItem);
         setToLocalStorage("totalPrice", state.totalPrice);

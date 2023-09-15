@@ -50,7 +50,18 @@ import CourseCard from "./catalog/CourseCard";
 import RatingStars from "./Common/RatingAndReview";
 import PurchaseCard from "./CoursePage/PurchaseCard";
 import DropDownMenu from "./CoursePage/DropDownMenu";
+import CartCard from "./cart/cartCard";
+import VideoSideBar from "./Dashboard/viewCourse/VideoSideBar";
+import VideoDescription from "./Dashboard/viewCourse/VideoDescription";
+import Player from "./Dashboard/viewCourse/Player";
+import ReviewModal from "./Dashboard/viewCourse/ReviewModal";
+
 export {
+  ReviewModal,
+  VideoDescription,
+  Player,
+  CartCard,
+  VideoSideBar,
   DropDownMenu,
   RatingStars,
   PurchaseCard,

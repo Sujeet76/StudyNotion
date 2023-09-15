@@ -89,11 +89,13 @@ const generateOtp = async (req, res, next) => {
       uniqueOtp = await OTP.findOne({ otp });
     }
     try {
-      await OTP.create({
+      const otpSchema = await OTP.create({
         email: email,
-        otp: otp,
+        otp: otp.toString(),
       });
+      // console.log(otpSchema);
     } catch (error) {
+      console.log(error);
       return next(
         CustomErrorHandler.serverError("Error while creating otp entry in db")
       );

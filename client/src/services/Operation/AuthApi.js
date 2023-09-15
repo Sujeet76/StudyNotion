@@ -177,12 +177,16 @@ export const resetPassword = (password, confirmPassword, token, navigate) => {
   };
 };
 
-export const logout = (navigate, isMessage = true) => {
+export const logout = (navigate, isMessage) => {
   return (dispatch) => {
     dispatch(setToken(null));
     dispatch(setProfile(null));
     removeToLocalStorage("token");
-    if (isMessage) toast.success("Logout successful 🔥");
+    if (!isMessage) {
+      toast.success("Logout successful 🔥");
+      return;
+    }
+    toast.error(isMessage);
     navigate("/");
   };
 };

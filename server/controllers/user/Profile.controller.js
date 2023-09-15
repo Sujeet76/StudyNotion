@@ -1,11 +1,13 @@
 import Joi from "joi";
 
-import { User, Profile, Course } from "../../models/index.js";
+import { User, Profile, Course, Progress } from "../../models/index.js";
 import uploadToCloudinary, {
   deleteToCloudinary,
 } from "../../utils/imageUploader.util.js";
 import { CLOUD_FOLDER } from "../../config/index.js";
 import CustomErrorHandler from "../../services/customErrorHandler.js";
+
+import convertSecondsToDuration from "../../../client/src/utils/convertTime.js";
 
 const updateProfile = async (req, res, next) => {
   try {
@@ -151,11 +153,14 @@ const updateDisplayPicture = async (req, res, next) => {
 const getEnrolledCourse = async (req, res, next) => {
   try {
     const userId = req.user.id;
-    const userData = await User.findById(userId, { courses: true })
+    let userData = await User.findById(userId)
       .populate({
         path: "courses",
         populate: {
           path: "courseContent",
+          populate: {
+            path: "subSection",
+          },
         },
       })
       .exec();
@@ -165,10 +170,44 @@ const getEnrolledCourse = async (req, res, next) => {
         CustomErrorHandler.notFound("Not enrolled in any course yet")
       );
     }
+
+    userData = userData.toObject();
+    let courseInfo = userData.courses;
+
+    for(const content of courseInfo){
+      let totalDurationInSecond = 0;
+      let subsectionLength = 0;
+      content.courseContent.forEach((item) => {
+        totalDurationInSecond += item.subSection.reduce(
+          (acc, curr) => acc + parseFloat(curr.timeDuration),
+          0
+        );
+        subsectionLength += item.subSection.length;
+        // console.log(item);
+      });
+      content.totalDuration = convertSecondsToDuration(totalDurationInSecond);
+      // console.log(content);
+      let courseProgressCount = await Progress.findOne({
+        courseId: content._id,
+        userId: userId,
+      });
+      courseProgressCount = courseProgressCount?.completedVideos?.length ?? 0;
+      if (subsectionLength === 0) {
+        content.progressPercentage = 100;
+      } else {
+        console.log("1");
+        const multiplier = 100;
+        content.progressPercentage =
+          Math.round(
+            (courseProgressCount / subsectionLength) * multiplier * multiplier
+          ) / multiplier;
+      }
+    };
+
     return res.status(200).json({
       success: true,
       message: "Course fetch successfully",
-      data: userData,
+      data: courseInfo,
     });
   } catch (error) {
     console.log({ error });

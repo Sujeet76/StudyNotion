@@ -13,6 +13,14 @@ import {
   setSteps,
   setCategories,
 } from "../../Slice/course";
+import {
+  setIsLoading as viewCourseLoading,
+  setSectionData,
+  setEntireData,
+  setCompletedLecture,
+  setTotalLecture,
+  updateCompletedLecture,
+} from "../../Slice/viewCourseVideo";
 
 const { CATEGORIES_API } = categories;
 const { CATALOGPAGEDATA_API } = catalogData;
@@ -31,6 +39,9 @@ const {
   DELETE_COURSE_API,
   UPDATE_SUBSECTION_API,
   UPDATE_SECTION_API,
+  LECTURE_COMPLETION_API,
+  GET_STUDENT_COURSE_DETAILS,
+  CREATE_RATING_API,
 } = courseEndpoints;
 
 export const getCategory = (setIsLoading) => {
@@ -131,31 +142,31 @@ export const editCourse = (
   };
 };
 
-export const fetchCourse = (token) => {
-  return async (dispatch) => {
-    const response = apiConnector("GET", COURSE_DETAILS_API, null, {
-      Authorization: `Barer ${token}`,
-    });
+// export const fetchCourse = (token) => {
+//   return async (dispatch) => {
+//     const response = apiConnector("GET", COURSE_DETAILS_API, null, {
+//       Authorization: `Barer ${token}`,
+//     });
 
-    toast.promise(response, {
-      loading: "Fetching course data!!",
-      success: (response) => {
-        const { data } = response;
-        const result = data?.data;
-        console.log(data);
-        console.log(data?.data);
-        dispatch(setCourse(result));
-        return "Course fetched successfully";
-      },
-      error: (err) => {
-        const { response } = err;
-        console.log(response);
-        console.log(err);
-        return response?.data?.message ?? "Error while fetching course";
-      },
-    });
-  };
-};
+//     toast.promise(response, {
+//       loading: "Fetching course data!!",
+//       success: (response) => {
+//         const { data } = response;
+//         const result = data?.data;
+//         console.log(data);
+//         console.log(data?.data);
+//         dispatch(setCourse(result));
+//         return "Course fetched successfully";
+//       },
+//       error: (err) => {
+//         const { response } = err;
+//         console.log(response);
+//         console.log(err);
+//         return response?.data?.message ?? "Error while fetching course";
+//       },
+//     });
+//   };
+// };
 
 export const createSection = (sectionName, courseId, token) => {
   return async (dispatch) => {
@@ -563,4 +574,124 @@ export const courseDetails = async (courseId, setIsLoading) => {
     });
     return { result: null };
   }
+};
+
+// get CourseApi auth -> student
+export const getStudentCourseDetails = async (courseId, token, dispatch) => {
+  let toastId = null;
+  try {
+    dispatch(viewCourseLoading(true));
+    toastId = toast.loading("Fetching your course details");
+    const response = await apiConnector(
+      "POST",
+      GET_STUDENT_COURSE_DETAILS,
+      { courseId: courseId },
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
+    const { data } = response;
+    // set section data
+    console.log("000=> ", data);
+    dispatch(setSectionData(data?.courseDetails?.courseContent));
+    const result = {
+      ...data?.courseDetails,
+      totalDuration: data?.totalDuration,
+    };
+    delete result?.courseContent;
+    // set entire data => after deleting courseContent -> to prevent duplicate courseContent as it is set above
+    dispatch(setEntireData(result));
+    // set complete video id
+    dispatch(setCompletedLecture(data?.completedVideo));
+    // calculate total lecture
+    let totalLecture = 0;
+    data?.courseDetails?.courseContent?.forEach((section) => {
+      totalLecture += section?.subSection?.length ?? 0;
+    });
+
+    dispatch(setTotalLecture(totalLecture));
+
+    console.log(data);
+    toast.success("Course data fetched successfully", {
+      id: toastId,
+    });
+    dispatch(viewCourseLoading(false));
+    return data;
+  } catch (err) {
+    const { response } = err;
+    console.log(response);
+    console.error(err);
+    dispatch(viewCourseLoading(false));
+    const errorMessage =
+      response?.data?.message ?? "Error while fetching student course details";
+    toast.error(errorMessage, {
+      id: toastId,
+    });
+    return null;
+  }
+};
+
+export const updateCourseProgress = async (
+  token,
+  courseId,
+  subsectionId,
+  dispatch
+) => {
+  let toastId = null;
+
+  try {
+    toastId = toast.loading("Please wait, marking as complete");
+    const response = await apiConnector(
+      "POST",
+      LECTURE_COMPLETION_API,
+      {
+        courseId: courseId,
+        subsectionId: subsectionId,
+      },
+      { Authorization: `Bearer ${token}` }
+    );
+    const { data } = response;
+    dispatch(updateCompletedLecture(subsectionId));
+    const successMessage =
+      data?.data?.message ?? "Lecture is marked as completed";
+    toast.success(successMessage, { id: toastId });
+  } catch (err) {
+    const { response } = err;
+    console.log(response);
+    console.error(err);
+    const errorMessage =
+      response?.data?.message ?? "Could not mark as complete lecture";
+    toast.error(errorMessage, {
+      id: toastId,
+    });
+  }
+};
+
+// review and rating
+export const reviewAndRating = async (token, reviewData, setReviewModal) => {
+  let toastId = null;
+  try {
+    toastId = toast.loading("Please wait, creating review");
+
+    const response = await apiConnector("POST", CREATE_RATING_API, reviewData, {
+      Authorization: `Bearer ${token}`,
+    });
+
+    const { data } = response;
+    const successMessage = data?.data?.message ?? "Review created successfully";
+    setReviewModal(false);
+    toast.success(successMessage, { id: toastId });
+    return;
+  } catch (err) {
+    const { response } = err;
+    console.log(response);
+    console.error(err);
+    const errorMessage =
+      response?.data?.message ?? "Could not register your review";
+    toast.error(errorMessage, {
+      id: toastId,
+    });
+    return;
+  }
+  // toast.dismiss(toastId);
 };

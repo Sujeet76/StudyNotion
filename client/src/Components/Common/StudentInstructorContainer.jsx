@@ -28,16 +28,16 @@ const StudentInstructorContainer = () => {
     <>
       {
         // render when accountType is student only (cart)
-        user &&
-          user?.accountType === ACCOUNT_TYPE.STUDENT &&
-          cartLength > 0 && (
-            <Link to="/dashboard/cart" className="relative">
-              <Cart />
+        user && user?.accountType === ACCOUNT_TYPE.STUDENT && (
+          <Link to="/dashboard/cart" className="relative">
+            <Cart />
+            {cartLength > 0 && (
               <span className="w-5 h-5 rounded-full text-center  bg-richblack-600 text-yellow-100 text-sm font-eduSa font-bold grid place-content-center absolute bottom-1/2 left-[40%] animate-bounce">
                 {cartLength}
-              </span>
-            </Link>
-          )
+              </span> 
+            )}
+          </Link>
+        )
       }
 
       {/* menu list */}

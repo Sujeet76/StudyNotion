@@ -10,6 +10,7 @@ import { Button, ConfirmationModal } from "../";
 import { addToCart } from "../../Slice/cart";
 import { AnimatePresence } from "framer-motion";
 import { buyCourse } from "../../services/Operation/paymentApi";
+import { getTotalNumberOfLecture } from "../../utils/convertTime";
 
 const PurchaseCard = ({ courseContent }) => {
   const { token } = useSelector((store) => store.auth);
@@ -43,15 +44,18 @@ const PurchaseCard = ({ courseContent }) => {
   };
   const addToCartHandler = (data) => {
     if (token) {
+      console.log(data);
       let temp = { ...data };
-      temp.instructor = undefined;
-      temp.courseContent = undefined;
-      temp.studentEnrolled = undefined;
-      temp.category = undefined;
-      temp.ratingAndReview = undefined;
-      temp.tags = undefined;
-      temp.sold = undefined;
-      temp.instructions = undefined;
+      delete temp.instructor
+      delete temp.courseContent
+      delete temp.studentEnrolled
+      delete temp.category
+      delete temp.tags
+      delete temp.sold
+      delete temp.instructions
+      temp.totalLecture = getTotalNumberOfLecture(data.courseContent);
+      temp.totalSection = data.courseContent.length;
+      temp.authName = data?.instructor?.name;
       dispatch(addToCart(temp));
     } else {
       setConfirmationModal({

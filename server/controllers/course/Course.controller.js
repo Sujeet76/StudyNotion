@@ -6,6 +6,7 @@ import {
   Course,
   Section,
   SubSection,
+  Progress,
 } from "../../models/index.js";
 
 import uploadToCloudinary from "../../utils/imageUploader.util.js";
@@ -168,13 +169,20 @@ const getAllCourseDetails = async (req, res, next) => {
 const getCourseDetailAuth = async (req, res, next) => {
   try {
     const { courseId } = req.body;
+    const userId = req.user.id;
+
+    const user = await User.findById(userId);
+    if (!user.courses.includes(userId)) {
+      return next(
+        CustomErrorHandler.notFound("You have not enrolled in this course")
+      );
+    }
 
     if (!courseId) {
       console.log(courseId);
       return next(CustomErrorHandler.forbidden("CourseId is required!!"));
     }
 
-    console.table(courseId);
     const courseDetail = await Course.findById(courseId)
       .populate({
         path: "instructor",
@@ -222,7 +230,7 @@ const getCourseDetailAuth = async (req, res, next) => {
 
 const getCourseDetail = async (req, res, next) => {
   try {
-    const courseId= req.query.courseId;
+    const courseId = req.query.courseId;
 
     if (!courseId) {
       console.log(courseId);
@@ -461,6 +469,70 @@ const getInstructorCourse = async (req, res, next) => {
   }
 };
 
+const getStudentCourseDetails = async (req, res, next) => {
+  try {
+    const { courseId } = req.body;
+    const userId = req.user.id;
+    if (!courseId || !userId) {
+      return next(CustomErrorHandler.notFound("Course id is required"));
+    }
+
+    const isEnrolled = await User.findById(userId);
+    if (!isEnrolled.courses.includes(courseId)) {
+      return next(
+        CustomErrorHandler.unAuthorized("You are not enrolled in this course!!")
+      );
+    }
+
+    const courseDetails = await Course.findById(courseId)
+      .populate({
+        path: "instructor",
+        select: "-password -courses",
+        populate: {
+          path: "additionDetails",
+          select: "-contactNumber -address",
+        },
+      })
+      .populate({ path: "category", select: "-course" })
+      .populate("ratingAndReview")
+      .populate({
+        path: "courseContent",
+        populate: {
+          path: "subSection",
+        },
+      })
+      .select("-studentEnrolled");
+
+    if (!courseDetails) {
+      return next(CustomErrorHandler.notFound("Course not found!!"));
+    }
+
+    let courseProgressCount = await Progress.findOne({
+      courseId: courseId,
+      userId: userId,
+    });
+
+    let totalDuration = 0;
+    courseDetails.courseContent.forEach((section) => {
+      section.subSection.forEach(({ timeDuration }) => {
+        totalDuration += parseInt(timeDuration);
+      });
+    });
+
+    totalDuration = convertSecondsToDuration(totalDuration);
+
+    return res.status(200).json({
+      success: true,
+      message: "Course details fetched successfully",
+      courseDetails,
+      completedVideo: courseProgressCount?.completedVideos ?? [],
+      totalDuration,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
 export {
   createCourse,
   getCourseDetailAuth,
@@ -469,4 +541,5 @@ export {
   deleteCourse,
   updateCourse,
   getInstructorCourse,
+  getStudentCourseDetails,
 };

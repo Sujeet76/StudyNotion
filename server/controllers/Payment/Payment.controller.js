@@ -1,6 +1,6 @@
 import crypto from "crypto";
 
-import { User, Course } from "../../models/index.js";
+import { User, Course, Progress } from "../../models/index.js";
 import mailSender from "../../utils/mailSender.util.js";
 import { Types } from "mongoose";
 import { RAZORPAY_SECRETE } from "../../config/index.js";
@@ -128,11 +128,19 @@ const enrollStudents = async (courses, userId, next) => {
         );
       }
 
+      // create progress -> course
+      const progress = await Progress.create({
+        courseId: courseId,
+        userId: userId,
+        completedVideos: [],
+      });
+
       //find the student and add the course to their list
       const enrolledStudent = await User.findByIdAndUpdate(
         userId,
         {
           $push: { courses: courseId },
+          courseProgress: progress._id,
         },
         { new: true }
       );
