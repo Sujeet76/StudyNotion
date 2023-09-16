@@ -25,6 +25,7 @@ import {
   CoursePage,
   ViewCourse,
   VideoDetailPage,
+  DashboardInstructor,
 } from "./Pages";
 
 import { ACCOUNT_TYPE } from "./utils/constants";
@@ -75,6 +76,9 @@ export default function App() {
                 path="/dashboard/edit-course/:courseId"
                 element={<EditCoursePage />}
               />
+            )}
+            {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
+              <Route path="/dashboard/instructor" element={<DashboardInstructor />} />
             )}
             <Route
               path="/dashboard/enrolled-course"

@@ -36,6 +36,8 @@ const CourseInformation = ({ className }) => {
   });
 
   // course edit
+  console.log(course?.category?.categoryName);
+  console.log(course);
   useEffect(() => {
     if (edit) {
       setValue("title", course?.courseName);
@@ -186,7 +188,7 @@ const CourseInformation = ({ className }) => {
             {...register("category", {
               required: true,
             })}
-            defaultValue={course?.category?.categoryName}
+            // defaultValue={course?.category?.categoryName}
             className="w-full rounded-lg bg-richblack-700 p-3 text-[16px] leading-[24px] text-richblack-5 shadow-[0_1px_0_0] shadow-white/50 focus:outline-none focus:ring focus:ring-richblack-600 "
           >
             <option value="" disabled selected>

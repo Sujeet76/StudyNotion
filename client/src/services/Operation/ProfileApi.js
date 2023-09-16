@@ -75,3 +75,29 @@ export const getEnrolledCourses = async (token, setIsLoading, dispatch) => {
     return null;
   }
 };
+
+export const getInstructorData = async (token, setIsLoading) => {
+  let toastId = null;
+  try {
+    toastId = toast.loading("Fetching course stats!!");
+
+    const response = await apiConnector("GET", GET_INSTRUCTOR_DATA_API, null, {
+      Authorization: `Bearer ${token}`,
+    });
+
+    const { data } = response;
+    setIsLoading(false);
+    toast.dismiss(toastId);
+    return data?.data;
+  } catch (err) {
+    const { response } = err;
+    console.log(response);
+    setIsLoading(false);
+    const errorMessage =
+      response?.data?.data?.message ?? "Error while getting enrolled course";
+    toast.error(errorMessage, {
+      id: toastId,
+    });
+    return [];
+  }
+};

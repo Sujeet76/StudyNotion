@@ -122,10 +122,12 @@ const createCourse = async (req, res, next) => {
       { new: true }
     );
 
+    const result = await Course.findById(newCourse._id).populate("category")
+
     return res.status(200).json({
       success: true,
       message: "Course created successfully",
-      data: newCourse,
+      data: result,
     });
   } catch (error) {
     console.log({ error });
@@ -172,9 +174,9 @@ const getCourseDetailAuth = async (req, res, next) => {
     const userId = req.user.id;
 
     const user = await User.findById(userId);
-    if (!user.courses.includes(userId)) {
+    if (!user.courses.includes(courseId)) {
       return next(
-        CustomErrorHandler.notFound("You have not enrolled in this course")
+        CustomErrorHandler.notFound("You are not owner of this course")
       );
     }
 
@@ -431,7 +433,7 @@ const getInstructorCourse = async (req, res, next) => {
           select: "-videoUrl",
         },
       })
-      .select("-ratingAndReview -studentEnrolled -__v")
+      .select("-ratingAndReview -__v")
       .sort({ createdAt: -1 })
       .skip((page - 1) * perPage)
       .limit(perPage);
@@ -451,8 +453,9 @@ const getInstructorCourse = async (req, res, next) => {
       });
       totalCourseDuration = convertSecondsToDuration(totalCourseDuration);
       let temp = {};
+      data.courseContent = undefined;
       temp.content = data;
-      temp.content.courseContent = undefined;
+      // delete temp.content.courseContent;
       temp.duration = totalCourseDuration;
       result.push(temp);
     });
@@ -463,6 +466,7 @@ const getInstructorCourse = async (req, res, next) => {
       data: result,
       currentPage: page,
       totalPages: Math.ceil(instructorCourseCount / perPage),
+      totalCourse : instructorCourseCount
     });
   } catch (error) {
     return next(error);

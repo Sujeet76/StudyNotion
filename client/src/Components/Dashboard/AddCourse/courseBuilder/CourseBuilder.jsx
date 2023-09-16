@@ -61,7 +61,7 @@ const CourseBuilder = () => {
 
   // edit course -> back to course info form
   const editCourseHandler = () => {
-    dispatch(setEdit(false));
+    dispatch(setEdit(true));
     dispatch(setSteps(1));
   };
 

@@ -55,7 +55,10 @@ import VideoSideBar from "./Dashboard/viewCourse/VideoSideBar";
 import VideoDescription from "./Dashboard/viewCourse/VideoDescription";
 import Player from "./Dashboard/viewCourse/Player";
 import ReviewModal from "./Dashboard/viewCourse/ReviewModal";
+import PiChart from "./Dashboard/instructor/PiChart";
+
 export {
+  PiChart,
   ReviewModal,
   VideoDescription,
   Player,

@@ -21,7 +21,10 @@ import EditCoursePage from "./Dashboard/instructor/EditCourse.page";
 import CoursePage from "./Course.page";
 import ViewCourse from "./Dashboard/ViewCourse";
 import VideoDetailPage from "./Dashboard/VideoDetailPage";
+import DashboardInstructor from "./Dashboard/instructor/DashboardInstructor";
+
 export {
+  DashboardInstructor,
   VideoDetailPage,
   ViewCourse,
   CoursePage,

@@ -35,16 +35,14 @@ const TableCourseInfo = () => {
     dispatch(getInstructorCourses(token, setIsLoading, setCourses));
     // }
   }, []);
-  // useEffect(() => {
-  //   // if (courses.length === 0) {
-  //   dispatch(getInstructorCourses(token, setIsLoading, setCourses));
-  //   // }
-  // }, []);
+  console.log(courses);
 
   // console.log(courses);
 
   const handelDelete = (courseId) => {
-    dispatch(deleteCourse(courseId, token, setCourses, courses,setConfirmationModal));
+    dispatch(
+      deleteCourse(courseId, token, setCourses, courses, setConfirmationModal)
+    );
   };
 
   const editHandler = (courseId) => {

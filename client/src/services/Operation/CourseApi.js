@@ -426,7 +426,8 @@ export const getInstructorCourses = (
   token,
   setIsLoading,
   setCourses,
-  page = 1
+  page = 1,
+  setTotalCourse
 ) => {
   return async (dispatch) => {
     setIsLoading(true);
@@ -445,7 +446,9 @@ export const getInstructorCourses = (
         const { data } = response;
         const result = data?.data;
         setCourses(result);
-        // console.log(result);
+        if (setTotalCourse) {
+          setTotalCourse(data?.totalCourse);
+        }
         // console.log(data);
         setIsLoading(false);
         return "Instructor course fetched successfully";

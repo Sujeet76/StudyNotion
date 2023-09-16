@@ -174,7 +174,7 @@ const getEnrolledCourse = async (req, res, next) => {
     userData = userData.toObject();
     let courseInfo = userData.courses;
 
-    for(const content of courseInfo){
+    for (const content of courseInfo) {
       let totalDurationInSecond = 0;
       let subsectionLength = 0;
       content.courseContent.forEach((item) => {
@@ -202,7 +202,7 @@ const getEnrolledCourse = async (req, res, next) => {
             (courseProgressCount / subsectionLength) * multiplier * multiplier
           ) / multiplier;
       }
-    };
+    }
 
     return res.status(200).json({
       success: true,
@@ -252,7 +252,16 @@ const deleteAccount = async (req, res, next) => {
 
 const instructorDashboard = async (req, res, next) => {
   try {
+    const userId = req.user.id;
+
     const courseDetails = await Course.find({ instructor: req.user.id });
+
+    if (!courseDetails) {
+      return res.status(200).json({
+        success: false,
+        message: "Not created any course yet,or do not have enough data",
+      });
+    }
 
     const courseData = courseDetails.map((course) => {
       const totalStudentsEnrolled = course.studentEnrolled.length;
@@ -271,7 +280,11 @@ const instructorDashboard = async (req, res, next) => {
       return courseDataWithStats;
     });
 
-    res.status(200).json({ data: courseData });
+    res.status(200).json({
+      success: true,
+      message: "Operation successful",
+      data: courseData,
+    });
   } catch (error) {
     console.error(error);
     return next(error);

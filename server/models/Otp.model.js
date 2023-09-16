@@ -26,18 +26,19 @@ async function sendVerificationEmail(email, otp) {
       "Verifications mail by StudyNotion",
       otp
     );
-    // if (!mailResponse) {
-    //   console.log("mail response is null");
-    // }
-    // console.log("Email send successfully", mailResponse);
   } catch (e) {
     console.log("Error while sending mail Error : ", e.message);
   }
 }
 // pre middleware -> first verify the top then create the user schema
 otpSchema.pre("save", async function (next) {
-  await sendVerificationEmail(this.email, this.otp);
-  next();
+  try {
+    if (this.isNew) await sendVerificationEmail(this.email, this.otp);
+    next();
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
 });
 
 export default model("OTP", otpSchema);
