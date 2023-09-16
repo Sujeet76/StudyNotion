@@ -19,6 +19,7 @@ import {
 
 // error handler
 import errorHandler from "./middleware/errorHandler.js";
+import contactRoute from "./routes/contactRoute.js";
 
 // instance of express
 const app = express();
@@ -46,6 +47,7 @@ app.use("/api/v1/auth", userRoute);
 app.use("/api/v1/profile", profileRoute);
 app.use("/api/v1/course", courseRoute);
 app.use("/api/v1/payment", paymentRoute);
+app.use("/api/v1/reach", contactRoute);
 
 // calling db connect and cloudinaryConnect
 dbConnect();

@@ -7,7 +7,7 @@ import {
 const ContactPage = () => {
   return (
     <section className="flex flex-col justify-center items-center">
-      <div className="w-11/12 flex py-24 gap-14 items-center">
+    <div className="w-11/12 flex py-24 gap-14 items-center mx-auto">
         <ContactDetailsComponent />
         <div className="flex flex-col gap-8 p-[52px] border border-richblack-600 rounded-lg">
           <div>

@@ -18,6 +18,7 @@ const generateOtp = async (req, res, next) => {
       password,
       confirmPassword,
       accountType,
+      isSignup,
     } = req.body;
     // checking user exist
     const userExist = await User.exists({ email });
@@ -25,51 +26,54 @@ const generateOtp = async (req, res, next) => {
       return next(CustomErrorHandler.alreadyExist("This email already exist"));
     }
 
-    const registerSchema = Joi.object({
-      firstName: Joi.string()
-        .min(4)
-        .max(30)
-        .regex(/^[a-zA-Z0-9]+$/)
-        .required()
-        .messages({
-          "string.base": "Name must be a string",
-          "string.empty": "Name is required",
-          "string.min": "Name should have a minimum length of {#limit}",
-          "string.max": "Name should have a maximum length of {#limit}",
-          "string.pattern.base": "Name must contain only characters",
-          "any.required": "Name is required",
+    // password
+    if (isSignup) {
+      const registerSchema = Joi.object({
+        firstName: Joi.string()
+          .min(4)
+          .max(30)
+          .regex(/^[a-zA-Z0-9]+$/)
+          .required()
+          .messages({
+            "string.base": "Name must be a string",
+            "string.empty": "Name is required",
+            "string.min": "Name should have a minimum length of {#limit}",
+            "string.max": "Name should have a maximum length of {#limit}",
+            "string.pattern.base": "Name must contain only characters",
+            "any.required": "Name is required",
+          }),
+        lastName: Joi.string().optional(),
+        email: Joi.string().email().required(),
+        password: Joi.string()
+          .min(8)
+          .max(20)
+          .regex(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
+          )
+          .trim()
+          .disallow(Joi.string().regex(/\s/)) // Disallow spaces
+          .required()
+          .messages({
+            "string.pattern.base":
+              "Password must contain an uppercase letter, lowercase letter, a special symbol, and a number.",
+            "string.min": "Password length must be at least 8 characters.",
+            "string.max": "Password length cannot exceed 20 characters.",
+            "string.empty": "Password is required.",
+            "string.disallow": "Password must not contain spaces.",
+          }),
+        confirmPassword: Joi.valid(Joi.ref("password")).messages({
+          "any.only": "Password does not match",
+          "any.required": "Confirm password is required",
         }),
-      lastName: Joi.string().optional(),
-      email: Joi.string().email().required(),
-      password: Joi.string()
-        .min(8)
-        .max(20)
-        .regex(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
-        )
-        .trim()
-        .disallow(Joi.string().regex(/\s/)) // Disallow spaces
-        .required()
-        .messages({
-          "string.pattern.base":
-            "Password must contain an uppercase letter, lowercase letter, a special symbol, and a number.",
-          "string.min": "Password length must be at least 8 characters.",
-          "string.max": "Password length cannot exceed 20 characters.",
-          "string.empty": "Password is required.",
-          "string.disallow": "Password must not contain spaces.",
+        accountType: Joi.string().required().messages({
+          "any.required": "Account type is required",
         }),
-      confirmPassword: Joi.valid(Joi.ref("password")).messages({
-        "any.only": "Password does not match",
-        "any.required": "Confirm password is required",
-      }),
-      accountType: Joi.string().required().messages({
-        "any.required": "Account type is required",
-      }),
-    });
-    const { error } = registerSchema.validate(req.body);
+      });
+      const { error } = registerSchema.validate(req.body);
 
-    if (error) {
-      return next(error);
+      if (error) {
+        return next(error);
+      }
     }
 
     let otp = otpGenerator.generate(6, {
@@ -104,7 +108,6 @@ const generateOtp = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       message: "OTP generated successfully",
-      otp,
     });
   } catch (error) {
     return next(CustomErrorHandler.serverError(error.message));

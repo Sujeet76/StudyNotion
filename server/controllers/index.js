@@ -61,7 +61,10 @@ import {
   sendMail,
 } from "./Payment/Payment.controller.js";
 
+import { contactUs } from "./contactUs.controller.js";
+
 export {
+  contactUs,
   updateCourseProgress,
   getStudentCourseDetails,
   sendMail,

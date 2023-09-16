@@ -51,7 +51,7 @@ const AboutUsSectionFour = () => {
     <section className="text-richblack5 text-center">
       <div className="bg-richblack-800 py-[90px] flex justify-evenly border-b-2 border-b-richblack-700">
         {numberAndParas.map(({ active, title }, index) => (
-          <div>
+          <div key={active}>
             <h5 className="text-3xl font-semibold">
               {active}
               {index === 0 ? "K" : "+"}
@@ -83,6 +83,7 @@ const AboutUsSectionFour = () => {
             className={`${
               index === 2 ? "col-start-2 lg:h-64" : ""
             } even:bg-richblack-700 odd:bg-richblack-800 p-8`}
+            key={index}
           >
             <h5 className="text-lg text-richblack-5 mb-8 font-semibold">
               {heading}

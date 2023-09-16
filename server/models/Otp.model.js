@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import mailSender from "../utils/mailSender.util.js";
+import otpTemplate from "../template/otp.template.js";
 // // not complete
 const otpSchema = new Schema({
   email: {
@@ -24,7 +25,7 @@ async function sendVerificationEmail(email, otp) {
     const mailResponse = await mailSender(
       email,
       "Verifications mail by StudyNotion",
-      otp
+      otpTemplate(otp)
     );
   } catch (e) {
     console.log("Error while sending mail Error : ", e.message);

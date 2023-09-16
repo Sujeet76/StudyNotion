@@ -9,7 +9,7 @@ const mailSender = async (email, title, body) => {
         from: "StudyNation || by sujeet kumar",
         to: `${email}`,
         subject: `${title}`,
-        html: `${otp_temp(body)}`,
+        html: body,
       },
       function (error) {
         if (error) {
