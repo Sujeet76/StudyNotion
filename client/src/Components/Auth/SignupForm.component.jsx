@@ -86,7 +86,7 @@ const SignupForm = () => {
         {/* actual data */}
         <div className="flex flex-col gap-y-[20px]">
           {/* name */}
-          <div className="flex gap-x-[20px] justify-center items-center">
+          <div className="flex gap-[20px]  justify-center items-center">
             <FormRowComponent
               text={"First Name"}
               type={"text"}
@@ -116,7 +116,7 @@ const SignupForm = () => {
           />
 
           {/* password */}
-          <div className="flex gap-x-[20px] justify-center items-center">
+          <div className="flex gap-[20px] lg:flex-row md:flex-row flex-col justify-center items-center">
             <FormRowComponent
               text={"Password"}
               type={"password"}

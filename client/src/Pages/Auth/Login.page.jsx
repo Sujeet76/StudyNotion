@@ -4,7 +4,7 @@ import login_img from "../../assets/login_img.png";
 
 const LoginPage = () => {
   return (
-    <div className="w-full min-h-[92vh] bg-richblack-900 flex justify-center">
+    <div className="w-full min-h-[calc(100vh-3.625rem)] bg-richblack-900 flex justify-center">
       <AuthTemplateComponent
         heading={"Welcome Back"}
         subheading={"Build skills for today, tomorrow, and beyond."}

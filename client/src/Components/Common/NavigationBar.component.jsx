@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import Logo_white from "../../assets/logo-white.svg";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { FaBars } from "react-icons/fa";
 
 import DropDownList from "./DropDownList.component";
 
@@ -9,12 +11,15 @@ import Button from "./Button";
 import { apiConnector } from "../../utils/axios";
 import { useDispatch, useSelector } from "react-redux";
 import StudentInstructorContainer from "./StudentInstructorContainer";
+import NavBarSidePanel from "./NavBarSidePanel";
 
 import { getCategory } from "../../services/Operation/CourseApi";
 
 const NavigationBarComponent = () => {
   const [subLinks, setSubLinks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSidebar, setIsSidebar] = useState(false);
+
   const location = useLocation();
   const { token } = useSelector((store) => store.auth);
   const { categories } = useSelector((store) => store.course);
@@ -32,7 +37,7 @@ const NavigationBarComponent = () => {
     <header
       className={`${
         isHome ? "bg-richblack-900" : "bg-richblack-800"
-      } w-full border-b-2  border-b-richblack-700 flex justify-center items-center`}
+      } w-full border-b-2  border-b-richblack-700 flex flex-col justify-center items-center`}
     >
       <div className="w-11/12 flex justify-between items-center lg:h-14 h-24">
         <Link to="/">
@@ -57,7 +62,7 @@ const NavigationBarComponent = () => {
             )}
           </ul>
         </nav>
-        <div>
+        <div className="hidden lg:block">
           <div className="flex justify-center items-center gap-3">
             {token === null && (
               <>
@@ -72,7 +77,21 @@ const NavigationBarComponent = () => {
             {token && <StudentInstructorContainer />}
           </div>
         </div>
+        <FaBars
+          className="text-2xl text-richblack-100 cursor-pointer lg:hidden"
+          onClick={() => setIsSidebar(!isSidebar)}
+        />
       </div>
+      <AnimatePresence mode="wait">
+        {isSidebar && (
+          <NavBarSidePanel
+            navLinks={NavbarLinks}
+            categoryList={categories}
+            setIsSidebar={setIsSidebar}
+            isSidebar={isSidebar}
+          />
+        )}
+      </AnimatePresence>
     </header>
   );
 };

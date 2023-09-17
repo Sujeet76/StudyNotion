@@ -23,7 +23,7 @@ const DropDownMenu = ({ content, isActive, handelSetActive }) => {
     <div className="border border-richblack-600">
       {/* header */}
       <div
-        className="bg-richblack-700 py-4 px-8 flex justify-between border-b border-b-richblack-600 cursor-pointer"
+        className="bg-richblack-700 py-4 lg:px-8 sm:px-8 px-6 flex justify-between border-b border-b-richblack-600 gap-2 cursor-pointer"
         onClick={() => handelSetActive(content?._id)}
       >
         <p className="text-richblack-5 font-semibold flex gap-x-2 items-center font-inter">
@@ -34,7 +34,7 @@ const DropDownMenu = ({ content, isActive, handelSetActive }) => {
           />
           <span>{content?.sectionName}</span>
         </p>
-        <p className="text-sm flex items-center gap-3 font-medium">
+        <p className="lg:text-sm md:text-sm text-xs flex items-center gap-3 font-medium">
           <span className="text-yellow-50">
             {content?.subSection?.length ?? 0} lecture(s)
           </span>

@@ -79,7 +79,7 @@ const CatalogPage = () => {
         {/* section 3 */}
         <div className="w-11/12 mx-auto mt-14">
           <h1 className="text-3xl font-semibold">Frequently Bought Together</h1>
-          <div className="grid grid-cols-3 gap-8 mt-10 mb-20">
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 auto-cols-auto  gap-8 mt-10 mb-20">
             {pageData?.result?.mostSellingCourse?.slice(0, 6).map((content) => (
               <CourseCard content={content} key={content._id} />
             ))}

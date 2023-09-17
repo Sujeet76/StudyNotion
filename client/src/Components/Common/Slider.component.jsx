@@ -59,26 +59,34 @@ const SliderComponent = ({className}) => {
   }
 
   return (
-    <div className={`mx-auto py-8 px-4 mt-8 font-inter ${className}`}>
+    <div className={`lg:mx-auto py-8 px-4 mt-8 font-inter ${className}`}>
       <p className="text-3xl text-richblack-25 font-semibold text-center">
         Reviews from other learners
       </p>
 
       <div className="mx-auto h-[184px] max-w-maxContentTab lg:max-w-maxContent mt-14">
         <Swiper
-          slidesPerView={3}
+          slidesPerView={1}
           spaceBetween={25}
           loop={true}
           autoplay={{
             delay: 2500,
             disableOnInteraction: false,
           }}
+          breakpoints={{
+            1024: {
+              slidesPerView: 3,
+            },
+            768:{
+              slidesPerView : 2
+            }
+          }}
           className="w-full"
           modules={[ Autoplay]}
         >
           {reviewData.map((content) => (
             <SwiperSlide key={content._id} className="rounded-lg">
-              <div className="bg-richblack-800 p-4 rounded-lg flex flex-col gap-y-3 min-h-[217.5px]">
+              <div className="bg-richblack-800 p-4 rounded-lg flex flex-col gap-y-3 min-h-[217.5px] w-100%">
                 {/* user and course name and img */}
                 <div className="flex items-center  gap-3">
                   <img

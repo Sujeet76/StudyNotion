@@ -20,8 +20,8 @@ const Footer = () => {
   return (
     <div className="w-full bg-richblack-800">
       <footer className="w-11/12 bg-richblack-800 flex flex-col mx-auto justify-center items-center pt-[90px] gap-8">
-        <div className=" flex gap-9">
-          <div className="flex gap-4">
+        <div className=" flex gap-9 flex-col lg:flex-row w-full justify-center">
+          <div className="flex lg:flex-row flex-col gap-4">
             <div className="flex gap-3">
               <div>
                 <img src={Logo} alt="studyNotion logo" />
@@ -51,7 +51,7 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-9">
+            <div className="flex lg:flex-col flex-row gap-9">
               <div>
                 <List heading={"Plans"} data={plans} />
               </div>
@@ -60,13 +60,15 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="border border-richblack-700"></div>
-          <div className="flex gap-3">
-            <div>
-              <List heading={"Subjects"} data={subjects} />
-            </div>
-            <div>
-              <List heading={"Languages"} data={languages} />
+          <div className="border border-richblack-700 lg:block hidden"></div>
+          <div className="flex flex-wrap gap-3">
+            <div className="flex">
+              <div>
+                <List heading={"Subjects"} data={subjects} />
+              </div>
+              <div>
+                <List heading={"Languages"} data={languages} />
+              </div>
             </div>
             <div>
               <List heading={"Career building"} data={careers} />
@@ -74,7 +76,7 @@ const Footer = () => {
           </div>
         </div>
         <hr className="w-full border border-richblack-700" />
-        <div className="flex justify-between w-full items-center mb-9">
+        <div className="flex lg:flex-row flex-col lg:justify-between md:justify-between gap-5 w-full items-center mb-9">
           <div className="flex gap-4 py-1">
             <span className="text-richblack-300 text-sm font-[500] pr-4 border-r border-r-richblack-700 ">
               Privacy Policy

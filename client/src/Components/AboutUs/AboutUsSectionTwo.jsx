@@ -3,8 +3,8 @@ import { HighLightedTextComponent } from "../index";
 
 const AboutusSectionTwo = () => {
   return (
-    <section className="min-h-[336px] flex flex-col justify-center text-center items-center border-b border-b-richblack-800">
-      <h2 className="text-3xl text-richblack-100 font-semibold w-[75%] mt-24">
+    <section className="min-h-[336px] flex flex-col justify-center text-center items-center border-b border-b-richblack-800 pb-10">
+      <h2 className="lg:text-3xl text-2xl lg:text-center text-start  text-richblack-100 font-semibold w-[75%] mt-24">
         We are passionate about revolutionizing the way we learn. Our innovative
         platform <HighLightedTextComponent text={"combines technology"} />,
         <HighLightedTextComponent

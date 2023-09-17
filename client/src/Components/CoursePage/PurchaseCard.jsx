@@ -21,6 +21,7 @@ const PurchaseCard = ({ courseContent }) => {
   const navigate = useNavigate();
   const [confirmationModal, setConfirmationModal] = useState(null);
   const [isCopied, setIsCopied] = useState(false);
+
   const purchaseCourseHandler = () => {
     if (token) {
       console.log(user);
@@ -46,13 +47,13 @@ const PurchaseCard = ({ courseContent }) => {
     if (token) {
       console.log(data);
       let temp = { ...data };
-      delete temp.instructor
-      delete temp.courseContent
-      delete temp.studentEnrolled
-      delete temp.category
-      delete temp.tags
-      delete temp.sold
-      delete temp.instructions
+      delete temp.instructor;
+      delete temp.courseContent;
+      delete temp.studentEnrolled;
+      delete temp.category;
+      delete temp.tags;
+      delete temp.sold;
+      delete temp.instructions;
       temp.totalLecture = getTotalNumberOfLecture(data.courseContent);
       temp.totalSection = data.courseContent.length;
       temp.authName = data?.instructor?.name;
@@ -85,11 +86,11 @@ const PurchaseCard = ({ courseContent }) => {
 
   return (
     <div>
-      <div className="bg-richblack-700 w-[24rem] rounded-lg overflow-hidden absolute right-0">
+      <div className="bg-richblack-700 lg:w-[24rem] md:w-[25rem] w-[20rem] rounded-lg overflow-hidden absolute lg:right-0 lg:top-0 lg:translate-x-0 lg:max-xl:right-0 lg:max-xl:top-0 lg:max-xl:translate-x-0 right-1/2 translate-x-1/2 top-[78%]">
         <img
           src={courseContent?.thumbnail}
           alt={courseContent?.courseName}
-          className="w-[24rem] h-[12.5rem] object-cover"
+          className="lg:w-[24rem] lg:h-[12.5rem] w-full object-cover"
         />
         <div className="p-6 flex flex-col gap-4">
           <p className="text-3xl text-richblack-5 font-bold">

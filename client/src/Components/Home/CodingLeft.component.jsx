@@ -11,7 +11,7 @@ const CodingLeftComponent = ({ heading, subheading, btn1, btn2 }) => {
       </p>
       <div className="flex gap-6 mt-[3.25rem]">
         <Button active={btn1.active} linkTo={btn1.linkTo}>
-          {btn1.children + " "}
+          {btn1.children}
           <FaArrowRight className="group-hover:translate-x-2 transition-all duration-300" />
         </Button>
         <Button active={btn2.active} linkTo={btn2.linkTo}>

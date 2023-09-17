@@ -72,9 +72,9 @@ const CoursePage = () => {
     <div className="w-full">
       {/* section 1 */}
       <div className="bg-richblack-800 py-8 ">
-        <div className="w-11/12 mx-auto flex gap-12 relative">
+        <div className="w-11/12 mx-auto flex  gap-12 relative">
           {/* course info */}
-          <div className="w-[66%]">
+          <div className="lg:w-[66%] lg:max-xl:w-[60%] w-full">
             {/* navbar */}
             <div>
               <span className="text-richblack-300 text-sm  capitalize font-medium">
@@ -96,15 +96,19 @@ const CoursePage = () => {
             </p>
 
             {/* review and enrolled student */}
-            <div className="flex items-center gap-2 mt-3">
-              <span className="text-yellow-5">{avgReviewCount || 0}</span>
-              <RatingStars Review_Count={avgReviewCount} />
-              <span className="text-richblack-25">
-                ({courseData?.courseDetail?.ratingAndReview?.length} rating)
-              </span>
-              <span className="text-richblack-25">
-                {courseData?.courseDetail?.studentEnrolled?.length} students
-              </span>
+            <div className="flex lg:flex-row flex-col  gap-2 mt-3">
+              <div className="flex items-center gap-2">
+                <span className="text-yellow-5">{avgReviewCount || 0}</span>
+                <RatingStars Review_Count={avgReviewCount} />
+              </div>
+              <div>
+                <span className="text-richblack-25 mr-2">
+                  ({courseData?.courseDetail?.ratingAndReview?.length} rating)
+                </span>
+                <span className="text-richblack-25">
+                  {courseData?.courseDetail?.studentEnrolled?.length} students
+                </span>
+              </div>
             </div>
 
             {/* instructor name */}
@@ -122,6 +126,7 @@ const CoursePage = () => {
                 <BsGlobe2 className="h-5 w-5 " /> HinEnglish
               </p>
             </div>
+            <div className="h-40 w-full lg:hidden sm:block"></div>
           </div>
           {/* card */}
           <PurchaseCard courseContent={courseData?.courseDetail} />
@@ -130,7 +135,8 @@ const CoursePage = () => {
 
       {/* section 2 */}
       <div className="w-11/12 mx-auto my-8 mb-11">
-        <div className="w-[66%] mr-auto">
+        <div className="w-full lg:hidden block h-[450px] md:h-[500px]"></div>
+        <div className="lg:w-[66%] lg:max-xl:w-[60%] lg:mr-auto mt-8  w-full">
           <div className="p-8 border border-richblack-700">
             <h6 className="text-3xl font-medium text-richblack-5">
               What you'll learn
@@ -195,7 +201,7 @@ const CoursePage = () => {
           </div>
         </div>
       </div>
-      <SliderComponent className="mb-14"/>
+      <SliderComponent className="mb-14" />
     </div>
   );
 };

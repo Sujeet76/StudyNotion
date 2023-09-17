@@ -48,23 +48,25 @@ const gridData = [
 
 const AboutUsSectionFour = () => {
   return (
-    <section className="text-richblack5 text-center">
-      <div className="bg-richblack-800 py-[90px] flex justify-evenly border-b-2 border-b-richblack-700">
-        {numberAndParas.map(({ active, title }, index) => (
-          <div key={active}>
-            <h5 className="text-3xl font-semibold">
-              {active}
-              {index === 0 ? "K" : "+"}
-            </h5>
-            <p className="text-richblack-500 mt-3">{title}</p>
-          </div>
-        ))}
+    <section className="text-richblack-5 text-center">
+      <div className="border-b-2 border-b-richblack-700 bg-richblack-800 flex justify-center items-center">
+        <div className="grid lg:grid-cols-4 grid-cols-2 w-11/12">
+          {numberAndParas.map(({ active, title }, index) => (
+            <div key={active} className="py-10">
+              <h5 className="text-3xl font-bold">
+                {active}
+                {index === 0 ? "K" : "+"}
+              </h5>
+              <p className="text-richblack-400 mt-3">{title}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* gird */}
-      <div className="grid grid-cols-4 w-11/12 mx-auto text-start py-24">
+      <div className="grid lg:grid-cols-4 md:grid-cols-2  w-11/12 mx-auto text-start py-24">
         {/* div1 -> largest */}
-        <div className="col-span-2 row-span-1 ">
+        <div className="lg:col-span-2 md:col-span-2 lg:row-span-1 lg:pb-0 pb-10">
           <h4 className="text-richblack-5 text-4xl font-semibold">
             World-Class Learning for{" "}
             <HighLightedTextComponent text={"Anyone, Anywhere"} />
@@ -81,8 +83,9 @@ const AboutUsSectionFour = () => {
         {gridData.map(({ heading, subheading }, index) => (
           <div
             className={`${
-              index === 2 ? "col-start-2 lg:h-64" : ""
-            } even:bg-richblack-700 odd:bg-richblack-800 p-8`}
+              index === 2 ? "lg:col-start-2 lg:h-64" : ""
+            } even:bg-richblack-700 odd:bg-richblack-800 p-8
+            }`}
             key={index}
           >
             <h5 className="text-lg text-richblack-5 mb-8 font-semibold">

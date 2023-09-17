@@ -73,7 +73,7 @@ const ContactFormComponent = ({ classname }) => {
       onSubmit={submitHandler}
       className={`${classname} flex flex-col gap-5`}
     >
-      <div className="flex lg:flex-row flex-col gap-5 w-full">
+      <div className="flex lg:flex-row md:flex-row flex-col gap-5 w-full">
         <FormRowComponent
           text={"First Name"}
           type={"text"}
@@ -102,7 +102,7 @@ const ContactFormComponent = ({ classname }) => {
         placeholder={"Enter email address"}
       />
 
-      <div className="flex lg:flex-row flex-col items-center">
+      <div className="flex flex-row items-center">
         <div>
           <p className="text-sm font-normal text-richblack-25 relative mb-[6px] w-[7rem]">
             Phone Number
@@ -127,9 +127,9 @@ const ContactFormComponent = ({ classname }) => {
             </select>
           </label>
         </div>
-        <div className="mt-6 w-[calc(100%-80px)]">
+        <div className="mt-[22px] -ml-5 w-[calc(100%-80px)]">
           <FormRowComponent
-            text={" "}
+            // text={" "}
             type={"number"}
             name={"phoneNum"}
             value={formData.phoneNum}

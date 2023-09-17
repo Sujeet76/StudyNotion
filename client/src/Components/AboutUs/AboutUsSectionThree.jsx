@@ -7,7 +7,7 @@ const AboutUsSectionThree = () => {
     <section className="py-[90px] flex justify-center items-center flex-col">
 
       {/* img with text */}
-      <div className="w-11/12 flex gap-24 justify-center items-center">
+      <div className="w-11/12 flex gap-24 lg:flex-row flex-col justify-center items-center pb-10">
         <div className="lg:w-[40%]">
           <h3 className="text-3xl font-semibold">
             <HighLightedTextComponent
@@ -33,7 +33,7 @@ const AboutUsSectionThree = () => {
         </div>
         <div className="relative">
           <div
-            className=" w-[300px] h-[250px] opacity-20 rounded-full absolute top-0 left-0 bg-transparent"
+            className="w-[300px] lg:h-[250px] opacity-20 rounded-full absolute top-0 left-0 bg-transparent"
             style={{
               boxShadow: "0px 0px 90px 30px #EC008C,0px 0px 67px 17px  #FC6767",
             }}
@@ -47,7 +47,7 @@ const AboutUsSectionThree = () => {
       </div>
 
       {/* vision */}
-      <div className="flex lg:flex-row flex-col gap-24 justify-center items-center lg:mt-20 w-11/12">
+      <div className="flex lg:flex-row flex-col gap-24 justify-center items-center lg:mt-20 w-11/12 py-10">
         <div className="lg:w-[40%]">
           <h4 className="text-3xl font-semibold">
             <HighLightedTextComponent

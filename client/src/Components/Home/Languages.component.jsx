@@ -12,13 +12,13 @@ const LanguagesComponent = () => {
           Your swiss knife for{" "}
           <HighLightedTextComponent text={"learning any language"} />
         </h1>
-        <p className="max-w-[66%] text-base text-richblack-700 font-inter font-[500] mt-3 text-center mx-auto">
+        <p className="lg:max-w-[66%] text-base text-richblack-700 font-inter font-[500] lg:mt-3 mt-6 text-center mx-auto">
           Using spin making learning multiple languages easy. with 20+ languages
           realistic voice-over, progress tracking, custom schedule and more.
         </p>
       </div>
 
-      <div className="flex w-11/12">
+      <div className="flex flex-col lg:flex-row items-center justify-center mt-8 lg:mt-0">
         <motion.img
           drag
           dragElastic={0.8}
@@ -28,6 +28,7 @@ const LanguagesComponent = () => {
           whileTap={{ cursor: "grabbing", scale: 0.9 }}
           src={img1}
           alt=""
+          className="object-contain  lg:-mr-32 "
         />
         <motion.img
           drag
@@ -36,7 +37,7 @@ const LanguagesComponent = () => {
           initial={{ x: 0, y: 0 }}
           whileHover={{ scale: 1.05, cursor: "grab" }}
           whileTap={{ cursor: "grabbing", scale: 0.9 }}
-          className="-ml-32"
+          className="object-contain lg:-mb-10 lg:-mt-0 -mt-12"
           src={img2}
           alt=""
         />
@@ -47,9 +48,10 @@ const LanguagesComponent = () => {
           initial={{ x: 0, y: 0 }}
           whileHover={{ scale: 1.05, cursor: "grab" }}
           whileTap={{ cursor: "grabbing", scale: 0.9 }}
-          className="-ml-[10rem]"
+          // className="lg:-ml-[10rem]"
           src={img3}
           alt=""
+          className="object-contain  lg:-ml-36 lg:-mt-5 -mt-16"
         />
       </div>
 

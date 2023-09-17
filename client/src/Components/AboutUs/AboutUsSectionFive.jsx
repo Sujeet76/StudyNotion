@@ -2,7 +2,7 @@ import { ContactFormComponent } from "../";
 
 const AboutUsSectionFive = () => {
   return (
-    <section className="pt-24 pb-4">
+    <section className="mt-14 pb-4">
       <div className="w-11/12 flex flex-col items-center justify-center gap-8 mx-auto">
         <div className="text-center">
           <h4 className="text-4xl text-richblack-5 font-semibold">

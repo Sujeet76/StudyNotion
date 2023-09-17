@@ -26,17 +26,17 @@ const WhatWeOfferComponent = () => {
         )}
       </div>
 
-      <div className="relative h-[600px]">
+      <div className="relative lg:h-[600px] shadow-lg rounded">
         <div className="shadow-[5px_-5px_50px_-5px] shadow-blue-200 rounded relative">
           <img
             src={TimelineImage}
             alt="timeline image"
-            className="shadow-[20px_20px_rgba(255,255,255)] rounded max-w-[714px] max-h-[545px]"
+            className="shadow-[20px_20px_rgba(255,255,255)] rounded lg:max-w-[714px] lg:max-h-[545px] object-cover"
           />
         </div>
-        <div className="lg:w-[511px] gap-4 lg:h-[128px] p-[52px] px-5 bg-caribbeangreen-700 flex lg:flex-row flex-col justify-center lg:justify-between mx-auto absolute bottom-[70px] right-[50%] transform lg:translate-x-1/2 lg:translate-y-1/2 rounded -translate-y-8 translate-x-40">
-          <div className="w-[40%] flex gap-6">
-            <span className="text-4xl text-white font-inter font-[700]">
+        <div className="lg:w-[511px] lg:gap-4 gap-[10px] lg:h-[128px]   bg-caribbeangreen-700 flex lg:flex-row flex-col justify-center items-center mx-auto absolute bottom-[70px] right-[50%] transform lg:translate-x-1/2 lg:translate-y-1/2 rounded translate-y-[-5%] translate-x-[7%] lg:p-0 py-4 px-3">
+          <div className="lg:w-[40%] w-[80%]  flex lg:gap-6 gap-4 justify-center items-center">
+            <span className="lg:text-4xl text-2xl text-white font-inter font-[700]">
               10
             </span>
             <span className="text-sm font-[500] font-inter text-caribbeangreen-300">
@@ -44,8 +44,8 @@ const WhatWeOfferComponent = () => {
             </span>
           </div>
           <div className="lg:border lg:border-caribbeangreen-500 lg:h-11"></div>
-          <div className="flex w-[40%] gap-6">
-            <span className="text-4xl text-white font-inter font-[700]">
+          <div className="flex lg:w-[35%] w-[80%] justify-center items-center lg:gap-6 gap-4">
+            <span className="lg:text-4xl text-2xl text-white font-inter font-[700]">
               250
             </span>
             <span className="text-sm font-[500] font-inter text-caribbeangreen-300">

@@ -37,9 +37,11 @@ const SectionOneComponent = () => {
             instructors.
           </p>
         </div>
-        <div className="flex gap-6 self-start lg:self-center">
-          <Button active={true}>Learn More</Button>
-          <Button>Book a Demo</Button>
+        <div className="flex gap-6 self-center">
+          <Button active={true} linkTo="/login">
+            Learn More
+          </Button>
+          <Button linkTo="/signup">Book a Demo</Button>
         </div>
         <div className="mx-3 my-7 shadow-[10px_-5px_50px_-5px] shadow-blue-200 rounded-lg">
           <video
@@ -51,7 +53,8 @@ const SectionOneComponent = () => {
             <source src={banner} type="video/mp4" />
           </video>
         </div>
-        <div className="flex flex-col lg:flex-row gap-8 lg:justify-between items-center w-11/12 lg:mx-auto  lg:mt-[84px]">
+        {/* first card container */}
+        <div className="flex flex-col lg:flex-row md:flex-row gap-8 lg:justify-between w-11/12 lg:mx-auto items-center  lg:mt-[84px]">
           {/* left */}
           <CodingLeftComponent
             heading={
@@ -78,13 +81,14 @@ const SectionOneComponent = () => {
           {/* right */}
           <CodingBlockComponent
             codeContent={
-              '<!DOCTYPE html>\n<html>\n<head>\n<title>Example</title>\n<link rel="stylesheet"href="styles.css">\n</head>\n<body>\n<h1><a href="/">Header</a></h1>\n<nav><a href="one/">One</a>\n<a href="two/">Two</a><a href="three/">Three</a>\n</nav>\n</body>'
+              '<!DOCTYPE html>\n<html>\n<head>\n<title>Example</title>\n<link href="styles.css">\n</head>\n<body>\n<h1><a href="/">Header</a></h1>\n<nav>\n<a href="one">One</a>\n<a href="two">Two</a>\n<a href="#">Three</a>\n</nav>\n</body>'
             }
             bgColor={"codeblock1"}
             fontColor={"text-yellow-25"}
           />
         </div>
-        <div className="flex flex-col gap-8  lg:flex-row-reverse lg:justify-between items-center w-11/12 lg:mx-auto lg:mt-[88px]">
+        {/* second card container */}
+        <div className="flex flex-col gap-8 md:flex-row-reverse  lg:flex-row-reverse lg:justify-between w-11/12 items-center lg:mx-auto lg:mt-[88px] md:mt-[88px]">
           {/* left */}
           <CodingLeftComponent
             heading={
@@ -109,7 +113,7 @@ const SectionOneComponent = () => {
           {/* right */}
           <CodingBlockComponent
             codeContent={
-              '<!DOCTYPE html>\n<html>\n<head>\n<title>Example</title>\n<link rel="stylesheet"href="styles.css">\n</head>\n<body>\n<h1><a href="/">Header</a></h1>\n<nav><a href="one/">One</a>\n<a href="two/">Two</a><a href="three/">Three</a>\n</nav>\n</body>'
+              '<!DOCTYPE html>\n<html>\n<head>\n<title>Example</title>\n<link href="styles.css">\n</head>\n<body>\n<h1><a href="/">Header</a></h1>\n<nav>\n<a href="one">One</a>\n<a href="two">Two</a>\n<a href="#">Three</a>\n</nav>\n</body>'
             }
             bgColor={"codeblock2"}
             fontColor={"text-richblack-5"}

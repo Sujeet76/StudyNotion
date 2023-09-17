@@ -10,7 +10,7 @@ import {
 } from "framer-motion";
 
 const CardAndCoding = ({ codeContent, bgColor, fontColor }) => {
-  const numbersArray = Array.from({ length: 12 }, (_, index) => index);
+  const numbersArray = Array.from({ length: 14 }, (_, index) => index);
   let mouseX = useMotionValue(0);
   let mouseY = useMotionValue(0);
   const controls = useAnimation();
@@ -38,7 +38,7 @@ const CardAndCoding = ({ codeContent, bgColor, fontColor }) => {
   return (
     <Tilt options={option}>
       <motion.div
-        className="flex self-start gap-2 code-border py-5 w-[358px] lg:w-[470px] relative overflow-hidden"
+        className="flex self-start gap-2 text-sm code-border py-5 w-[345px] h-fit lg:w-[470px] relative overflow-hidden"
         onMouseMove={handleMouseMove}
         whileHover={{ scale: 1.1 }}
       >
@@ -57,7 +57,7 @@ const CardAndCoding = ({ codeContent, bgColor, fontColor }) => {
             return <p key={index}>{index + 1}</p>;
           })}
         </div>
-        <div className={`font-sm font-mono font-[700] ${fontColor} w-[90%]`}>
+        <div className={`font-mono font-[700] ${fontColor} w-[90%]`}>
           <TypeAnimation
             sequence={[`${codeContent}`, 1000, ""]}
             speed={50}
@@ -65,7 +65,6 @@ const CardAndCoding = ({ codeContent, bgColor, fontColor }) => {
               whiteSpace: "pre-line",
               wordBreak: "all",
               display: "block",
-              fontSize: "14px",
               lineHeight: "22px",
               fontWeight: "700",
               fontFamily: "Roboto Mono",

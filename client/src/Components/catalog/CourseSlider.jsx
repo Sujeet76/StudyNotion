@@ -50,6 +50,9 @@ const CourseSlider = ({ data, id }) => {
           1024: {
             slidesPerView: 3,
           },
+          768: {
+            slidesPerView: 2,
+          },
         }}
         modules={[FreeMode, Navigation, Mousewheel]}
         onSlideChange={handelSlideChange}
