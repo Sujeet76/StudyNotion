@@ -7,7 +7,7 @@ import uploadToCloudinary, {
 import { CLOUD_FOLDER } from "../../config/index.js";
 import CustomErrorHandler from "../../services/customErrorHandler.js";
 
-import convertSecondsToDuration from "../../../client/src/utils/convertTime.js";
+import convertSecondsToDuration from "../../utils/conversion.js";
 
 const updateProfile = async (req, res, next) => {
   try {
