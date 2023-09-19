@@ -55,6 +55,7 @@ const ImageComponent = () => {
               type="file"
               name="profile"
               id="img"
+              accept="image/png, image/gif, image/jpeg"
               onChange={imgHandler}
               className="hidden"
             />
