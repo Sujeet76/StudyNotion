@@ -113,7 +113,7 @@ const CoursePage = () => {
 
             {/* instructor name */}
             <p className="text-richblack-25 mt-3">
-              Created by {courseData?.courseDetail?.instructor?.name}
+              Created by {courseData?.courseDetail?.instructor?.name ?? "Admin"}
             </p>
 
             {/* created data and language */}
@@ -137,7 +137,7 @@ const CoursePage = () => {
       <div className="w-11/12 mx-auto my-8 mb-11">
         <div className="w-full lg:hidden block h-[450px] md:h-[500px]"></div>
         <div className="lg:w-[66%] lg:max-xl:w-[60%] lg:mr-auto mt-8  w-full">
-          <div className="p-8 border border-richblack-700">
+          <div className="p-8 border border-richblack-700 mt-[7rem]">
             <h6 className="text-3xl font-medium text-richblack-5">
               What you'll learn
             </h6>
@@ -188,11 +188,11 @@ const CoursePage = () => {
             <div className="flex items-center gap-3 mt-3">
               <img
                 className="w-[3.125rem] h-[3.125] rounded-full"
-                src={courseData?.courseDetail?.instructor?.img}
-                alt={courseData?.courseDetail?.instructor?.name}
+                src={courseData?.courseDetail?.instructor?.img ?? "https://api.dicebear.com/6.x/initials/svg?seed=admin kumar"}
+                alt={courseData?.courseDetail?.instructor?.name ?? "admin"}
               />
               <span className="font-medium">
-                {courseData?.courseDetail?.instructor?.name}
+                {courseData?.courseDetail?.instructor?.name ?? "admin"}
               </span>
             </div>
             <p className="text-sm text-richblack-50 mt-3">

@@ -106,94 +106,92 @@ const CreateSubSection = ({
   };
 
   return (
-    <AnimatePresence>
+    <motion.div
+      className="fixed inset-0 z-[1000] !mt-0 grid place-items-center overflow-auto bg-white bg-opacity-10 backdrop-blur-sm"
+      key="subSectionModal"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.1 }}
+    >
       <motion.div
-        className="fixed inset-0 z-[1000] !mt-0 grid place-items-center overflow-auto bg-white bg-opacity-10 backdrop-blur-sm"
-        key="subSectionModal"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ scale: 0 }}
-        transition={{ duration: 0.1 }}
+        className="my-10 w-11/12 max-w-[700px] rounded-lg border border-richblack-400 bg-richblack-800"
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0 }}
       >
-        <motion.div
-          className="my-10 w-11/12 max-w-[700px] rounded-lg border border-richblack-400 bg-richblack-800"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          exit={{ scale: 0 }}
-        >
-          <div className="flex items-center justify-between rounded-t-lg bg-richblack-700 p-5">
-            <h4 className="text-xl font-semibold text-richblack-5">
-              {add
-                ? "Add lecture"
-                : view
-                ? "view Lecture info"
-                : edit
-                ? "Edit Lecture"
-                : ""}
-            </h4>
-            <button onClick={() => setModalData(null)} disabled={loading}>
-              <CrossIcon />
-            </button>
-          </div>
-          <div>
-            <form
-              className="flex flex-col gap-6 p-8"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <Upload
-                label="Lecture Video"
-                name="lectureUrl"
-                register={register}
-                errors={errors}
-                setVal={setValue}
-                video={true}
-                viewData={view ? modalData.videoUrl : null}
-                editData={edit ? modalData.videoUrl : null}
-              />
-              <ReactFormRow
-                type="text"
-                required={true}
-                id="lectureTitle"
-                label="Lecture Title"
-                register={register}
-                errors={errors}
-                error="lecture title is required"
-                placeholder="Enter Lecture Title"
-              />
-              <ReactFormTextarea
-                required={true}
-                id="lectureDescription"
-                label="Lecture Description"
-                register={register}
-                errors={errors}
-                error="lecture description is required"
-                placeholder="write something about lecture"
-              />
-              {!view && (
-                <div className="flex gap-6 self-end">
-                  {edit && (
-                    <ButtonDashboard
-                      typeBtn="button"
-                      clickHandler={() => setModalData(null)}
-                      isDisabled={loading}
-                    >
-                      Cancel
-                    </ButtonDashboard>
-                  )}
+        <div className="flex items-center justify-between rounded-t-lg bg-richblack-700 p-5">
+          <h4 className="text-xl font-semibold text-richblack-5">
+            {add
+              ? "Add lecture"
+              : view
+              ? "view Lecture info"
+              : edit
+              ? "Edit Lecture"
+              : ""}
+          </h4>
+          <button onClick={() => setModalData(null)} disabled={loading}>
+            <CrossIcon />
+          </button>
+        </div>
+        <div>
+          <form
+            className="flex flex-col gap-6 p-8"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <Upload
+              label="Lecture Video"
+              name="lectureUrl"
+              register={register}
+              errors={errors}
+              setVal={setValue}
+              video={true}
+              viewData={view ? modalData.videoUrl : null}
+              editData={edit ? modalData.videoUrl : null}
+            />
+            <ReactFormRow
+              type="text"
+              required={true}
+              id="lectureTitle"
+              label="Lecture Title"
+              register={register}
+              errors={errors}
+              error="lecture title is required"
+              placeholder="Enter Lecture Title"
+            />
+            <ReactFormTextarea
+              required={true}
+              id="lectureDescription"
+              label="Lecture Description"
+              register={register}
+              errors={errors}
+              error="lecture description is required"
+              placeholder="write something about lecture"
+            />
+            {!view && (
+              <div className="flex gap-6 self-end">
+                {edit && (
                   <ButtonDashboard
-                    typeBtn="submit"
-                    isActive={true}
+                    typeBtn="button"
+                    clickHandler={() => setModalData(null)}
                     isDisabled={loading}
                   >
-                    {edit ? "Save Edits" : add ? "Add subsection" : ""}
+                    Cancel
                   </ButtonDashboard>
-                </div>
-              )}
-            </form>
-          </div>
-        </motion.div>
+                )}
+                <ButtonDashboard
+                  typeBtn="submit"
+                  isActive={true}
+                  isDisabled={loading}
+                >
+                  {edit ? "Save Edits" : add ? "Add subsection" : ""}
+                </ButtonDashboard>
+              </div>
+            )}
+          </form>
+        </div>
       </motion.div>
-    </AnimatePresence>
+    </motion.div>
   );
 };
 

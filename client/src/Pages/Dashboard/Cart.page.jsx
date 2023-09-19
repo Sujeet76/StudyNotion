@@ -22,13 +22,16 @@ const CartPage = () => {
       </div>
 
       {cartItem.length > 0 ? (
-        <div className="mt-7 flex gap-x-10">
+        <div className="mt-7 flex gap-10 lg:flex-row flex-col-reverse">
+          {/* card */}
           <div className="flex flex-col gap-y-10">
             {cartItem.map((content) => (
               <CartCard content={content} key={content._id} />
             ))}
           </div>
-          <div className="p-6 bg-richblack-800 border border-richblack-700 self-start rounded-lg flex flex-col gap-4 w-[30%]">
+
+          {/* total price */}
+          <div className="p-6 bg-richblack-800 border border-richblack-700 self-start rounded-lg flex flex-col gap-4 lg:w-[30%] md:w-[50%] w-full lg:sticky top-4">
             <p className="text-richblack-200 font-semibold">Total:</p>
             <p className="text-2xl font-semibold text-yellow-50">
               Rs. {totalPrice}

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import uniqid from "uniqid";
-import { FaAngleLeft } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 import { AnimatePresence, motion } from "framer-motion";
@@ -27,21 +26,10 @@ const ProgressBar = ({ className }) => {
 
   return (
     <>
-      {/* back button */}
-      <div className="mt-6 mb-9">
-        <button
-          className="text-richblack-300 text-sm flex justify-center items-center gap-1 mb-3"
-          onClick={() => navigate(-1)}
-        >
-          <FaAngleLeft />
-          Back to Dashboard
-        </button>
-      </div>
-
       {/* steps bar */}
-      <header className={`relative overflow-hidden mb-16 ${className}`}>
-        <div className="border-t-2 border-dashed w-full border-richblack-600 absolute top-[30%] left-[8%] lg:max-w-[37rem] " />
-        <div className="flex justify-between relative">
+      <header className={`relative overflow-hidden mt-9 mb-16 ${className}`}>
+        <div className="flex justify-between relative overflow-hidden">
+          <div className="border-t-2 border-dashed w-[calc(100%-100px)] border-richblack-600 absolute top-[30%] mx-auto left-[70px]" />
           {tabs.map(({ id, label }) => (
             <Step step={id} currentStep={step} label={label} key={id} />
           ))}
@@ -60,7 +48,7 @@ const Step = ({ step, currentStep, label }) => {
       : "complete";
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center relative">
       <motion.div
         className="w-[38px] h-[38px] rounded-full text-richblack-300 text-center font-lg  border  flex justify-center items-center"
         animate={status}

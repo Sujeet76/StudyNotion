@@ -19,8 +19,11 @@ import { Button, ButtonDashboard } from "../../";
 import { updateCourseProgress } from "../../../services/Operation/CourseApi";
 import { formattedDate } from "../../../utils/dateFormatter";
 
-const Player = () => {
+const Player = ({ setReviewModal, setVideoHeight }) => {
   const dispatch = useDispatch();
+
+  const video = useRef(null);
+
   const { courseSectionData, courseEntireData, completedLecture } = useSelector(
     (store) => store.viewCourse
   );
@@ -33,7 +36,17 @@ const Player = () => {
   const { courseId, sectionId, subsectionId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const videoRef = useRef(null);
   const playerRef = useRef(null);
+
+  useEffect(() => {
+    if (videoRef) {
+      setVideoHeight(
+        videoRef.current?.offsetHeight + videoRef.current?.offsetTop
+      );
+    }
+    console.log(videoRef);
+  }, [videoRef]);
 
   // setFirstVideo
   useEffect(() => {
@@ -147,9 +160,12 @@ const Player = () => {
   };
 
   return (
-    <div className="px-4 pb-9">
+    <div className="lg:px-4 md:px-4 pb-9 lg:pb-9">
       {currentVideo ? (
-        <div className="w-full rounded-2xl overflow-hidden shadow-md  shadow-richblack-800 mt-4">
+        <div
+          className="w-full lg:rounded-2xl lg:relative md:relative sticky top-0 md:rounded-2xl overflow-hidden shadow-md  shadow-richblack-800 lg:mt-4 md:mt-4"
+          ref={videoRef}
+        >
           <VideoPlayer
             src={currentVideo.videoUrl}
             aspectRatio="16:9"
@@ -222,6 +238,15 @@ const Player = () => {
       )}
 
       <div className="mt-6 pl-2">
+        {/* review button */}
+        <Button
+          active={true}
+          className="my-4"
+          clickHandler={() => setReviewModal(true)}
+        >
+          Add Review
+        </Button>
+
         <p className="text-sm font-bold text-richblack-200">Lecture Name : </p>
         <h1 className="text-2xl font-semibold text-richblack-25">
           {currentVideo?.title}

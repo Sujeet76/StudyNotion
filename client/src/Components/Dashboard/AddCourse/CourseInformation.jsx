@@ -1,16 +1,19 @@
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { motion, AnimatePresence } from "framer-motion";
 import uniqid from "uniqid";
+
 import { HiOutlineCurrencyRupee } from "react-icons/hi";
 import { FaAngleRight } from "react-icons/fa";
 
 import { ButtonDashboard, ReactFormRow, ReactFormTextarea } from "../../";
 import TagAndChip from "./TagAndChip";
-import { useEffect, useState } from "react";
 import {
   createCourse,
   editCourse,
   getCategory,
 } from "../../../services/Operation/CourseApi";
+
 import Requirement from "./Requirement";
 import { useSelector, useDispatch } from "react-redux";
 import Upload from "./uploadFiles";
@@ -19,7 +22,9 @@ import { setSteps } from "../../../Slice/course";
 const CourseInformation = ({ className }) => {
   const [loading, setLoading] = useState(false);
 
-  const { edit, course, categories } = useSelector((store) => store.course);
+  const { edit, course, categories, step } = useSelector(
+    (store) => store.course
+  );
   const { token } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
 
@@ -130,7 +135,23 @@ const CourseInformation = ({ className }) => {
   };
 
   return (
-    <div className={`${className}`}>
+    <motion.div
+      className={`${className}`}
+      initial={{
+        opacity: 0,
+        x: "-100%",
+      }}
+      animate={{
+        opacity: 1,
+        x: "0%",
+      }}
+      exit={{
+        opacity: 0,
+      }}
+      transition={{
+        type:"easeInOut"
+      }}
+    >
       <form
         id="courseInfo"
         className="p-6 bg-richblack-800 border border-richblack-700 rounded-lg flex flex-col gap-7"
@@ -147,7 +168,6 @@ const CourseInformation = ({ className }) => {
           register={register}
           placeholder="Enter Course Title"
         />
-
         {/* description */}
         <ReactFormTextarea
           label="Course Short Description"
@@ -158,7 +178,6 @@ const CourseInformation = ({ className }) => {
           error="Description is required"
           placeholder="Enter Description"
         />
-
         {/* price */}
         <ReactFormRow
           type="number"
@@ -173,7 +192,6 @@ const CourseInformation = ({ className }) => {
         >
           <HiOutlineCurrencyRupee className="absolute top-1/2 left-3 -translate-y-1/2 text-2xl text-richblack-400" />
         </ReactFormRow>
-
         {/* category */}
         <label htmlFor="category" className="w-full relative">
           <p className="text-sm font-normal text-richblack-25 relative mb-[6px]">
@@ -213,7 +231,6 @@ const CourseInformation = ({ className }) => {
             </span>
           )}
         </label>
-
         {/* tag */}
         <TagAndChip
           label="Tag"
@@ -225,7 +242,6 @@ const CourseInformation = ({ className }) => {
           setVal={setValue}
           placeholder={"Press Enter to create tag"}
         />
-
         <Upload
           label=" Course Thumbnail"
           name="thumbnail"
@@ -234,7 +250,6 @@ const CourseInformation = ({ className }) => {
           setVal={setValue}
           editData={edit ? course?.thumbnail : null}
         />
-
         {/* benefits */}
         <ReactFormTextarea
           label="Benefits of the course"
@@ -245,7 +260,6 @@ const CourseInformation = ({ className }) => {
           error="Benefits is required"
           placeholder="Enter Benefits of the course"
         />
-
         {/* requirements */}
         <Requirement
           label="Requirements/Instructions"
@@ -259,20 +273,18 @@ const CourseInformation = ({ className }) => {
           setVal={setValue}
         />
       </form>
-
       <div className="flex gap-4 mt-6 justify-end">
         {edit && (
           <ButtonDashboard clickHandler={() => dispatch(setSteps(2))}>
             Continue Without Saving
           </ButtonDashboard>
         )}
-
         <ButtonDashboard typeBtn="submit" formId={"courseInfo"} isActive={true}>
           {edit ? "Save Changes" : "Next"}
           <FaAngleRight />
         </ButtonDashboard>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

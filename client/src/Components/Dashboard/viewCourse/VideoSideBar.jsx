@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Button } from "../../";
 import { ArrowUpIcon } from "../../CoursePage/Icon";
@@ -18,20 +18,9 @@ const VideoSideBar = ({ setReviewModal }) => {
   const param = useParams();
   const navigate = useNavigate();
 
-  const [clicked, setClicked] = useState(param.sectionId);
-
-  // useEffect(() => {
-  //   onToggle(param.courseId);
-  // }, []);
-
-  const onToggle = (id) => {
-    if (id === clicked) return setClicked(null);
-    setClicked(id);
-  };
-
   return (
-    <aside className="min-h-[calc(100vh-3.625rem)] max-w-[20rem] flex justify-start bg-richblack-800 border-r-2 border-r-richblack-700  flex-col gap-7">
-      <div className="h-[calc(100vh-3.625rem)] overflow-auto">
+    <aside className="lg:h-[calc(100vh-3.625rem)] h-[calc(100vh-82px)] max-w-[20rem] lg:flex md:flex justify-start bg-richblack-800 border-r-2 border-r-richblack-700  flex-col gap-7 pb-10 overflow-auto hidden">
+      <div className="">
         <div className="mt-9">
           {/* name and add review and back button */}
           <div className="px-5 border-richblack-600">
@@ -61,19 +50,10 @@ const VideoSideBar = ({ setReviewModal }) => {
           </div>
           {/* section data */}
           <div className="w-full mt-6">
-            <ul>
-              {/* section name */}
-              {courseSectionData.map((content) => (
-                <AccordionItems
-                  content={content}
-                  onToggle={onToggle}
-                  active={clicked === content._id}
-                  key={content._id}
-                  navigate={navigate}
-                  completedLecture={completedLecture}
-                />
-              ))}
-            </ul>
+            <AccordionItems
+              courseSectionData={courseSectionData}
+              completedLecture={completedLecture}
+            />
           </div>
         </div>
       </div>

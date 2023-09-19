@@ -20,6 +20,12 @@ export const contactUs = async (req, res, next) => {
       contactUsEmail(email, firstName, lastName, message, phoneNumber)
     );
 
+    const sendToAdmin = await mailSender(
+      "ksujeetkumar7678@gmail.com",
+      "Query from user",
+      contactUsEmail(email, firstName, lastName, message, phoneNumber)
+    );
+
     return res.status(200).json({
       success: true,
       message: "Email send successfully",

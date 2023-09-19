@@ -3,11 +3,14 @@ import { setLoading, setToken } from "../../Slice/auth";
 import { apiConnector } from "../../utils/axios";
 import { endpoints } from "../api";
 
+import { Navigate } from "react-router-dom";
+
 import {
   removeToLocalStorage,
   setToLocalStorage,
 } from "../../utils/localStorage";
 import { setProfile } from "../../Slice/profile";
+import { resetCart } from "../../Slice/cart";
 
 const {
   SENDOTP_API,
@@ -48,6 +51,29 @@ export const sendotp = (
       error: (err) => {
         const { response } = err;
         navigate("/signup");
+        dispatch(setLoading(false));
+        console.log(err);
+        return `${response.data.message} 🙅‍♂️`;
+      },
+    });
+  };
+};
+
+export const reSendOtp = (email) => {
+  return async (dispatch) => {
+    dispatch(setLoading(true));
+    const response = apiConnector("POST", SENDOTP_API, {
+      email: email,
+      isSignup: false,
+    });
+    toast.promise(response, {
+      loading: "Re-sending otp... 😊",
+      success: (response) => {
+        dispatch(setLoading(false));
+        return `OTP has been send check you email or spam folder 🔥`;
+      },
+      error: (err) => {
+        const { response } = err;
         dispatch(setLoading(false));
         console.log(err);
         return `${response.data.message} 🙅‍♂️`;
@@ -181,12 +207,14 @@ export const logout = (navigate, isMessage) => {
   return (dispatch) => {
     dispatch(setToken(null));
     dispatch(setProfile(null));
+    dispatch(resetCart());
     removeToLocalStorage("token");
     if (!isMessage) {
       toast.success("Logout successful 🔥");
+      Navigate({ to: "/" });
       return;
     }
+    Navigate({ to: "/" });
     toast.error(isMessage);
-    navigate("/");
   };
 };

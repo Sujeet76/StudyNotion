@@ -13,7 +13,7 @@ const tips = [
 
 const UploadTip = () => {
   return (
-    <aside className="p-6 lg:w-[53%] sticky top-[4%] border rounded-lg border-richblack-700 bg-richblack-800 self-start">
+    <aside className="p-6 lg:w-[53%] lg:sticky md:sticky top-[4%] border rounded-lg border-richblack-700 bg-richblack-800 self-start">
       <h2 className="text-lg text-richblack-5 font-semibold">
         ⚡ Course Upload Tips
       </h2>

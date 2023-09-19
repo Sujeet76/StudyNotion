@@ -33,8 +33,6 @@ const DashboardInstructor = () => {
     })();
   }, []);
 
-  console.log(instructorCourse);
-
   const totalAmount = chartData?.reduce(
     (acc, curr) => acc + curr.totalAmountGenerated,
     0
@@ -58,11 +56,11 @@ const DashboardInstructor = () => {
         </div>
         {isLoading ? (
           <div className="flex justify-center items-center mt-[100px]">
-              <Loader />
+            <Loader />
           </div>
         ) : instructorCourse?.length > 0 ? (
           <div>
-            <div className="my-4 flex h-[450px] space-x-4">
+            <div className="my-4 flex lg:flex-row md:flex-row flex-col lg:h-[450px] gap-4">
               {totalAmount > 0 || totalStudent > 0 ? (
                 <PiChart chartData={chartData} />
               ) : (
@@ -75,6 +73,7 @@ const DashboardInstructor = () => {
                   </p>
                 </div>
               )}
+
               {/* Total Statistics */}
               <div className="flex min-w-[250px] flex-col rounded-md bg-richblack-800 p-6">
                 <p className="text-lg font-bold text-richblack-5">Statistics</p>
@@ -100,6 +99,8 @@ const DashboardInstructor = () => {
                 </div>
               </div>
             </div>
+
+            {/* card */}
             <div className="rounded-md bg-richblack-800 p-6">
               {/* Render 3 courses */}
               <div className="flex items-center justify-between">
@@ -112,28 +113,22 @@ const DashboardInstructor = () => {
                   </p>
                 </Link>
               </div>
-              <div className="my-4 flex items-start space-x-6">
+              <div className="my-4 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
                 {instructorCourse.slice(0, 3).map((course) => (
-                  <div key={course._id} className="w-1/3">
+                  <div key={course._id} className="w-full">
                     <img
                       src={course.content.thumbnail}
                       alt={course.content.courseName}
                       className="h-[201px] w-full rounded-md object-cover"
                     />
                     <div className="mt-3 w-full">
-                      <p className="text-sm font-medium text-richblack-50">
+                      <p className="text-base font-medium text-richblack-50">
                         {course.content.courseName}
                       </p>
-                      <div className="mt-1 flex items-center space-x-2">
-                        <p className="text-xs font-medium text-richblack-300">
-                          {course.content.studentEnrolled?.length} students
-                        </p>
-                        <p className="text-xs font-medium text-richblack-300">
-                          |
-                        </p>
-                        <p className="text-xs font-medium text-richblack-300">
-                          Rs. {course.content.price}
-                        </p>
+                      <div className="mt-1 flex items-center space-x-2 text-sm font-medium text-richblack-300">
+                        <p>{course.content.studentEnrolled?.length} students</p>
+                        <p>|</p>
+                        <p>Rs. {course.content.price}</p>
                       </div>
                     </div>
                   </div>
@@ -142,7 +137,7 @@ const DashboardInstructor = () => {
             </div>
           </div>
         ) : (
-          <div></div>
+          <div>Nothing to display</div>
         )}
       </div>
     </div>

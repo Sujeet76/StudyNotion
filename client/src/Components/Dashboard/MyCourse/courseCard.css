@@ -1,0 +1,14 @@
+@media screen and (max-width: 40rem) {
+  .extra-small {
+    @apply flex-col gap-3 ;
+  }
+  .extra-small img{
+    @apply self-start;
+  }
+  .extra-small div{
+    @apply ml-0 gap-1
+  }
+  .extra-small div div{
+    @apply mt-2
+  }
+}

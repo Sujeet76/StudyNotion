@@ -4,9 +4,12 @@ import bcrypt from "bcrypt";
 import CustomErrorHandler from "../../services/customErrorHandler.js";
 import JwtService from "../../services/JwtService.js";
 
+import passwordUpdated from "../../template/updatePassword.js";
+
 // importing models
 import { OTP, User, Profile } from "../../models/index.js";
 import Joi from "joi";
+import mailSender from "../../utils/mailSender.util.js";
 
 // generateOTP
 const generateOtp = async (req, res, next) => {
@@ -18,7 +21,7 @@ const generateOtp = async (req, res, next) => {
       password,
       confirmPassword,
       accountType,
-      isSignup,
+      isSignup = true,
     } = req.body;
     // checking user exist
     const userExist = await User.exists({ email });
@@ -286,7 +289,7 @@ const changePassword = async (req, res, next) => {
   try {
     const userId = req.user.id;
     const { currentPassword, ...requestBody } = req.body;
-    // cl;
+
     const userDetails = await User.findById(userId);
     if (!userDetails) {
       return next(
@@ -348,7 +351,11 @@ const changePassword = async (req, res, next) => {
     if (!updateUser) {
       return next(error);
     }
-
+    const response = await mailSender(
+      updateUser.email,
+      "Password updated successfully",
+      passwordUpdated(updateUser.email, updateUser.name)
+    );
     return res.status(200).json({
       success: true,
       message: `Password update successfully`,

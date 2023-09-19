@@ -8,6 +8,7 @@ import deleteSvg from "../../assets/delete.svg";
 
 import {
   ButtonDashboard,
+  ConfirmationModal,
   ContainerDashboard,
   FormRowComponent,
   ImageComponent,
@@ -17,6 +18,7 @@ import {
   changePassword,
   deleteUser,
 } from "../../services/Operation/SettingApi";
+import { AnimatePresence } from "framer-motion";
 
 const initialState = {
   currentPassword: "",
@@ -32,6 +34,7 @@ const SettingPage = () => {
   const [eye, setEye] = useState(false);
   const [eye2, setEye2] = useState(false);
   const [formData, setFormData] = useState(initialState);
+  const [confirmationModal, setConfirmationModal] = useState(null);
 
   const collectFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -44,7 +47,7 @@ const SettingPage = () => {
     setFormData(initialState);
   };
 
-  const deleteHandler = (e) => {
+  const deleteHandler = () => {
     dispatch(deleteUser(token, navigate));
   };
 
@@ -120,12 +123,15 @@ const SettingPage = () => {
             </div>
           </div>
 
-          <div className="bg-pink-900  border border-pink-600 rounded-lg p-8 px-12 w-full flex gap-5">
-            <img src={deleteSvg} alt={"delete icon"} className="self-start" />
-            <div>
+          <div className="bg-pink-900  border border-pink-600 rounded-lg p-8 px-12 w-full flex flex-col gap-5 text-start">
+            {/* delete icon and message */}
+            <div className="flex gap-4 items-center">
+              <img src={deleteSvg} alt={"delete icon"} className="self-start" />
               <h4 className="text-lg font-bold text-pink-5 mb-2">
                 Delete Account
               </h4>
+            </div>
+            <div className="flex flex-col gap-3">
               <p className="text-sm font-medium text-pink-25 mb-[2px]">
                 Would you like to delete account?
               </p>
@@ -134,9 +140,19 @@ const SettingPage = () => {
                 remove all the contain associated with it.
               </p>
               <button
-                className="text-base text-pink-300 font-medium italic mt-2"
+                className="text-base text-pink-300 font-medium italic text-start hover:scale-110 mt-2"
                 disabled={profileLoading || authLoading}
-                onClick={deleteHandler}
+                onClick={() => {
+                  setConfirmationModal({
+                    text1: "Do you want to delete this account ?",
+                    text2:
+                      "All the data related to this account will be deleted",
+                    btn1Text: "Delete",
+                    btn2Text: "Cancel",
+                    btn1Handler: deleteHandler,
+                    btn2Handler: () => setConfirmationModal(null),
+                  });
+                }}
               >
                 I want to delete my account.
               </button>
@@ -144,6 +160,11 @@ const SettingPage = () => {
           </div>
         </div>
       </div>
+      <AnimatePresence>
+        {confirmationModal && (
+          <ConfirmationModal modalData={confirmationModal} />
+        )}
+      </AnimatePresence>
     </main>
   );
 };

@@ -40,7 +40,7 @@ const PersonalInfoFormComponent = () => {
           {/* form files */}
           <div className="flex flex-col gap-5">
             {/* name and profession */}
-            <div className="flex gap-6">
+            <div className="flex lg:md:flex-row flex-col gap-6">
               <FormRowComponent
                 text="Display Name"
                 type="text"
@@ -61,7 +61,7 @@ const PersonalInfoFormComponent = () => {
               />
             </div>
             {/* date of birth and gender */}
-            <div className="flex gap-6">
+            <div className="flex lg:md:flex-row flex-col gap-6">
               {/* date of birth */}
               <FormRowComponent
                 text="Date Of Birth"
@@ -81,11 +81,11 @@ const PersonalInfoFormComponent = () => {
                     *
                   </sup>
                 </p>
-                <div className="w-full h-12 rounded-[8px] p-[0.75rem] text-base text-richblack-25 shadow-form bg-richblack-700 focus:outline-none focus:ring focus:ring-richblack-700 flex gap-12">
+                <div className="w-full rounded-[8px] p-[0.75rem] text-base text-richblack-25 shadow-form bg-richblack-700 focus:outline-none focus:ring focus:ring-richblack-700 flex md:gap-8 gap-4 flex-wrap lg:gap-12">
                   {/* male */}
                   <label
                     htmlFor="male"
-                    className="flex items-center gap-3 text-richblack-200 font-[500]"
+                    className="flex items-center lg:md:gap-3 gap-2 text-richblack-200 font-[500]"
                   >
                     <input
                       type="radio"
@@ -100,7 +100,7 @@ const PersonalInfoFormComponent = () => {
                   {/* female */}
                   <label
                     htmlFor="female"
-                    className="flex items-center gap-3 text-richblack-200 font-[500]"
+                    className="flex items-center lg:md:gap-3 gap-2 text-richblack-200 font-[500]"
                   >
                     <input
                       type="radio"
@@ -115,7 +115,7 @@ const PersonalInfoFormComponent = () => {
                   {/* other */}
                   <label
                     htmlFor="other"
-                    className="flex items-center gap-3 text-richblack-200 font-[500]"
+                    className="flex items-center lg:md:gap-3 gap-2 text-richblack-200 font-[500]"
                   >
                     <input
                       type="radio"
@@ -130,10 +130,11 @@ const PersonalInfoFormComponent = () => {
                 </div>
               </div>
             </div>
+
             {/* phone number and about */}
-            <div className="flex gap-6">
+            <div className="flex lg:md:flex-row flex-col gap-6">
               {/* phone number */}
-              <div className="flex lg:flex-row flex-col items-center w-full self-start">
+              <div className="flex flex-row items-center w-full self-start">
                 {/* country code */}
                 <div>
                   <p className="text-sm font-normal text-richblack-25 relative mb-[6px] w-[7rem]">
@@ -160,7 +161,7 @@ const PersonalInfoFormComponent = () => {
                   </label>
                 </div>
                 {/* phone number */}
-                <div className="mt-5 -ml-[18px] w-[calc(100%-80px)]">
+                <div className="mt-5 -ml-[20px] w-[calc(100%-80px)]">
                   <FormRowComponent
                     text={" "}
                     type={"number"}
@@ -184,7 +185,7 @@ const PersonalInfoFormComponent = () => {
                   value={formData.about}
                   onChange={collectFormData}
                   placeholder="Write something about yourself"
-                  className="autofill:bg-richblack-700  w-full rounded-[8px] p-[0.75rem] text-base text-richblack-25 shadow-form bg-richblack-700 focus:outline-none focus:ring focus:ring-richblack-600 h-12"
+                  className="autofill:bg-richblack-700  w-full rounded-[8px] p-[0.75rem] text-base text-richblack-25 shadow-form bg-richblack-700 focus:outline-none focus:ring focus:ring-richblack-600 h-24"
                 ></textarea>
               </label>
             </div>

@@ -1,10 +1,4 @@
-const contactUsEmail = (
-  email,
-  firstName,
-  lastName,
-  message,
-  phoneNo,
-) => {
+const contactUsEmail = (email, firstName, lastName, message, phoneNo) => {
   return `<!DOCTYPE html>
   <html>
   
@@ -92,7 +86,7 @@ const contactUsEmail = (
       </div>
   </body>
   
-  </html>`
-}
+  </html>`;
+};
 
 export default contactUsEmail;

@@ -1,0 +1,9 @@
+.tdBefore {
+  @apply text-richblack-100;
+}
+
+@media screen and (max-width: 40rem) {
+  .responsiveTable tbody tr {
+    @apply border border-richblack-800 flex flex-col gap-8 py-8 px-2 items-start;
+  }
+}

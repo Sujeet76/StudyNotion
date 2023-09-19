@@ -9,8 +9,8 @@ const HeaderMyCourse = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   return (
-    <div className="flex justify-between w-11/12 mx-auto items-start">
-      <RouteThoughClickComponent title="My Course" />
+    <div className="flex lg:flex-row md:flex-row justify-between flex-col w-11/12 mx-auto items-start">
+      <RouteThoughClickComponent title="My Course" className="!mt-0" />
       <ButtonDashboard
         isActive={true}
         className="mt-6"

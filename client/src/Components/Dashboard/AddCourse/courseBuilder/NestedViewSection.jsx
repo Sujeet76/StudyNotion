@@ -40,29 +40,33 @@ const NestedViewSection = ({ handelEditSection }) => {
 
   return (
     <>
-      <div className="bg-richblack-700 px-6 py-8 rounded-xl">
+      <div className="bg-richblack-700 lg:px-6 lg:py-8 px-4 py-6 lg:rounded-xl rounded-lg">
         {course?.courseContent.map(({ _id, sectionName, subSection }) => (
           // container containing section and subsection
           <motion.div
             initial={{ height: 0 }}
             animate={{ height: "auto" }}
-            // key={"details"}
             key={_id}
             className="overflow-hidden"
           >
             <details open>
               {/* sectionName */}
               <summary className="flex cursor-pointer items-center justify-between border-b-2 border-b-richblack-600 py-2">
-                <p className="flex items-center gap-x-3 font-semibold text-richblack-50 capitalize">
-                  <DropDownListIcon />
-                  {sectionName}
+                {/* name and dropdown icon */}
+                <p className="flex items-center lg:gap-x-3 gap-2 font-semibold text-richblack-50 capitalize">
+                  <DropDownListIcon className="w-5 h-5" />
+                  <span className="truncate max-w-[10ch] lg:max-w-[30ch] md:max-w-[20ch] text-ellipsis">
+                    {sectionName}
+                  </span>
                 </p>
-                <div className="flex items-center gap-x-3">
+
+                {/* edit ,delete , arrow down icon */}
+                <div className="flex items-center lg:gap-x-3 gap-[6px]">
                   <button
                     onClick={() => handelEditSection(_id, sectionName)}
                     className="group transition-all duration-200 hover:scale-110"
                   >
-                    <EditIcon className="fill-richblack-400 group-hover:fill-caribbeangreen-300 transition-all duration-200" />
+                    <EditIcon className="fill-richblack-400 group-hover:fill-caribbeangreen-300 transition-all duration-200 w-5 h-5" />
                   </button>
                   <button
                     onClick={() =>
@@ -78,7 +82,7 @@ const NestedViewSection = ({ handelEditSection }) => {
                     }
                     className="group transition-all duration-200 hover:scale-110"
                   >
-                    <DeleteIcon className="fill-richblack-400 group-hover:fill-pink-300 transition-all duration-200" />
+                    <DeleteIcon className="fill-richblack-400 group-hover:fill-pink-300 transition-all duration-200 w-5 h-5" />
                   </button>
                   <span className="font-medium text-richblack-300">|</span>
                   <DropDownArrowIcon />
@@ -96,12 +100,14 @@ const NestedViewSection = ({ handelEditSection }) => {
                       key={data._id}
                       onClick={() => setViewSubsection(data)}
                     >
-                      <p className="flex items-center gap-x-3 py-2 ">
-                        <DropDownListIcon />
-                        <span>{data?.title}</span>
+                      <p className="flex items-center lg:gap-x-3 gap-2 py-2 ">
+                        <DropDownListIcon className="w-5 h-5" />
+                        <span className="truncate max-w-[8ch] lg:max-w-[30ch] md:max-w-[20ch] text-ellipsis">
+                          {data?.title}
+                        </span>
                       </p>
                       <div
-                        className="flex items-center gap-x-3"
+                        className="flex items-center lg:gap-x-3 gap-[6px]"
                         onClick={(e) => e.stopPropagation()}
                       >
                         <button
@@ -110,7 +116,7 @@ const NestedViewSection = ({ handelEditSection }) => {
                           }
                           className="group transition-all duration-200 hover:scale-110"
                         >
-                          <EditIcon className="fill-richblack-400 group-hover:fill-caribbeangreen-300 transition-all duration-200" />
+                          <EditIcon className="fill-richblack-400 group-hover:fill-caribbeangreen-300 transition-all duration-200 w-5 h-5" />
                         </button>
                         <button
                           onClick={(e) => {
@@ -126,7 +132,7 @@ const NestedViewSection = ({ handelEditSection }) => {
                           }}
                           className="group transition-all duration-200 hover:scale-110"
                         >
-                          <DeleteIcon className="fill-richblack-400 group-hover:fill-pink-300 transition-all duration-200" />
+                          <DeleteIcon className="fill-richblack-400 group-hover:fill-pink-300 transition-all duration-200 w-5 h-5" />
                         </button>
                       </div>
                     </div>

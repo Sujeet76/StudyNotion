@@ -20,17 +20,18 @@ const CartCard = ({ content }) => {
   }, []);
 
   const removeFromCart = (id) => {
-    console.log("clicked")
+    console.log("clicked");
     dispatch(removeToCart(id));
   };
 
   return (
-    <div className="flex justify-between gap-4 border-b border-richblack-700 last:pb-0 last:border-none pb-10">
-      <div className="flex gap-3">
+    <div className="flex justify-between lg:flex-row md:flex-row flex-col gap-4 border-b border-richblack-700 last:pb-0 last:border-none pb-10">
+      {/* image container */}
+      <div className="flex lg:flex-row md:flex-row flex-col  gap-3">
         <img
           src={content?.thumbnail}
           alt={content?.courseName}
-          className="max-w-[11.5rem] object-cover rounded-lg"
+          className=" max-w-[11.5rem] object-cover rounded-lg"
         />
         <div className="text-sm text-richblack-300">
           <h4
@@ -58,11 +59,14 @@ const CartCard = ({ content }) => {
           </p>
         </div>
       </div>
+
+      {/* // button container -> remove */}
       <div className="self-start">
-        <button className="flex justify-center items-center p-3 text-pink-200 border border-richblack-700 bg-richblack-800 rounded-lg gap-2 group hover:text-caribbeangreen-100 transition-all duration-200" onClick={() => removeFromCart(content._id)} >
-          <DeleteIcon
-            className="fill-pink-200 w-5 h-5 group-hover:fill-caribbeangreen-100 transition-all duration-200 group-hover:scale-75"
-          />
+        <button
+          className="flex justify-center items-center p-3 text-pink-200 border border-richblack-700 bg-richblack-800 rounded-lg gap-2 group hover:text-caribbeangreen-100 transition-all duration-200"
+          onClick={() => removeFromCart(content._id)}
+        >
+          <DeleteIcon className="fill-pink-200 w-5 h-5 group-hover:fill-caribbeangreen-100 transition-all duration-200 group-hover:scale-75" />
           Remove
         </button>
         <p className="mt-5 text-xl text-yellow-50 font-semibold">

@@ -12,7 +12,7 @@ const PersonalDetails = () => {
   const { user } = useSelector((store) => store.profile);
   return (
     <ContainerDashboard className="flex flex-col gap-y-10">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between gap-3 items-center">
         <h4 className="text-lg font-semibold text-richblack-5">
           Personal Details
         </h4>
@@ -25,7 +25,7 @@ const PersonalDetails = () => {
           Edit
         </ButtonDashboard>
       </div>
-      <div className="max-w-[500px] flex justify-between">
+      <div className="max-w-[500px] flex lg:flex-row md:flex-row flex-col gap-4 justify-between">
         <div className="flex gap-5 flex-col">
           <NameLabel
             label={"First Name"}

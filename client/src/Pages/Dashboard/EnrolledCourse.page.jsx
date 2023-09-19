@@ -22,6 +22,8 @@ const EnrolledCoursePage = () => {
     setEnrolledCourses(data);
   };
 
+  console.log(enrolledCourses);
+
   useEffect(() => {
     getCourse();
   }, []);
@@ -37,32 +39,39 @@ const EnrolledCoursePage = () => {
   }
 
   return (
-    <div className="w-11/12 mx-auto">
-      <RouteThoughClickComponent title="Enrolled Courses" />
+    <div className="w-11/12 mx-auto py-10 ">
+      <RouteThoughClickComponent className="!mt-0" title="Enrolled Courses" />
       {/* TODO -> tabs */}
 
       {/* course table */}
-      <div className="border border-richblack-700 rounded-lg overflow-hidden mt-12">
-        {/* header */}
-        <div className="grid grid-cols-6 place-content-center p-4 bg-richblack-700">
-          {headerName.map((name, index) => (
-            <div key={index} className="first:col-span-3 last:col-span-2">
-              <h6 className={`text-sm text-richblack-50 font-medium`}>
-                {name}
-              </h6>
-            </div>
-          ))}
-        </div>
-
-        {/* body */}
-        <div>
-          <div className=" flex flex-col">
-            {enrolledCourses.map((course) => (
-              <Card content={course} key={course._id} navigate={navigate} />
+      {enrolledCourses.length <= 0 ? (
+        <div className="mt-12 text-richblack-400 text-2xl font-semibold text-center">Not purchased any course yet!</div>
+      ) : (
+        <div className="border border-richblack-700 rounded-lg overflow-hidden mt-12">
+          {/* header */}
+          <div className="grid lg:grid-cols-6 grid-cols-3 place-content-center p-4 bg-richblack-700">
+            {headerName.map((name, index) => (
+              <div
+                key={index}
+                className="lg:first:col-span-3 lg:last:col-span-2"
+              >
+                <h6 className={`text-sm text-richblack-50 font-medium`}>
+                  {name}
+                </h6>
+              </div>
             ))}
           </div>
+
+          {/* body */}
+          <div>
+            <div className=" flex flex-col">
+              {enrolledCourses.map((course) => (
+                <Card content={course} key={course._id} navigate={navigate} />
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
@@ -84,7 +93,7 @@ const Card = ({ content, navigate }) => {
     <div className="grid grid-cols-6 gap-3 place-content-center p-4 border-b border-b-richblack-700 last:border-none">
       {/* name and image */}
       <div
-        className="flex items-center gap-3 col-span-3 group cursor-pointer"
+        className="flex lg:flex-row md:flex-row flex-col  items-center gap-3 col-span-3 group cursor-pointer"
         onClick={() =>
           clickHandler(
             content._id,

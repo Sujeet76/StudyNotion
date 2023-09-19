@@ -1,12 +1,13 @@
 import { formatDateAndTime } from "../../../utils/dateFormatter";
+import "./courseCard.css"
 
 const CardCourse = ({ img, title, description, date, status }) => {
   return (
-    <div className="flex justify-start items-center">
+    <div className="flex justify-start items-center extra-small">
       <img
         src={img}
         alt={title}
-        className="max-w-[13.8rem] rounded-lg object-cover"
+        className="lg:max-w-[13.8rem] md:lg:max-w-[13.8rem] w-[11rem] rounded-lg object-cover"
       />
       <div className="flex flex-col gap-2 ml-6 items-start text-start">
         <h5 className="text-lg font-semibold text-richblack-5">{title}</h5>

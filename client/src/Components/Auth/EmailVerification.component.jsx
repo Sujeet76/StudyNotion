@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowBack, ReSend } from "../../data/Icon.data";
 import { useDispatch, useSelector } from "react-redux";
-import { signup } from "../../services/Operation/AuthApi";
+import { reSendOtp, signup } from "../../services/Operation/AuthApi";
 
 const EmailVerificationForm = () => {
   const [otp, setOtp] = useState(Array(6).fill(""));
@@ -75,10 +75,15 @@ const EmailVerificationForm = () => {
     );
   };
 
+  const resendOpt = () => {
+    const {email} = signupData
+    dispatch(reSendOtp(email));
+  };
+
   return (
     <>
       <form onSubmit={submitHandler} className="mt-6">
-        <div className="flex gap-5 justify-start items-center">
+        <div className="flex lg:gap-5 gap-3 justify-start items-center">
           {otp.map((digit, index) => (
             <input
               key={index}
@@ -116,7 +121,7 @@ const EmailVerificationForm = () => {
         <button
           type="button"
           className="flex justify-center items-center gap-2 text-blue-100 font-[500] text-center hover:text-blue-200"
-          
+          onClick={resendOpt}
         >
           <ReSend />
           Resend it

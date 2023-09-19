@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { FaAngleRight } from "react-icons/fa";
 import { AiOutlinePlusCircle } from "react-icons/ai";
@@ -72,70 +73,84 @@ const CourseBuilder = () => {
   };
 
   return (
-    <div className="p-6 bg-richblack-800 border border-richblack-700 rounded-lg flex flex-col gap-7">
-      <h1 className="text-2xl font-semibold text-richblack-5">
-        Course Builder
-      </h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <ReactFormRow
-          type="text"
-          required={true}
-          label="Section Name"
-          id="sectionName"
-          register={register}
-          errors={errors}
-          error="Section name is required"
-          placeholder="Enter section name"
-        />
-
-        {/* Add section button */}
-        <div className="flex gap-x-4">
-          {/* add */}
-          <button
-            type="submit"
-            className="flex items-center border border-yellow-50 bg-transparent gap-x-2 rounded-md py-2 px-5 font-semibold text-yellow-50 mt-6 group"
-          >
-            <span>
-              {editSubsectionId ? "Update a section" : "Create a Section"}
-            </span>
-            <AiOutlinePlusCircle className="group-hover:scale-125 transition-all duration-200" />
-          </button>
-          {/* cancel */}
-          {editSubsectionId && (
+    <div
+      initial={{
+        opacity: 0,
+        x: "-100%",
+      }}
+      animate={{
+        opacity: 1,
+        x: "0%",
+      }}
+      exit={{
+        opacity: 0,
+      }}
+      transition={{
+        type: "easeInOut",
+      }}
+    >
+      <div className="p-6 bg-richblack-800 border border-richblack-700 rounded-lg flex flex-col gap-7">
+        <h1 className="text-2xl font-semibold text-richblack-5">
+          Course Builder
+        </h1>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <ReactFormRow
+            type="text"
+            required={true}
+            label="Section Name"
+            id="sectionName"
+            register={register}
+            errors={errors}
+            error="Section name is required"
+            placeholder="Enter section name"
+          />
+          {/* Add section button */}
+          <div className="flex gap-x-4">
+            {/* add */}
             <button
-              type="button"
-              onClick={cancelEdit}
-              className="text-sm text-richblack-300 underline self-end"
+              type="submit"
+              className="flex items-center border border-yellow-50 bg-transparent gap-x-2 rounded-md py-2 px-5 font-semibold text-yellow-50 mt-6 group"
             >
-              Cancel edit
+              <span>
+                {editSubsectionId ? "Update a section" : "Create a Section"}
+              </span>
+              <AiOutlinePlusCircle className="group-hover:scale-125 transition-all duration-200" />
             </button>
-          )}
+            {/* cancel */}
+            {editSubsectionId && (
+              <button
+                type="button"
+                onClick={cancelEdit}
+                className="text-sm text-richblack-300 underline self-end"
+              >
+                Cancel edit
+              </button>
+            )}
+          </div>
+        </form>
+        {/* display section */}
+        {/* display subsection nested inside section */}
+        {course.courseContent?.length > 0 && (
+          <NestedViewSection handelEditSection={handelEditSection} />
+        )}
+        {/* navigation button */}
+        <div className="flex gap-6 self-end">
+          <ButtonDashboard
+            typeBtn="button"
+            className="bg-richblack-300 font-semibold text-richblack-900"
+            clickHandler={editCourseHandler}
+          >
+            Back
+          </ButtonDashboard>
+          <ButtonDashboard
+            typeBtn="submit"
+            isActive={true}
+            clickHandler={() => dispatch(setSteps(3))}
+          >
+            Next
+            <FaAngleRight />
+          </ButtonDashboard>
         </div>
-      </form>
-
-      {/* display section */}
-      {/* display subsection nested inside section */}
-      {course.courseContent?.length > 0 && (
-        <NestedViewSection handelEditSection={handelEditSection} />
-      )}
-
-      {/* navigation button */}
-      <div className="flex gap-6 self-end">
-        <ButtonDashboard
-          typeBtn="button"
-          className="bg-richblack-300 font-semibold text-richblack-900"
-          clickHandler={editCourseHandler}
-        >
-          Back
-        </ButtonDashboard>
-        <ButtonDashboard
-          typeBtn="submit"
-          isActive={true}
-          clickHandler={() => dispatch(setSteps(3))}
-        >
-          Next
-          <FaAngleRight />
-        </ButtonDashboard>
       </div>
     </div>
   );

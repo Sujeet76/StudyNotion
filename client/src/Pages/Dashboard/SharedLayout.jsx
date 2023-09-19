@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
 import { SideBarComponent, VideoSideBar } from "../../Components";
 
-const SharedLayout = ({ isVideo = false }) => {
+const SharedLayout = () => {
   return (
-    <div className="flex  w-full min-h-[calc(100vh-3.625rem)]">
-      {isVideo ? <VideoSideBar /> : <SideBarComponent />}
-      <div className="h-[calc(100vh-3.625rem)] overflow-auto w-full">
+    <div className="flex w-full lg:min-h-[calc(100vh-3.625rem)] min-h-[calc(100vh-82px)]">
+      <SideBarComponent />
+      <div className="lg:h-[calc(100vh-3.625rem)] h-[calc(100vh-82px)] overflow-auto w-full">
         <Outlet />
       </div>
     </div>

@@ -142,32 +142,6 @@ export const editCourse = (
   };
 };
 
-// export const fetchCourse = (token) => {
-//   return async (dispatch) => {
-//     const response = apiConnector("GET", COURSE_DETAILS_API, null, {
-//       Authorization: `Barer ${token}`,
-//     });
-
-//     toast.promise(response, {
-//       loading: "Fetching course data!!",
-//       success: (response) => {
-//         const { data } = response;
-//         const result = data?.data;
-//         console.log(data);
-//         console.log(data?.data);
-//         dispatch(setCourse(result));
-//         return "Course fetched successfully";
-//       },
-//       error: (err) => {
-//         const { response } = err;
-//         console.log(response);
-//         console.log(err);
-//         return response?.data?.message ?? "Error while fetching course";
-//       },
-//     });
-//   };
-// };
-
 export const createSection = (sectionName, courseId, token) => {
   return async (dispatch) => {
     const response = apiConnector(
@@ -427,7 +401,8 @@ export const getInstructorCourses = (
   setIsLoading,
   setCourses,
   page = 1,
-  setTotalCourse
+  setTotalCourse,
+  setPageData
 ) => {
   return async (dispatch) => {
     setIsLoading(true);
@@ -446,8 +421,16 @@ export const getInstructorCourses = (
         const { data } = response;
         const result = data?.data;
         setCourses(result);
-        if (setTotalCourse) {
+        if (setTotalCourse !== null) {
+          console.log("course");
           setTotalCourse(data?.totalCourse);
+        }
+        if (setPageData) {
+          console.log("Here");
+          setPageData({
+            currentPage: data?.currentPage,
+            totalPage: data?.totalPages,
+          });
         }
         // console.log(data);
         setIsLoading(false);

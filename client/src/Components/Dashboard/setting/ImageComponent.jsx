@@ -19,7 +19,6 @@ const ImageComponent = () => {
   const [imgData, setImgData] = useState(null);
 
   const imgHandler = (e) => {
-    console.log("inm");
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -39,19 +38,19 @@ const ImageComponent = () => {
 
   return (
     <ContainerDashboard>
-      <div className="flex gap-5 items-center">
+      <div className="flex lg:gap-5 gap-3 items-center">
         {/* profile img */}
         <img
           src={profileImg || user?.img}
           alt={user?.name}
-          className="w-[4.5rem] h-[4.5rem] aspect-square object-cover rounded-full"
+          className="lg:w-[4.5rem] lg:h-[4.5rem] md:w-[4.5rem] md:h-[4.5rem] h-[3.5rem] w-[3.5rem] aspect-square object-cover rounded-full"
         />
         {/* button */}
         <div>
           <p className="font-base font-[500] capitalize mb-3 text-richblack-25">
             Change Profile Picture
           </p>
-          <div className="flex items-center gap-3">
+          <div className="flex lg:flex-row md:flex-row items-center lg:md:gap-3 gap-1">
             <input
               type="file"
               name="profile"
@@ -61,16 +60,18 @@ const ImageComponent = () => {
             />
             <ButtonDashboard
               clickHandler={() => document.getElementById("img").click()}
-              isActive={true}
+              // className="p-2 py-1"
               isDisabled={authLoading || profileLoading}
             >
               Select
             </ButtonDashboard>
             <ButtonDashboard
               clickHandler={uploadImg}
+              isActive={true}
               isDisabled={authLoading || profileLoading}
+              // className="p-2 py-1"
             >
-              <span className="flex items-center gap-1">
+              <span className="flex items-center gap-1 text-sm">
                 Upload
                 <PiUploadSimpleBold />
               </span>

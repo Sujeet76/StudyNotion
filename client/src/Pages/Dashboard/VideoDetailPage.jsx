@@ -1,12 +1,27 @@
-import React from "react";
-import { VideoDescription, Player } from "../../Components";
+import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 
-const VideoDetailPage = ({ setClicked }) => {
+import { Player, ReviewModal } from "../../Components";
+
+const VideoDetailPage = () => {
+  const [reviewModal, setReviewModal] = useState(false);
+
+  const [videoHeight, setVideoHeight] = useState(0);
+
+  console.log(videoHeight);
+
   return (
-    <div>
-      <Player setClicked={setClicked} />
-      <VideoDescription />
-    </div>
+    <>
+      <div>
+        <Player
+          setReviewModal={setReviewModal}
+          setVideoHeight={setVideoHeight}
+        />
+      </div>
+      <AnimatePresence>
+        {reviewModal && <ReviewModal setReviewModal={setReviewModal} />}
+      </AnimatePresence>
+    </>
   );
 };
 

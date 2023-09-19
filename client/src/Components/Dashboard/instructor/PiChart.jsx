@@ -74,7 +74,7 @@ const PiChart = ({ chartData }) => {
         </div>
         <div
           className="relative mx-auto aspect-square h-full w-full"
-          layoutId="chartInfo"
+          // layoutId="chartInfo"
         >
           {/* Render the Pie chart based on the selected chart */}
           <Pie

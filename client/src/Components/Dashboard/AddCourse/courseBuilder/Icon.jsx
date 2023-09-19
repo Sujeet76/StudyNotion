@@ -77,7 +77,7 @@ export const DropDownArrowIcon = () => {
   );
 };
 
-export const DropDownListIcon = () => {
+export const DropDownListIcon = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -85,6 +85,7 @@ export const DropDownListIcon = () => {
       height="25"
       viewBox="0 0 20 20"
       fill="none"
+      className={className}
     >
       <g clip-path="url(#clip0_11167_21619)">
         <path

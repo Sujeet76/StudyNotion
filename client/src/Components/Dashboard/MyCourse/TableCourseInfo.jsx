@@ -1,11 +1,13 @@
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import { useNavigate } from "react-router-dom";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import "./tableCourse.css";
+
 import CardCourse from "./CardCourse";
-import { Spinner, ButtonDashboard, ConfirmationModal } from "../../";
+import { Loader, ButtonDashboard, ConfirmationModal } from "../../";
 
 import {
   EditIcon,
@@ -18,26 +20,13 @@ import {
   getInstructorCourses,
 } from "../../../services/Operation/CourseApi";
 
-import { setCourse, setEdit } from "../../../Slice/course";
 
-const TableCourseInfo = () => {
+const TableCourseInfo = ({courses,isLoading,setCourses}) => {
   const navigate = useNavigate();
-  const [courses, setCourses] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [confirmationModal, setConfirmationModal] = useState(null);
 
   const { token } = useSelector((store) => store.auth);
-  // const { course } = useSelector((store) => store.course);
   const dispatch = useDispatch();
-  useEffect(() => {
-    // if (isLoading && courses.length === 0) {
-    console.log("inside");
-    dispatch(getInstructorCourses(token, setIsLoading, setCourses));
-    // }
-  }, []);
-  console.log(courses);
-
-  // console.log(courses);
 
   const handelDelete = (courseId) => {
     dispatch(
@@ -49,9 +38,17 @@ const TableCourseInfo = () => {
     navigate(`/dashboard/edit-course/${courseId}`);
   };
 
+  if (isLoading) {
+    return (
+      <div className="w-11/12 mx-auto  mt-14 flex justify-center items-center">
+        <Loader />
+      </div>
+    );
+  }
+
   return (
-    <div className="w-[90%] mx-auto border-2 border-richblack-800 rounded-lg mt-9 pb-6">
-      <Table className="">
+    <div className="w-11/12 mx-auto rounded-lg mt-9 pb-6">
+      <Table className="border-2 border-richblack-800 rounded-lg">
         <Thead>
           <Tr className="font-medium text-richblack-100 border-b border-b-richblack-800 flex gap-x-10  px-6 py-2">
             <Th className="flex-1 text-start">Course</Th>
@@ -61,14 +58,7 @@ const TableCourseInfo = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {isLoading ? (
-            // loader
-            <Tr>
-              <Td className="flex justify-center items-center py-6">
-                <Spinner />
-              </Td>
-            </Tr>
-          ) : courses?.length === 0 ? (
+          {courses?.length === 0 ? (
             // course not found
             <Tr>
               <Td className="text-richblack-50 text-center p-2">
@@ -86,9 +76,12 @@ const TableCourseInfo = () => {
           ) : (
             // course display
             courses.map(({ content, duration }) => (
-              <Tr key={content._id} className="flex gap-x-10 px-6 py-8 pb-0">
+              <Tr
+                key={content._id}
+                className="flex gap-10 px-5 py-10 border border-richblack-800"
+              >
                 {/* card */}
-                <Td className="flex-1 gap-x-4">
+                <Td className="flex-1 gap-x-4 ">
                   <CardCourse
                     img={content.thumbnail}
                     title={content.courseName}
@@ -109,7 +102,7 @@ const TableCourseInfo = () => {
                 </Td>
 
                 {/* action */}
-                <Td className="flex gap-2 items-start ">
+                <Td className="flex gap-2 items-start">
                   {/* edit */}
                   <button
                     className=" group transition-all duration-200 hover:scale-110"
@@ -119,7 +112,7 @@ const TableCourseInfo = () => {
                   </button>
                   {/* delete */}
                   <button
-                    className=" group transition-all duration-200 hover:scale-110"
+                    className="group transition-all duration-200 hover:scale-110 lg:ml-0 md:ml-0 ml-3"
                     onClick={() =>
                       setConfirmationModal({
                         text1: "Do you want to delete this course?",

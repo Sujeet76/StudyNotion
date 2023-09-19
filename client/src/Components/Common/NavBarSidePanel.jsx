@@ -17,7 +17,7 @@ const NavBarSidePanel = ({
 
   const close = () => {
     setIsSidebar(!isSidebar);
-  }
+  };
 
   return (
     <motion.div
@@ -26,13 +26,12 @@ const NavBarSidePanel = ({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{
-        // delay: 0.3,
         duration: 0.05,
         type: "spring",
       }}
     >
       <motion.div
-        className="w-[300px] h-full border-r border-[rgba(0,0,0,.1)] py-5 bg-[rgba(255,255,255,.1)]"
+        className="w-[300px] h-full border-r border-[rgba(0,0,0,.1)] py-5 bg-[rgba(255,255,255,.1)] overflow-auto scroll-bar"
         initial={{ x: "-100%" }}
         animate={{ x: "0%" }}
         exit={{ x: "-100%" }}
@@ -51,8 +50,12 @@ const NavBarSidePanel = ({
 
         <div className="bg-[rgba(0,0,0,.2)] w-full h-auto p-4 mt-5">
           <div className="flex justify-evenly items-center">
-            <Button clickHandler={close}>Login</Button>
-            <Button clickHandler={close} active={true}>signup</Button>
+            <Button linkTo={"/login"} clickHandler={close}>
+              Login
+            </Button>
+            <Button linkTo={"/signup"} clickHandler={close} active={true}>
+              signup
+            </Button>
           </div>
         </div>
 
@@ -87,6 +90,7 @@ const NavBarSidePanel = ({
                     animate={{ height: isOpen ? "auto" : 0 }}
                     transition={{
                       type: "spring",
+                      staggerChildren: 0.5,
                     }}
                   >
                     <ul>
