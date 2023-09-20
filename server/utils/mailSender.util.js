@@ -1,9 +1,18 @@
-import otp_temp from "../template/otp.template.js";
-
-import transporter from "../config/mailConfig.js";
+import nodemailer from "nodemailer";
+import { MAIL_HOST, MAIL_PASS, MAIL_USER } from "../config/index.js";
 
 const mailSender = async (email, title, body) => {
   try {
+    const transporter = nodemailer.createTransport({
+      host: MAIL_HOST,
+      port: 587,
+      debug: true,
+      auth: {
+        user: MAIL_USER,
+        pass: MAIL_PASS,
+      },
+    });
+
     let info = await transporter.sendMail(
       {
         from: "StudyNation || by sujeet kumar",
