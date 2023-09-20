@@ -17,8 +17,8 @@ import { MAIL_HOST, MAIL_PASS, MAIL_USER } from "./index.js";
 // };
 const transporter = nodemailer.createTransport({
   host: MAIL_HOST,
-  port:465,
-  secure:true,
+  port: 587,
+  // secure: true,
   debug: true,
   auth: {
     user: MAIL_USER,
