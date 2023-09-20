@@ -24,7 +24,7 @@ const resetPasswordToken = async (req, res, next) => {
       { new: true }
     );
     // generate like to reset password
-    const url = `http://localhost:5173/update-password/${token}`;
+    const url = `https://studynotion-edtech-pied.vercel.app/update-password/${token}`;
     await mailSender(
       email,
       "Link to reset password from StudyNotion",

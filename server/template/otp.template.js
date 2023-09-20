@@ -66,7 +66,7 @@ const otpTemplate = (otp) => {
 	
 	<body>
 		<div class="container">
-			<a href="https://studynotion-edtech-project.vercel.app"><img class="logo"
+			<a href="https://studynotion-edtech-pied.vercel.app"><img class="logo"
 					src="https://i.ibb.co/7Xyj3PC/logo.png" alt="StudyNotion Logo"></a>
 			<div class="message">OTP Verification Email</div>
 			<div class="body">
@@ -81,7 +81,7 @@ const otpTemplate = (otp) => {
 					href="mailto:ksujeetkumar7678@gamil.com">info@studynotion.com</a>. We are here to help!</div>
 		</div>
 	</body>
-	
+	h
 	</html>`;
 };
 export default otpTemplate;

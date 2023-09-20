@@ -67,7 +67,7 @@ const contactUsEmail = (email, firstName, lastName, message, phoneNo) => {
   
   <body>
       <div class="container">
-          <a href="https://studynotion-edtech-project.vercel.app"><img class="logo"
+          <a href="https://studynotion-edtech-pied.vercel.app"><img class="logo"
                   src="https://i.ibb.co/7Xyj3PC/logo.png" alt="StudyNotion Logo"></a>
           <div class="message">Contact Form Confirmation</div>
           <div class="body">

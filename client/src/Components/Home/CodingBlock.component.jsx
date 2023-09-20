@@ -9,7 +9,7 @@ import {
   useAnimation,
 } from "framer-motion";
 
-const CardAndCoding = ({ codeContent, bgColor, fontColor }) => {
+const CardAndCoding = ({ codeContent, bgColor, fontColor, isRight }) => {
   const numbersArray = Array.from({ length: 14 }, (_, index) => index);
   let mouseX = useMotionValue(0);
   let mouseY = useMotionValue(0);
@@ -41,6 +41,23 @@ const CardAndCoding = ({ codeContent, bgColor, fontColor }) => {
         className="flex self-start gap-2 text-sm code-border py-5 w-[345px] h-fit lg:w-[470px] relative overflow-hidden"
         onMouseMove={handleMouseMove}
         whileHover={{ scale: 1.1 }}
+        initial={{
+          x: isRight ? 100 : -100,
+          opacity: 0,
+        }}
+        whileInView={{
+          x: 0,
+          opacity: 1,
+        }}
+        transition={{
+          type: "spring",
+          bounce: 0.4,
+          duration: 1,
+        }}
+        viewport={{
+          once: true,
+          amount: 0.5,
+        }}
       >
         <motion.div
           className={`${bgColor} absolute select-none`}
