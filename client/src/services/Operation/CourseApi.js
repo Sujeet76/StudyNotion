@@ -79,7 +79,7 @@ export const createCourse = (formData, token, setLoading) => {
       success: (res) => {
         const { data } = res;
         const result = data?.data;
-        console.log(result);
+        // console.log(result);
         dispatch(setCourse(result));
         dispatch(setSteps(2));
         setLoading(false);
@@ -157,13 +157,13 @@ export const createSection = (sectionName, courseId, token) => {
         const { data } = response;
         const result = data?.data;
         // console.log(data);
-        console.log(result);
+        // console.log(result);
         dispatch(setCourse(result));
         return "Section created successfully";
       },
       error: (err) => {
         const { response } = err;
-        console.log(response);
+        // console.log(response);
         console.log(err);
         return response?.data?.message ?? "Error while creating course";
       },
@@ -207,7 +207,6 @@ export const createSubSection = (
       error: (err) => {
         const { response } = err;
         console.log(err);
-        console.log(response);
         if (setLoading) setLoading(false);
         return response?.data?.message ?? "Error while creating subsection";
       },
@@ -299,11 +298,11 @@ export const deleteCourse = (
       loading: "Deleting course please wait",
       success: (response) => {
         const { data } = response;
-        console.log(data);
+        // console.log(data);
         const newCourse = courses.filter(
           (data) => data.content._id !== courseId
         );
-        console.log(newCourse);
+        // console.log(newCourse);
         setCourses(newCourse);
         setConfirmationModal(null);
         return data?.message ?? "course Deleted successfully";
@@ -386,7 +385,7 @@ export const updateSubsection = (
       },
       error: (err) => {
         const { response } = err;
-        console.log(response);
+        // console.log(response);
         console.log(err);
         if (setLoading) setLoading(false);
         return response?.data?.message ?? "Error while updating subsection";
@@ -422,11 +421,11 @@ export const getInstructorCourses = (
         const result = data?.data;
         setCourses(result);
         if (setTotalCourse !== null) {
-          console.log("course");
+          // console.log("course");
           setTotalCourse(data?.totalCourse);
         }
         if (setPageData) {
-          console.log("Here");
+          // console.log("Here");
           setPageData({
             currentPage: data?.currentPage,
             totalPage: data?.totalPages,
@@ -466,7 +465,7 @@ export const getFullCourseDetails = (courseId, token, setIsLoading) => {
       success: (response) => {
         const { data } = response;
         const result = data?.data;
-        console.log(result);
+        // console.log(result);
         dispatch(setCourse(result.courseDetail));
         dispatch(setEdit(true));
         dispatch(setSteps(1));
@@ -546,11 +545,10 @@ export const courseDetails = async (courseId, setIsLoading) => {
     toast.success("Setup complete!!", {
       id: toastId,
     });
-    console.log("-----> ", data?.data);
+    // console.log("-----> ", data?.data);
     return { result: data?.data };
   } catch (err) {
     const { response } = err;
-    console.log(response);
     console.error(err);
     setIsLoading(false);
     const errorMessage =
@@ -578,7 +576,6 @@ export const getStudentCourseDetails = async (courseId, token, dispatch) => {
     );
     const { data } = response;
     // set section data
-    console.log("000=> ", data);
     dispatch(setSectionData(data?.courseDetails?.courseContent));
     const result = {
       ...data?.courseDetails,
@@ -597,7 +594,6 @@ export const getStudentCourseDetails = async (courseId, token, dispatch) => {
 
     dispatch(setTotalLecture(totalLecture));
 
-    console.log(data);
     toast.success("Course data fetched successfully", {
       id: toastId,
     });
@@ -605,7 +601,6 @@ export const getStudentCourseDetails = async (courseId, token, dispatch) => {
     return data;
   } catch (err) {
     const { response } = err;
-    console.log(response);
     console.error(err);
     dispatch(viewCourseLoading(false));
     const errorMessage =

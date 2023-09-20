@@ -43,17 +43,6 @@ const createCourse = async (req, res, next) => {
     const thumbnail = req.files.thumbnailImage;
     const userId = req.user.id;
     // validate data fields
-    console.log(
-      courseName,
-      courseDetails,
-      WhatYouLearn,
-      price,
-      category_name,
-      tags,
-      status,
-      instructions
-    );
-    console.log(req.files.thumbnailImage);
     if (
       !courseName ||
       !courseDetails ||
@@ -90,8 +79,6 @@ const createCourse = async (req, res, next) => {
         CustomErrorHandler.forbidden("category not found please try later")
       );
     }
-
-    console.log(categoryData);
 
     // upload to cloudInary
     const thumbnailImage = await uploadToCloudinary(thumbnail, CLOUD_FOLDER);
@@ -239,7 +226,6 @@ const getCourseDetail = async (req, res, next) => {
       return next(CustomErrorHandler.forbidden("CourseId is required!!"));
     }
 
-    console.table(courseId);
     const courseDetail = await Course.findById(courseId)
       .select("-category")
       .populate({
@@ -306,13 +292,10 @@ const updateCourse = async (req, res, next) => {
 
     for (const key in updates) {
       if (updates.hasOwnProperty(key)) {
-        console.log(key);
         if (key === "tags" || key === "instructions") {
           course[key] = JSON.parse(updates[key]);
-          console.log(course[key], updates[key]);
         } else {
           course[key] = updates[key];
-          console.log(course[key], updates[key]);
         }
       }
     }
@@ -361,7 +344,6 @@ const deleteCourse = async (req, res, next) => {
     // unroll the student from course
     const studentEnrolled = courseExist.studentEnrolled;
     for (const studentId of studentEnrolled) {
-      console.log(studentId);
       await User.findByIdAndUpdate(studentId, {
         $pull: { courses: courseId },
       });

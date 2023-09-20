@@ -50,8 +50,6 @@ export const updateProfileImg = (formData, token, navigate) => {
       loading: "Validating credential...",
       success: (responseData) => {
         const { data } = responseData;
-        console.log(data);
-        console.log(data.data);
         dispatch(setLoading(false));
         // dispatch(setProfile(data.data.img));
         dispatch(setProfileImg(data.data.img));
@@ -60,7 +58,6 @@ export const updateProfileImg = (formData, token, navigate) => {
       error: (err) => {
         const { response } = err;
         console.log(response);
-        console.log(response.status);
         dispatch(setLoading(false));
         if (response?.status === 401) {
           dispatch(logout(navigate));
@@ -114,8 +111,6 @@ export const updateProfileData = ({
       loading: "Validating credential...",
       success: (responseData) => {
         const { data } = responseData;
-        console.log(data);
-        console.log(data.data);
         dispatch(setLoading(false));
         dispatch(setProfile(data.data));
         return `Profile update successfully`;
@@ -123,7 +118,6 @@ export const updateProfileData = ({
       error: (err) => {
         const { response } = err;
         console.log(response);
-        console.log(response.status);
         dispatch(setLoading(false));
         if (response?.status === 401) {
           dispatch(logout(navigate));
@@ -149,7 +143,6 @@ export const changePassword = (currentPassword, newPassword, token) => {
       loading: "Validating your data...",
       success: (fetchData) => {
         const { data } = fetchData;
-        console.log(data);
         // console.log(data?.data);
         dispatch(setLoading(false));
         return `${data.message} 🚀`;
@@ -157,7 +150,6 @@ export const changePassword = (currentPassword, newPassword, token) => {
       error: (err) => {
         const { response } = err;
         console.log(response);
-        console.log(response.status);
         if (response?.status === 401) {
           dispatch(logout(navigate));
           return "Invalid user,please Login again !!";
@@ -183,14 +175,12 @@ export const deleteUser = (token, navigate) => {
       success: (fetchData) => {
         const { data } = fetchData;
         dispatch(setLoading(false));
-        console.log(data);
         dispatch(logout(navigate, false));
         return `${data.message} 🚀`;
       },
       error: (err) => {
         const { response } = err;
         console.log(response);
-        console.log(response.status);
         if (response?.status === 401) {
           dispatch(logout(navigate, false));
           return "Invalid user,please Login again !!";

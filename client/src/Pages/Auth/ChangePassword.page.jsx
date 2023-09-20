@@ -23,9 +23,9 @@ const ChangePasswordPage = () => {
     e.preventDefault();
     const token = location.pathname.split("/").at(-1);
     const { password, confirmPassword } = formData;
-    console.log(formData);
-    console.table([password, , confirmPassword, token]);
-    console.log("we are here")
+    // console.log(formData);
+    // console.table([password, , confirmPassword, token]);
+    // console.log("we are here")
     dispatch(resetPassword(password, confirmPassword, token, navigate));
   };
 

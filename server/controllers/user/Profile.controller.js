@@ -31,7 +31,7 @@ const updateProfile = async (req, res, next) => {
     }
 
     let userId = req.user.id;
-    console.log({ userId });
+    // console.log({ userId });
 
     if (!gender || !dateOfBirth || !contactNumber) {
       return next(
@@ -127,7 +127,7 @@ const updateDisplayPicture = async (req, res, next) => {
     }
 
     const uploadImg = await uploadToCloudinary(displayPicture, CLOUD_FOLDER);
-    console.log(uploadImg);
+    // console.log(uploadImg);
     const updateProfile = await User.findByIdAndUpdate(
       userId,
       {
@@ -195,7 +195,7 @@ const getEnrolledCourse = async (req, res, next) => {
       if (subsectionLength === 0) {
         content.progressPercentage = 100;
       } else {
-        console.log("1");
+        // console.log("1");
         const multiplier = 100;
         content.progressPercentage =
           Math.round(
@@ -237,7 +237,7 @@ const deleteAccount = async (req, res, next) => {
     if (imgUrl.includes("res.cloudinary.com")) {
       const imgName = imgUrl.split("/").slice(-1)[0].split(".")[0];
       const deleteImg = deleteToCloudinary(imgName);
-      console.log("Image delete successfully");
+      // console.log("Image delete successfully");
     }
 
     return res.status(200).json({

@@ -20,7 +20,7 @@ const CartCard = ({ content }) => {
   }, []);
 
   const removeFromCart = (id) => {
-    console.log("clicked");
+    // console.log("clicked");
     dispatch(removeToCart(id));
   };
 

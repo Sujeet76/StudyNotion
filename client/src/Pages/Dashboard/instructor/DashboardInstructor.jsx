@@ -28,7 +28,7 @@ const DashboardInstructor = () => {
           setTotalCourse
         )
       );
-      console.log(statResult);
+      // console.log(statResult);
       if (statResult?.length > 0) setChartData(statResult);
     })();
   }, []);

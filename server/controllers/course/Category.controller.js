@@ -18,7 +18,6 @@ const createCategory = async (req, res, next) => {
       categoryName: name,
       description,
     });
-    console.log({ categoryDetail });
     return res.status(200).json({
       success: true,
       message: "Category created successfully",
@@ -63,7 +62,6 @@ const categoryPageDetails = async (req, res, next) => {
         populate: "ratingAndReview",
       })
       .exec();
-    console.log({ selectedCategory });
     // Handel the case when the category not found
     if (!selectedCategory) {
       console.log("Category not found");

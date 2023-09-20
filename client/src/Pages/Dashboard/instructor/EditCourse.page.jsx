@@ -22,7 +22,7 @@ const EditCoursePage = () => {
 
   //fetch course details
   useEffect(() => {
-    console.log("course id ", courseId);
+    // console.log("course id ", courseId);
     dispatch(getFullCourseDetails(courseId, token, setIsLoading));
   }, []);
 

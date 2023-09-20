@@ -120,7 +120,6 @@ const sendPaymentMail = async (response, amount, token) => {
 const verifyPayment = async (bodyData, token, navigate, dispatch) => {
   const toastId = toast.loading("Verifying payment details");
   try {
-    console.log(bodyData);
     dispatch(setPaymentLoading(true));
     const response = await apiConnector("POST", COURSE_VERIFY_API, bodyData, {
       Authorization: `Bearer ${token}`,

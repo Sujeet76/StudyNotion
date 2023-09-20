@@ -45,7 +45,7 @@ const Player = ({ setReviewModal, setVideoHeight }) => {
         videoRef.current?.offsetHeight + videoRef.current?.offsetTop
       );
     }
-    console.log(videoRef);
+    // console.log(videoRef);
   }, [videoRef]);
 
   // setFirstVideo

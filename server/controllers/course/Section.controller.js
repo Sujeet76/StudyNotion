@@ -123,7 +123,6 @@ const deleteSection = async (req, res, next) => {
         CustomErrorHandler.badRequest("Section id and course id is required")
       );
     }
-    console.log(sectionId, courseId);
     //check course exist
     const course = await Course.findById(courseId);
     if (!course) {

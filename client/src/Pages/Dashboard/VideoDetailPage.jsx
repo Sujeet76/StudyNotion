@@ -8,7 +8,7 @@ const VideoDetailPage = () => {
 
   const [videoHeight, setVideoHeight] = useState(0);
 
-  console.log(videoHeight);
+  // console.log(videoHeight);
 
   return (
     <>

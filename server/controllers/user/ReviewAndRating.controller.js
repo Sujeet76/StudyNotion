@@ -59,7 +59,7 @@ const getAverageRating = async (req, res, next) => {
       { $match: { course: Schema.Types.ObjectId(courseId) } },
       { $group: { _id: null, average: { $avg: "$rating" } } },
     ]);
-    console.log({ result });
+    // console.log({ result });
     if (result.length > 0) {
       return res.status(200).json({
         success: true,

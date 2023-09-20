@@ -28,7 +28,7 @@ const SignupForm = () => {
   // TODO : Modify while sending the these fields in less lines
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("sign up data");
+    // console.log("sign up data");
     const {
       firstName,
       lastName,

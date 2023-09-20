@@ -18,7 +18,7 @@ const AccordionItems = ({
 
   useEffect(() => {
     if (setSubsectionName) {
-      console.log(courseSectionData[0]?.subSection[0]?.title);
+      // console.log(courseSectionData[0]?.subSection[0]?.title);
       setSubsectionName(courseSectionData[0]?.subSection[0]?.title);
     }
   }, [courseSectionData]);
@@ -30,7 +30,7 @@ const AccordionItems = ({
   const navigateToDifferentRoute = (sectionId, subsectionId, title) => {
     if (setSubsectionName) setSubsectionName(title);
 
-    console.log("Calling");
+    // console.log("Calling");
     navigate(
       `dashboard/view-video/courseId/${courseId}/section/${sectionId}/subsectionId/${subsectionId}`
     );

@@ -12,7 +12,6 @@ const cloudinaryConnect = () => {
       api_key: CLOUDINARY_KEY,
       api_secret: CLOUDINARY_SECRETE,
     });
-    console.log("Connected to cloudinary");
   } catch (error) {
     console.log("Error while connecting to cloudinary");
     console.log(error.message);

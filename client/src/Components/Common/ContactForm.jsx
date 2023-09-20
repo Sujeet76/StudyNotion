@@ -46,7 +46,7 @@ const ContactFormComponent = ({ classname }) => {
       setIsLoading(false);
     } catch (err) {
       const { response } = err;
-      console.log(response);
+      // console.log(response);
       console.error(err);
       const errorMessage =
         response?.data?.message ?? "Could not register your review";
@@ -59,13 +59,13 @@ const ContactFormComponent = ({ classname }) => {
   };
 
   const collectFormData = (e) => {
-    console.log("render");
+    // console.log("render");
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const submitHandler = (e) => {
     e.preventDefault();
     sendMail();
-    console.log(formData);
+    // console.log(formData);
   };
 
   return (

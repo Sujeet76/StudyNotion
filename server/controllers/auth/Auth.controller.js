@@ -271,7 +271,6 @@ const login = async (req, res, next) => {
     const userData = user.toObject();
     // user.password = undefined;
     delete userData.password;
-    console.log(userData);
 
     res.status(200).json({
       success: true,

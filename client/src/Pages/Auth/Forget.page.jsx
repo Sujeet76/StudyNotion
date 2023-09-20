@@ -9,12 +9,12 @@ const ForgetPage = () => {
   const [sendEmail, setSendEmail] = useState(false);
   const changeHandler = (e) => {
     setEmail(e.target.value);
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(email);
+    // console.log(email);
     dispatch(resetPassToken(email, setSendEmail));
   };
 

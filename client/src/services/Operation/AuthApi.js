@@ -43,7 +43,7 @@ export const sendotp = (
     toast.promise(response, {
       loading: "Validating your data... 😊",
       success: (response) => {
-        console.log(response);
+        // console.log(response);
         navigate("/email-verify");
         dispatch(setLoading(false));
         return `OTP has been send check you email or spam folder 🔥`;
@@ -108,16 +108,16 @@ export const signup = (
       loading: "Verifying your data...",
       success: (postUserData) => {
         const { data } = postUserData;
-        console.log(data);
-        console.log(postUserData);
-        console.log("signup success");
+        // console.log(data);
+        // console.log(postUserData);
+        // console.log("signup success");
         navigate("/login");
         return `Signup success.Redirecting to login page`;
       },
       error: (err) => {
         const { response } = err;
-        console.log("Error Block");
-        console.log(response.data.message);
+        // console.log("Error Block");
+        // console.log(response.data.message);
         console.log(response);
         return response.data.message;
       },
@@ -163,7 +163,7 @@ export const resetPassToken = (email, setSendEmail) => {
       loading: "Validating your data... 😃",
       success: (fetchData) => {
         const { data } = fetchData;
-        console.log(fetchData);
+        // console.log(fetchData);
         dispatch(setLoading(false));
         setSendEmail(true);
         return data.message;

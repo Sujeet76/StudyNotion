@@ -68,13 +68,13 @@ export const verifyPayment = async (req, res, next) => {
     const razorpay_signature = req.body?.razorpay_signature;
     const courses = req.body?.courses;
     const userId = req.user?.id;
-    console.log("verifiy payment");
-    console.table([
-      razorpay_order_id,
-      razorpay_payment_id,
-      razorpay_signature,
-      courses,
-    ]);
+    // console.log("verifiy payment");
+    // console.table([
+    //   razorpay_order_id,
+    //   razorpay_payment_id,
+    //   razorpay_signature,
+    //   courses,
+    // ]);
 
     if (
       !razorpay_order_id ||
@@ -151,8 +151,6 @@ const enrollStudents = async (courses, userId, next) => {
         `Successfully Enrolled into ${enrolledCourse.courseName}`,
         courseEnrollmentMail(enrolledCourse.courseName, enrolledStudent.name)
       );
-
-      console.log("Enrolled success");
     }
   } catch (error) {
     return next(error);
@@ -161,7 +159,7 @@ const enrollStudents = async (courses, userId, next) => {
 
 export const sendMail = async (req, res, next) => {
   try {
-    console.log("sendMail");
+    // console.log("sendMail");
     const { orderId, paymentId, amount } = req.body;
     const userId = req.user.id;
     // console.table([orderId, paymentId, amount]);

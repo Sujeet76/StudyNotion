@@ -21,7 +21,7 @@ const CatalogPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const fetch = async () => {
-    console.log("render");
+    // console.log("render");
     const option = {
       categories,
       categoryName: location.pathname.split("/").at(-1).replaceAll("-", " "),
@@ -34,7 +34,7 @@ const CatalogPage = () => {
     fetch();
   }, [location.pathname, categories]);
 
-  console.log(pageData);
+  // console.log(pageData);
 
   if (isLoading) {
     return (

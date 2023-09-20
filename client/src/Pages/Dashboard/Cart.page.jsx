@@ -10,7 +10,7 @@ const CartPage = () => {
     (store) => store.cart
   );
 
-  console.log(cartItem);
+  // console.log(cartItem);
 
   return (
     <div className="w-11/12 mx-auto pb-32">

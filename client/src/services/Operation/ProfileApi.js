@@ -28,7 +28,6 @@ export const getUserDetails = (token, navigate) => {
       error: (err) => {
         const { response } = err;
         console.log(response);
-        console.log(response.status);
         dispatch(setLoading(false));
         if (response?.status === 401) {
           dispatch(logout(navigate));

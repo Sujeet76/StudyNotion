@@ -33,13 +33,13 @@ const SliderComponent = ({className}) => {
           ratingsEndpoints.REVIEWS_ALL_DETAILS_API,
           null
         );
-        console.log(response?.data?.data);
+        // console.log(response?.data?.data);
         setReviewData(response?.data?.data);
         setIsLoading(false);
         return;
       } catch (err) {
         const { response } = err;
-        console.log(response);
+        // console.log(response);
         console.error(err);
         const errorMessage =
           response?.data?.message ?? "Could not get review and rating";

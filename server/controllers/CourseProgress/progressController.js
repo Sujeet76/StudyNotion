@@ -18,7 +18,6 @@ export const updateCourseProgress = async (req, res, next) => {
     if (!isProgress) {
       return next(CustomErrorHandler.notFound("Course progress not found"));
     }
-    console.log(isProgress);
     if (isProgress.completedVideos.includes(subsectionId)) {
       return res.status(200).json({
         success: true,

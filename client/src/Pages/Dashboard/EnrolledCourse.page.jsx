@@ -22,7 +22,7 @@ const EnrolledCoursePage = () => {
     setEnrolledCourses(data);
   };
 
-  console.log(enrolledCourses);
+  // console.log(enrolledCourses);
 
   useEffect(() => {
     getCourse();

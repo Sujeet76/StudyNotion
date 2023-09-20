@@ -55,17 +55,17 @@ const resetPassword = async (req, res, next) => {
    */
   try {
     const { password, confirmPassword, token } = req.body;
-    console.table([password, confirmPassword, token]);
+    // console.table([password, confirmPassword, token]);
     if (!token) {
       return next(CustomErrorHandler.badRequest("Reset token is required"));
     }
     const user = await User.findOne({ token });
-    console.log(user);
+    // console.log(user);
     if (!user) {
       return next(CustomErrorHandler.unAuthorized("Invalid User"));
     }
 
-    console.log("DB", user.expirationTime, new Date());
+    // console.log("DB", user.expirationTime, new Date());
     if (user.expirationTime < new Date()) {
       return next(CustomErrorHandler.badRequest("Token has been expired"));
     }

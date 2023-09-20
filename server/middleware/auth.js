@@ -12,7 +12,7 @@ export const auth = async (req, res, next) => {
   // console.log(token);
   try {
     const { id, role } = await JwtService.verify(token);
-    console.log("auth ", { id }, role);
+    // console.log("auth ", { id }, role);
     req.user = {};
     req.user.id = id;
     req.user.role = role;

@@ -41,8 +41,8 @@ const CourseInformation = ({ className }) => {
   });
 
   // course edit
-  console.log(course?.category?.categoryName);
-  console.log(course);
+  // console.log(course?.category?.categoryName);
+  // console.log(course);
   useEffect(() => {
     if (edit) {
       setValue("title", course?.courseName);
@@ -77,11 +77,11 @@ const CourseInformation = ({ className }) => {
   };
 
   const onSubmit = async (data) => {
-    console.log(edit);
+    // console.log(edit);
     if (edit) {
       if (isFormUpdated()) {
         const currentCourse = getValues();
-        console.table(currentCourse);
+        // console.table(currentCourse);
         const formData = new FormData();
 
         formData.append("courseId", course._id);
@@ -118,7 +118,7 @@ const CourseInformation = ({ className }) => {
         dispatch(editCourse(formData, token, setLoading));
         return;
       }
-      console.log(data);
+      // console.log(data);
     }
 
     // first time create course

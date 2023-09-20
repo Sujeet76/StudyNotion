@@ -24,13 +24,13 @@ const PurchaseCard = ({ courseContent }) => {
 
   const purchaseCourseHandler = () => {
     if (token) {
-      console.log(user);
+      // console.log(user);
       const userDetails = {};
       userDetails.name = user?.name;
       userDetails.email = user?.email;
       buyCourse([courseId], token, userDetails, navigate, dispatch);
-      console.log(courseId);
-      console.table(userDetails);
+      // console.log(courseId);
+      // console.table(userDetails);
       return;
     }
 
@@ -45,7 +45,7 @@ const PurchaseCard = ({ courseContent }) => {
   };
   const addToCartHandler = (data) => {
     if (token) {
-      console.log(data);
+      // console.log(data);
       let temp = { ...data };
       delete temp.instructor;
       delete temp.courseContent;
@@ -79,7 +79,7 @@ const PurchaseCard = ({ courseContent }) => {
         setIsCopied(false);
       }, 1500);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("could not copy url");
     }
   };
