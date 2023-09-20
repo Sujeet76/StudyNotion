@@ -25,15 +25,15 @@ const resetPasswordToken = async (req, res, next) => {
     );
     // generate like to reset password
     const url = `https://studynotion-edtech-pied.vercel.app/update-password/${token}`;
-    await mailSender(
+    const  resp = await mailSender(
       email,
       "Link to reset password from StudyNotion",
       `click to reset password :  ${url}`
     );
+    console.log(resp)
     return res.status(200).json({
       success: true,
       message: "Link send successfully",
-      url: url,
     });
   } catch (error) {
     console.log(error);
@@ -105,7 +105,7 @@ const resetPassword = async (req, res, next) => {
       return next(e);
     });
 
-    const a = await User.findOneAndUpdate(
+    await User.findOneAndUpdate(
       { token: token },
       { password: hashPassword },
       { new: true }

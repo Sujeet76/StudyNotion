@@ -20,6 +20,8 @@ export const contactUs = async (req, res, next) => {
       contactUsEmail(email, firstName, lastName, message, phoneNumber)
     );
 
+    console.log(mailResponse);
+
     const sendToAdmin = await mailSender(
       "ksujeetkumar7678@gmail.com",
       "Query from user",
@@ -31,6 +33,7 @@ export const contactUs = async (req, res, next) => {
       message: "Email send successfully",
     });
   } catch (error) {
+    console.log("== senm contact",error)
     return next(error);
   }
 };
