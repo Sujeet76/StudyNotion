@@ -66,5 +66,4 @@ app.get("/", (req, res) => {
   res.status(200).json({
     success: true,
   });
-  res.send("<center><h1>Server started</h1></center>");
 });
