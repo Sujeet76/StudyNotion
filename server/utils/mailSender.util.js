@@ -5,7 +5,7 @@ const mailSender = async (email, title, body) => {
   try {
     const transporter = nodemailer.createTransport({
       host: MAIL_HOST,
-      port: 587,
+      serure:true,
       debug: true,
       auth: {
         user: MAIL_USER,
