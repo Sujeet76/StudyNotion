@@ -50,15 +50,16 @@ app.use("/api/v1/payment", paymentRoute);
 app.use("/api/v1/reach", contactRoute);
 
 // calling db connect and cloudinaryConnect
-dbConnect();
 cloudinaryConnect();
 
 // custom error handler as middleware
 app.use(errorHandler);
 
-// server stated
-app.listen(PORT_NO, () => {
-  console.log("Server has been started on port number " + PORT_NO);
+// start server only when connected to database
+dbConnect().then(() => {
+  app.listen(PORT_NO, () => {
+    console.log("Server has been started on port number " + PORT_NO);
+  });
 });
 
 // message to display that server has been started
