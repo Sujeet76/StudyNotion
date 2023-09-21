@@ -35,6 +35,7 @@ const generateOtp = async (req, res, next) => {
         firstName: Joi.string()
           .min(4)
           .max(30)
+          .trim()
           .regex(/^[a-zA-Z0-9]+$/)
           .required()
           .messages({
@@ -51,7 +52,7 @@ const generateOtp = async (req, res, next) => {
           .min(8)
           .max(20)
           .regex(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
+            /^(?=.*[a-z])(?=.*[A-Z]?)(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
           )
           .trim()
           .disallow(Joi.string().regex(/\s/)) // Disallow spaces
@@ -138,6 +139,7 @@ const signup = async (req, res, next) => {
       firstName: Joi.string()
         .min(4)
         .max(30)
+        .trim()
         .regex(/^[a-zA-Z0-9]+$/)
         .required()
         .messages({
@@ -154,7 +156,7 @@ const signup = async (req, res, next) => {
         .min(8)
         .max(20)
         .regex(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
+          /^(?=.*[a-z])(?=.*[A-Z]?)(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
         )
         .trim()
         .disallow(Joi.string().regex(/\s/)) // Disallow spaces
@@ -189,10 +191,10 @@ const signup = async (req, res, next) => {
       .limit(1);
     // console.log(recentOTP, otp);
     if (!recentOTP) {
-      return next(CustomErrorHandler.notFound("OTP not found"));
+      return next(CustomErrorHandler.notFound("can not find opt"));
     }
 
-    if (recentOTP.otp != otp) {
+    if (recentOTP.otp !== otp) {
       return next(CustomErrorHandler.unAuthorized("OTP does not match"));
     }
 
@@ -303,7 +305,7 @@ const changePassword = async (req, res, next) => {
         .min(8)
         .max(20)
         .regex(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
+          /^(?=.*[a-z])(?=.*[A-Z]?)(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
         )
         .trim()
         .disallow(Joi.string().regex(/\s/)) // Disallow spaces

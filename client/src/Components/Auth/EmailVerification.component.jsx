@@ -50,21 +50,14 @@ const EmailVerificationForm = () => {
       confirmPassword,
       accountType,
     } = signupData;
-    console.table([
-      firstName,
-      lastName,
-      email,
-      password,
-      confirmPassword,
-      accountType,
-      otp.join(""),
-    ]);
     // console.log(submit);
+    let name = firstName.trim();
+    let secondName = lastName.trim();
     console.table(signupData);
     dispatch(
       signup(
-        firstName,
-        lastName,
+        name,
+        secondName,
         email,
         password,
         confirmPassword,
@@ -76,7 +69,7 @@ const EmailVerificationForm = () => {
   };
 
   const resendOpt = () => {
-    const {email} = signupData
+    const { email } = signupData;
     dispatch(reSendOtp(email));
   };
 
