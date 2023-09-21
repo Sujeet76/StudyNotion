@@ -11,6 +11,7 @@ const mailSender = async (email, title, body) => {
         user: MAIL_USER,
         pass: MAIL_PASS,
       },
+      greetingTimeout : 5000,
     });
 
     let info = await transporter.sendMail(
