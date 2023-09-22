@@ -79,15 +79,6 @@ export const updateProfileData = ({
   token,
   navigate,
 }) => {
-  console.table([
-    name,
-    gender,
-    dateOfBirth,
-    about,
-    contactNumber,
-    address,
-    token,
-  ]);
   return async (dispatch) => {
     dispatch(setLoading(true));
 

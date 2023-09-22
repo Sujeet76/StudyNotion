@@ -18,7 +18,7 @@ import "swiper/css";
 import { apiConnector } from "../../utils/axios";
 import { ratingsEndpoints } from "../../services/api";
 
-const SliderComponent = ({className}) => {
+const SliderComponent = ({ className }) => {
   const { token } = useSelector((store) => store.auth);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -77,12 +77,12 @@ const SliderComponent = ({className}) => {
             1024: {
               slidesPerView: 3,
             },
-            768:{
-              slidesPerView : 2
-            }
+            768: {
+              slidesPerView: 2,
+            },
           }}
           className="w-full"
-          modules={[ Autoplay]}
+          modules={[Autoplay]}
         >
           {reviewData.map((content) => (
             <SwiperSlide key={content._id} className="rounded-lg">
@@ -90,16 +90,19 @@ const SliderComponent = ({className}) => {
                 {/* user and course name and img */}
                 <div className="flex items-center  gap-3">
                   <img
-                    src={content?.user?.img}
+                    src={
+                      content?.user?.img ??
+                      "https://api.dicebear.com/6.x/initials/svg?seed=admin kumar"
+                    }
                     alt={content?.user?.name ?? "student"}
                     className="w-14 h-14 rounded-full"
                   />
                   <div>
                     <p className="text-sm text-richblack-5 font-semibold">
-                      {content?.user?.name}
+                      {content?.user?.name ?? "Student"}
                     </p>
                     <p className="text-xs text-richblack-600 mt-1 font-medium">
-                      {content?.course?.courseName}
+                      {content?.course?.courseName ?? "course 1"}
                     </p>
                   </div>
                 </div>
@@ -110,7 +113,9 @@ const SliderComponent = ({className}) => {
                     "Awesome"
                   } ...`}</p>
                   <div className="flex gap-x-2 items-center -mt-1">
-                    <span className="text-yellow-100 font-semibold">{content?.rating.toFixed(1)}</span>
+                    <span className="text-yellow-100 font-semibold">
+                      {content?.rating.toFixed(1)}
+                    </span>
                     <ReactStars
                       count={5}
                       edit={false}

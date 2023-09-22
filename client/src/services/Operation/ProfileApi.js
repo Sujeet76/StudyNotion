@@ -30,7 +30,8 @@ export const getUserDetails = (token, navigate) => {
         console.log(response);
         dispatch(setLoading(false));
         if (response?.status === 401) {
-          dispatch(logout(navigate));
+          dispatch(logout(navigate, ""));
+          navigate("/");
           return "Invalid user,please Login again !!";
         }
         return response?.data?.message ?? "Error while fetching user data";

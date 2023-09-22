@@ -9,7 +9,7 @@ const otpSchema = new Schema({
   },
   otp: {
     type: String,
-  required: true,
+    required: true,
   },
   // error may occur
   createdAt: {

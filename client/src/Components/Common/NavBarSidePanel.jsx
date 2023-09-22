@@ -2,8 +2,10 @@ import { FaAngleLeft } from "react-icons/fa6";
 
 import { Button } from "../";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
-import { useLocation, NavLink } from "react-router-dom";
+import { useLocation, NavLink, useNavigate } from "react-router-dom";
+import { logout } from "../../services/Operation/AuthApi";
 
 const NavBarSidePanel = ({
   navLinks,
@@ -12,6 +14,9 @@ const NavBarSidePanel = ({
   setIsSidebar,
 }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { token } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -50,12 +55,34 @@ const NavBarSidePanel = ({
 
         <div className="bg-[rgba(0,0,0,.2)] w-full h-auto p-4 mt-5">
           <div className="flex justify-evenly items-center">
-            <Button linkTo={"/login"} clickHandler={close}>
-              Login
-            </Button>
-            <Button linkTo={"/signup"} clickHandler={close} active={true}>
-              signup
-            </Button>
+            {token ? (
+              <>
+                <Button
+                  clickHandler={() => {
+                    dispatch(logout(navigate));
+                    setIsSidebar(!isSidebar);
+                  }}
+                >
+                  Log out
+                </Button>
+                <Button
+                  linkTo={"/dashboard/my-profile"}
+                  clickHandler={close}
+                  active={true}
+                >
+                  Dashboard
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button linkTo={"/login"} clickHandler={close}>
+                  Login
+                </Button>
+                <Button linkTo={"/signup"} clickHandler={close} active={true}>
+                  signup
+                </Button>
+              </>
+            )}
           </div>
         </div>
 
@@ -66,7 +93,7 @@ const NavBarSidePanel = ({
               navbar?.title === "Catalog" ? (
                 <li
                   key={index}
-                  className="border-b border-b-[rgba(255,255,255,.05)]"
+                  className="border-b border-b-[rgba(255,255,255,.05)] cursor-pointer"
                 >
                   <div
                     className={`flex gap-4 items-center p-4 text-base font-semibold ${
@@ -101,6 +128,7 @@ const NavBarSidePanel = ({
                           transition={{
                             delay: 0.05 * index,
                           }}
+                          className="block pl-8 p-4 text-base text-richblack-5"
                         >
                           No category found 😶‍🌫️
                         </motion.li>

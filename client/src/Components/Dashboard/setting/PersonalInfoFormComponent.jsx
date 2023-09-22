@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import countryCodes from "../../../data/countrycode.json";
@@ -21,6 +21,7 @@ const PersonalInfoFormComponent = () => {
     about: user?.additionDetails?.about,
     countryCode: "+91",
   });
+
   const collectFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -92,7 +93,7 @@ const PersonalInfoFormComponent = () => {
                       name="gender"
                       id="male"
                       value="male"
-                      checked={formData.gender === "male"}
+                      defaultChecked={formData.gender === "male"}
                       onChange={collectFormData}
                     />
                     Male
@@ -108,7 +109,7 @@ const PersonalInfoFormComponent = () => {
                       id="female"
                       value="female"
                       onChange={collectFormData}
-                      checked={formData.gender === "female"}
+                      defaultChecked={formData.gender === "female"}
                     />
                     Female
                   </label>
@@ -123,7 +124,7 @@ const PersonalInfoFormComponent = () => {
                       id="other"
                       value="other"
                       onChange={collectFormData}
-                      checked={formData.gender === "other"}
+                      defaultChecked={formData.gender === "other"}
                     />
                     Other
                   </label>

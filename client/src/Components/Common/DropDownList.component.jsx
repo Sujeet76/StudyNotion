@@ -4,7 +4,7 @@ import { FaChevronDown } from "react-icons/fa";
 
 const DropDownList = ({ categoryList, title }) => {
   return (
-    <li className="px-3 py-1 text-base group hover:font-semibold text-richblack-25 relative">
+    <li className="px-3 py-1 text-base group hover:font-semibold text-richblack-25 relative cursor-pointer">
       <div className="flex justify-center items-center gap-[6px] transition-all duration-200">
         {title}{" "}
         <FaChevronDown className="font-normal group-hove:font-semibold group-hover:rotate-180 transition-all duration-200" />

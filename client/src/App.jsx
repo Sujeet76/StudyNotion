@@ -78,7 +78,10 @@ export default function App() {
               />
             )}
             {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
-              <Route path="/dashboard/instructor" element={<DashboardInstructor />} />
+              <Route
+                path="/dashboard/instructor"
+                element={<DashboardInstructor />}
+              />
             )}
             <Route
               path="/dashboard/enrolled-course"

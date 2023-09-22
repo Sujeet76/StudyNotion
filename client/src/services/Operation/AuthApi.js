@@ -211,10 +211,9 @@ export const logout = (navigate, isMessage) => {
     removeToLocalStorage("token");
     if (!isMessage) {
       toast.success("Logout successful 🔥");
-      Navigate({ to: "/" });
+      navigate("/");
       return;
     }
-    Navigate({ to: "/" });
-    toast.error(isMessage);
+    navigate("/");
   };
 };

@@ -80,7 +80,7 @@ const getAverageRating = async (req, res, next) => {
 const getAllRating = async (req, res, next) => {
   try {
     const allRating = await ReviewAndLike.find({})
-      .sort({ rating: "desc" })
+      .sort({ createdAt: "desc" })
       .populate({
         path: "user",
         select: "name email description img",
@@ -88,7 +88,8 @@ const getAllRating = async (req, res, next) => {
       .populate({
         path: "course",
         select: "courseName",
-      });
+      })
+      .limit(10);
 
     if (!allRating) {
       return next(CustomErrorHandler.badRequest("Not reviewed any course yet"));

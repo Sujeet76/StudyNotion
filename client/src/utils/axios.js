@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: "https://studynotion-edtech-fvz4.onrender.com/api/v1",
+  baseURL: import.meta.env.VITE_APP_API_LINK,
 });
 
 export const apiConnector = (method, url, bodyData, headers, params) => {

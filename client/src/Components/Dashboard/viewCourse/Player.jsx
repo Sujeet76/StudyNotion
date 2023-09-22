@@ -24,14 +24,13 @@ const Player = ({ setReviewModal, setVideoHeight }) => {
 
   const video = useRef(null);
 
-  const { courseSectionData, courseEntireData, completedLecture } = useSelector(
+  const { courseSectionData, courseEntireData } = useSelector(
     (store) => store.viewCourse
   );
   const { token } = useSelector((state) => state.auth);
 
   const [currentVideo, setCurrentVideo] = useState(null);
   const [isVideoEnd, setIsVideoEnd] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const { courseId, sectionId, subsectionId } = useParams();
   const navigate = useNavigate();

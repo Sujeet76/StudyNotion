@@ -20,9 +20,19 @@ const updateProfile = async (req, res, next) => {
       address = "",
     } = req.body;
 
-    const phoneNumberSchema = Joi.string()
-      .regex(/^[0-9]{10}$/)
-      .message("Invalid phone number !!")
+    // validating phone number
+    const phoneNumberSchema = Joi.number()
+      .custom((value, helpers) => {
+        if (
+          Number.isInteger(value) &&
+          value >= 0 &&
+          value.toString().length === 10
+        ) {
+          return value;
+        } else {
+          return helpers.message("Invalid phone number!!");
+        }
+      })
       .required();
 
     const { error } = phoneNumberSchema.validate(contactNumber);
